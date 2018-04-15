@@ -1,3 +1,5 @@
+#-*- coding:utf-8 -*-
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article, Comment, Poll, NewUser
 from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm
@@ -48,6 +50,7 @@ def comment(request, article_id):
 		user = request.user
 		article = Article.objects.get(id=article_id)
 		new_comment = form.cleaned_data['comment']
+		#一对多
 		c = Comment(content=new_comment, article_id=article_id)  # have tested by shell
 		c.user = user
 		c.save()
@@ -100,7 +103,6 @@ def log_in(request):
 			password = form.cleaned_data['pwd'].encode('utf-8')
 			# user = authenticate(username=username, pwd=password)
 			# user = NewUser.objects.get( Q(username=username) & Q(password =password) )
-			pdb.set_trace()
 			user = NewUser.getUser(username, password)
 
 			# user1 = NewUser.objects.
