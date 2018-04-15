@@ -33,7 +33,10 @@ def addUsers():
 	insertUsers = [("admin","admin"), ("root","root"), ("yyy", "yyy"), ("yyf", "yyf"), ("yangyuanyang","yangyuanyang"), ("a","a")]
 	for i in xrange(len(insertUsers) ):
 		name, pwd = insertUsers[i]
+		#NewUser.objects.get_or_create(username=name, pwd=pwd) #返回的是tuple,：(对象, 是否是创建的) 
 		#NewUser.objects.getorcreate()
+		#NewUser.objects.bulk_create([]) #数据批量导入bulk_create()
+		
 		if not NewUser.getUser(name, pwd):
 			NewUser.objects.create(username=name, password=pwd, pwd=pwd,  phone="15011033945", city="beijing", email="8678@qq.com" )
 		else:
@@ -151,7 +154,7 @@ def addUserFollowing():
 
 
 def main():
-	#addUsers()
+	addUsers()
 
 	#addCate()
 	#addUserPref()

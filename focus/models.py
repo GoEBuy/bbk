@@ -41,6 +41,11 @@ class Category(models.Model):
 		verbose_name = "分类"
 		verbose_name_plural = verbose_name
 
+		#添加索引
+		indexes=[
+		models.Index(fields=['pcate'], name='idx_pcate' ) , 
+		models.Index(fields=['cate_name'], name='idx_cate_name' ) ]
+
 
 class NewUser(AbstractUser):
 	VERIFY_STATUS = (
@@ -81,8 +86,9 @@ class NewUser(AbstractUser):
 		default='M',
 	)
 
-	#多对多关系表
+	#多对多关系表 用户内行行业列表
 	preflist= models.ManyToManyField( Category, through="UserStar", through_fields=('user', 'cate' ) )
+
 
 	def __str__(self):
 		return "id:%d name:%s" %(self.id, self.username)
@@ -124,13 +130,6 @@ class NewUser(AbstractUser):
 #         verbose_name_plural = verbose_name
 
 
-#class UserProf(models.Model):
-#     """用户内行表"""
-#     user= models.ForeignKey(NewUser)
-#     cate =  models.ForeignKey(Category)
-#     desc = models.CharField(max_length=300, default="")
-
-
 class UserStar(models.Model):
 	"""用户星级表"""
 #多对多关系
@@ -152,6 +151,54 @@ class UserStar(models.Model):
 		unique_together= ("user", "cate")
 
 
+
+#多对多关系表
+class UserFollowing(models.Model):
+	"""
+	用户的Following 和 Block 关系表
+	"""
+	CHOICES = (
+		(-1, "None"),
+		(0, "False"),
+		(1, "True"),
+	)
+
+	user = models.ForeignKey(NewUser, verbose_name="用户", on_delete=models.CASCADE, related_name="follower")
+	following = models.ForeignKey(NewUser, verbose_name="自己关注的那个用户", on_delete=models.CASCADE,
+								  related_name="following")
+	is_following = models.IntegerField(choices=CHOICES, default=-1, verbose_name="是否Following")
+	is_block = models.IntegerField(choices=CHOICES, default=-1, verbose_name="是否Block")
+	add_time = models.DateTimeField( auto_now_add=True, verbose_name="添加时间")
+	update_time = models.DateTimeField(auto_now=True, verbose_name="更新时间")
+
+	class Meta:
+		verbose_name = "用户的Following 和 Block 关系表"
+		verbose_name_plural = verbose_name
+		unique_together = ('user', 'following',)
+
+	def __str__(self):
+		return "%s %s" %(self.user.username, self.following.username)
+
+# 计算关注人数总数
+	def count_following(self):
+		return UserFollowing.objects.filter(user=self, is_following=1).count()
+
+# 计算被关注数量
+	def count_follower(self):
+		return UserFollowing.objects.filter(following=self, is_following=1).count()
+
+	@classmethod
+	def count_following(cls, user):
+		UserFollowing.objects.filter(user=user, is_following=1).distinct().count()
+
+	@classmethod
+	def count_follower(cls, user):
+		return UserFollowing.objects.filter(following=self, is_following=1).count()
+
+
+
+
+
 #用户邀请表
 #class Contact(models.Model):
 #    CHOICES_ORDER_TYPE = (
@@ -159,13 +206,13 @@ class UserStar(models.Model):
 #        (1, "1")
 #    )
 #    #　related_name  设置从关联对象到自身的关系的名称，若值为'+'  则关联对象与自身无逆向关系
-#    contact = models.IntegerField( primary_key=True, unique=True )
+#    #contact = models.AutoField( primary_key=True )
 #    user = models.OneToOneField(NewUser, related_name="user")
 #    contact_user = models.ForeignKey(NewUser, related_name="contact_users")
-#    cate = models.OneToOneField(Category, verbose_name="分类" ) #to_field=cate_id,
+#    cate = models.OneToOneField(Category, to_field="cate_id", verbose_name="分类"  )
 #    contact_date = models.DateTimeField(auto_now=True, verbose_name="邀请时间")
 #    task_date = models.DateTimeField(auto_now=True, verbose_name="任务时间")
-#    contact_type = models.IntegerField(default=0, )
+#    contact_type = models.IntegerField(choices=CHOICES_ORDER_TYPE,  default=0, verbose_name="类型" )
 #
 #    class Meta:
 #        verbose_name = "用户邀请表"
@@ -174,16 +221,28 @@ class UserStar(models.Model):
 ##订单评价表
 #class ContactRemark(models.Model):
 #    #ForeignKey.to_field 关联到的关联对象的字段名称。默认地，Django 使用关联对象的主键。
-#    contact = models.OneToOneField(Contact) #, to_field=Contact.contact_id
+#    contact = models.OneToOneField(Contact, to_field="id")
 #    num_remark = models.IntegerField(default=0, verbose_name="评论数量")
-#    user = models.ForeignKey(NewUser)
-#    content = models.CharField(max_length=300, )
-#    time= models.DateTimeField(auto_now=True, verbose_name="评价时间")
+#    user = models.ForeignKey(NewUser, related_name="seller")
+#	remark_user =  models.ForeignKey(NewUser, related_name="remarkuser")
+#    content = models.CharField(max_length=300 )
+#    add_time= models.DateTimeField(auto_now=True, verbose_name="评价时间")
+#	update_time= models.DateTimeField(auto_now=True, verbose_name="评价时间")
 #    state= models.IntegerField(default=1,  verbose_name="是否展现")
 #    class Meta:
 #        verbose_name = "订单评价表"
 #        verbose_name_plural = verbose_name
 #
+#        unique_together = ('user', 'remark_user' )
+#
+#    ## 计算关注人数总数
+#    #def count_remarkusers(self):
+#    #    return ContactRemark.objects.filter(user=self).count()
+#
+#    ## 计算被关注数量
+#    #def count_follower(self):
+#    #    return ContactRemark.objects.filter(remark_user=self).count()
+
 #
 #class UserManager(models.Manager):
 #
@@ -208,58 +267,6 @@ class UserStar(models.Model):
 #        query = self.get_queryset().filter(title__contains=keyword)
 #        return query
 #
-#
-#
-#class UserFollowing(models.Model):
-#    """
-#    用户的Following 和 Block 关系表
-#    """
-#    CHOICES = (
-#        (-1, "None"),
-#        (0, "False"),
-#        (1, "True"),
-#    )
-#
-#    user = models.ForeignKey(NewUser, verbose_name="用户", on_delete=models.CASCADE, related_name="follower")
-#    following = models.ForeignKey(NewUser, verbose_name="关注那个用户", on_delete=models.CASCADE,
-#                                  related_name="following")
-#    is_following = models.IntegerField(choices=CHOICES, default=-1, verbose_name="是否Following")
-#    is_block = models.IntegerField(choices=CHOICES, default=-1, verbose_name="是否Block")
-#    add_time = models.DateTimeField( auto_now=True, verbose_name="添加时间")
-#    update_time = models.DateTimeField(auto_now=True, verbose_name="更新时间")
-#
-#    class Meta:
-#        verbose_name = "用户的Following 和 Block 关系表"
-#        verbose_name_plural = verbose_name
-#        unique_together = ('user', 'following',)
-#
-#    def __str__(self):
-#        return self.user.username
-#
-#    # 计算关注人数总数
-#    def count_following(self):
-#        return UserFollowing.objects.filter(user=self, is_following=1).count()
-#
-#    # 计算被关注数量
-#    def count_follower(self):
-#        return UserFollowing.objects.filter(following=self, is_following=1).count()
-
-
-
-#用户邀请表
-# class Contact(models.Model):
-#     user_id = models.ForeignKey(NewUser)
-#     contact_user_id = models.ForeignKey(NewUser)
-
-
-
-# # 用户任务表
-# class Contact(models.Model):
-#     user_id = models.ForeignKey(NewUser)
-#     contact_user_id = models.ForeignKey(NewUser)
-
-
-
 ####################################################################################################################################################
 
 #自定义
