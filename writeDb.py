@@ -117,15 +117,45 @@ def addUserPref():
 	count = getEntityCount( UserStar.objects)
 	print "count:%d" % (count)
 
+	pass
+
+
+def addUserFollowing():
+	user1 = NewUser.objects.get(pk=1)
+	print user1
+	user2 = NewUser.objects.get(pk=2)
+	print user2
+	user3 = NewUser.objects.get(pk=3)
+	print user3
+	user4 = NewUser.objects.get(pk=4)
+	print user4
+	user5 = NewUser.objects.get(pk=5)
+	print user5
+
+
+	pdb.set_trace()
+	manager = UserFollowing.objects
+	try:
+		manager.create(user=user1, following=user2, add_time=timezone.now , update_time=timezone.now)
+		manager.create(user=user1, following=user3, add_time=timezone.now , update_time=timezone.now)
+		manager.create(user=user1, following=user4, add_time=timezone.now , update_time=timezone.now)
+		manager.create(user=user1, following=user5, add_time=timezone.now , update_time=timezone.now)
+		manager.create(user=user2, following=user3, add_time=timezone.now , update_time=timezone.now)
+		manager.create(user=user2, following=user4, add_time=timezone.now , update_time=timezone.now)
+	except Exception as e:
+		print "err", e
+		continue
 
 	pass
+
 
 
 def main():
 	#addUsers()
 
 	#addCate()
-	addUserPref()
+	#addUserPref()
+	addUserFollowing()
 
 if __name__ == "__main__":
 	

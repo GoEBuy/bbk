@@ -56,7 +56,6 @@ class SimpleTest(TestCase):
         print Category.objects.all()
         print "count:%d" % (count)
         # User.model()
-        pdb.set_trace()
         pcate = Category.objects.get(pk=pcate_id)
         print "pcate: ", pcate
         #
