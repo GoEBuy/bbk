@@ -8,9 +8,6 @@ class NewUserAdmin(admin.ModelAdmin):
 	list_display = ('id', 'username', 'truename', 'last_login', 'email', 'is_staff',
 					"phone", "gender", "city", "address", "is_validate", "email_verify", "mobile_verify",'date_joined' )
 
-# class CategoryAdmin(admin.ModelAdmin):
-# 	list_display = ('id', 'username', 'truename', 'last_login', 'email', 'is_staff', "phone", "gender", "city", "address", "is_validate", "email_verify", "mobile_verify")
-
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -35,12 +32,13 @@ class AuthorAdmin(admin.ModelAdmin):
 	list_display = ('name', 'profile')
 
 
-# admin.site.register(NewUser,  NewUserAdmin)
+admin.site.register(NewUser,  NewUserAdmin)
 admin.site.register(Category)
+admin.site.register(UserStar)
 
 
-admin.site.register(Comment, CommentAdmin)
-admin.site.register(Article, ArticleAdmin)
-admin.site.register(Column, ColumnAdmin)
-admin.site.register(NewUser, NewUserAdmin)
-admin.site.register(Author, AuthorAdmin)
+#admin.site.register(Comment, CommentAdmin)
+#admin.site.register(Article, ArticleAdmin)
+#admin.site.register(Column, ColumnAdmin)
+#admin.site.register(NewUser, NewUserAdmin)
+#admin.site.register(Author, AuthorAdmin)
