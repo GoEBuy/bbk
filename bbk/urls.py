@@ -5,7 +5,7 @@ from focus import views
 
 urlpatterns = [
     # Examples:
-    # url(r'^$', 'cms.views.home', name='home'),
+    # url(r'^$', 'bbk.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^focus/', include(focus_urls)),
     url(r'^$', views.index, name='index'),

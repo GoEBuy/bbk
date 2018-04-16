@@ -2,8 +2,6 @@
 
 
 """
-Django settings for cms project.
-
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.8/topics/settings/
@@ -59,7 +57,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'cms.urls'
+ROOT_URLCONF = 'bbk.urls'
 
 TEMPLATES = [
     {
@@ -77,7 +75,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'cms.wsgi.application'
+WSGI_APPLICATION = 'bbk.wsgi.application'
 
 
 # Database
@@ -89,7 +87,7 @@ DATABASES = {
 		'NAME': 'bbk', #你的数据库名称 数据库需要自己提前建好
 		'USER': 'root', #你的数据库用户名
 		'PASSWORD': 'root', #你的数据库密码
-		'HOST': '192.168.1.160', #你的数据库主机，留空默认为localhost
+		'HOST': 'localhost', #你的数据库主机，留空默认为localhost
 		'PORT': '3306', #你的数据库端口
 	},
     #'default': {
