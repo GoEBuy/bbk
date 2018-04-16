@@ -2,7 +2,7 @@
 
 import os
 import django
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cms.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bbk.settings")
 django.setup()
 #setting.configure()
 
@@ -135,30 +135,77 @@ def addUserFollowing():
 	user5 = NewUser.objects.get(pk=5)
 	print user5
 
-
-	pdb.set_trace()
 	manager = UserFollowing.objects
 	try:
-		manager.create(user=user1, following=user2, add_time=timezone.now , update_time=timezone.now)
-		manager.create(user=user1, following=user3, add_time=timezone.now , update_time=timezone.now)
-		manager.create(user=user1, following=user4, add_time=timezone.now , update_time=timezone.now)
-		manager.create(user=user1, following=user5, add_time=timezone.now , update_time=timezone.now)
-		manager.create(user=user2, following=user3, add_time=timezone.now , update_time=timezone.now)
-		manager.create(user=user2, following=user4, add_time=timezone.now , update_time=timezone.now)
+		following_list=[(user1, user2), (user1,user3), (user1, user4), (user1,user5), (user2, user3), (user2, user4) ]
+		for k,v in following_list:
+			manager.get_or_create(user=k, following=v, add_time=timezone.now  )
+
+		#manager.create(user=user1, following=user2, add_time=timezone.now , update_time=timezone.now)
+		#manager.create(user=user1, following=user3, add_time=timezone.now , update_time=timezone.now)
+		#manager.create(user=user1, following=user4, add_time=timezone.now , update_time=timezone.now)
+		#manager.create(user=user1, following=user5, add_time=timezone.now , update_time=timezone.now)
+		#manager.create(user=user2, following=user3, add_time=timezone.now , update_time=timezone.now)
+		#manager.create(user=user2, following=user4, add_time=timezone.now , update_time=timezone.now)
 	except Exception as e:
 		print "err", e
-		continue
 
 	pass
 
+def updateUserFollowing():
+	
+	manager = UserFollowing.objects
+	print "update before", manager.get(pk=1).update_time
+	manager.filter(pk=1).update(update_time=timezone.now() )
+	print "update affter", manager.get(pk=1).update_time
+
+def findUserFollowing():
+	user_id =1
+	manager = UserFollowing.objects
+	user1 = NewUser.objects.get(pk=1)
+	print user1
+
+	# 获取user的所有关注着
+	print manager.filter(following=user1).values()
+
+	#获取该用户所有关注的人
+	print manager.filter(user=user1).values()
+	print manager.filter(user_id= user_id).values()
+	print manager.filter(following_id= user_id).values()
+
+	for f in manager.filter(following= user1 ).values():
+		print f
+
+	for f in manager.filter(user = user1).values():
+		print f
+	
+
+def deleteUserFollowing():
+	user_id =1
+	manager = UserFollowing.objects
+	user1 = NewUser.objects.get(pk=1)
+	print user1
+
+
+	user2 = NewUser.objects.get(pk=2)
+	print user2
+
+	manager.filter(user=user1, following = user2)
+	manager.delete(user=user1, following=user2)
+	manager.filter(user_id=user1.id, following = user2.id).values()
 
 
 def main():
-	addUsers()
+	#addUsers()
 
 	#addCate()
 	#addUserPref()
-	addUserFollowing()
+
+
+	#addUserFollowing()
+	#updateUserFollowing()
+	#findUserFollowing()
+	#deleteUserFollowing()
 
 if __name__ == "__main__":
 	
