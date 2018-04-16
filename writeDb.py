@@ -21,8 +21,20 @@ def getEntityCount(entity):
 	return count
 	
 
-
-
+def getUsersByIdList():
+	manager=NewUser.objects
+	idlist=[1,2,3]
+	dict_users= manager.in_bulk(idlist)
+	for k, v in dict_users.iteritems():
+		print k, v
+	
+def getUserById():
+	manager=NewUser.objects
+	if manager.filter(username="admin",password="admin").exists():
+		print "exists"
+	else:
+		print "not exist"
+	
 
 def addUsers():
 	#count = NewUser.objects.all().count()
@@ -194,9 +206,23 @@ def deleteUserFollowing():
 	manager.delete(user=user1, following=user2)
 	manager.filter(user_id=user1.id, following = user2.id).values()
 
+#def addUsers1():
+#	defaults = {'first_name': 'Bob'}
+#	try:
+#		obj = Person.objects.get(first_name='John', last_name='Lennon')
+#		for key, value in defaults.items():
+#			setattr(obj, key, value)
+#			obj.save()
+#	except Person.DoesNotExist:
+#		new_values = {'first_name': 'John', 'last_name': 'Lennon'}
+#		new_values.update(defaults)
+#		obj = Person(**new_values)
+#		obj.save()
 
 def main():
+	getUserById()
 	#addUsers()
+	#getUsersByIdList()
 
 	#addCate()
 	#addUserPref()

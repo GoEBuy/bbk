@@ -1,3 +1,13 @@
+# pycache
+__pycache__
+
+# .idea
+.idea
+
+#db.sqlite3
+#db.sqlite3
+
+
 *.pyc
 
 *.swp

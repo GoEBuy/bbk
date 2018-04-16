@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+#替换默认User
 AUTH_USER_MODEL = "focus.NewUser"  
 
 #登录地址
@@ -43,6 +44,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'focus',
+	'users',
+	'order',
 
 )
 

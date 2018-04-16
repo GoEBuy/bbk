@@ -19,6 +19,7 @@ from django.db.models import Q
 
 
 class Category(models.Model):
+	""" 行业分类 """
 	choices_state = (
 				  ('0', 'nouse'),
 				  ('1', 'inuse'),
@@ -48,6 +49,7 @@ class Category(models.Model):
 
 
 class NewUser(AbstractUser):
+	""" 用户 """
 	VERIFY_STATUS = (
 		(0, "未验证"),
 		(1, "已验证")
@@ -226,7 +228,7 @@ class UserFollowing(models.Model):
 #    user = models.ForeignKey(NewUser, related_name="seller")
 #	remark_user =  models.ForeignKey(NewUser, related_name="remarkuser")
 #    content = models.CharField(max_length=300 )
-#    add_time= models.DateTimeField(auto_now=True, verbose_name="评价时间")
+#    add_time= models.DateTimeField(auto_now_add=True, verbose_name="评价时间")
 #	update_time= models.DateTimeField(auto_now=True, verbose_name="评价时间")
 #    state= models.IntegerField(default=1,  verbose_name="是否展现")
 #    class Meta:
@@ -312,12 +314,13 @@ class Column(models.Model):
 		verbose_name_plural = 'column'
 		ordering = ['name']
 
-@python_2_unicode_compatible
 class Article(models.Model):
 	#一对多
 	column = models.ForeignKey(Column, blank=True, null=True, verbose_name = 'belong to')
 	title = models.CharField(max_length=256)
+	#一对多
 	author = models.ForeignKey('Author')
+	#多对多
 	user = models.ManyToManyField('NewUser', blank=True)
 	content = models.TextField('content')
 	pub_date = models.DateTimeField(auto_now_add=True, editable=True)
@@ -338,7 +341,7 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    #多对多关系
+    #多对多关系 中间关系表
 	user = models.ForeignKey('NewUser', null=True)
 	article = models.ForeignKey(Article, null=True)
 	content = models.TextField()
@@ -360,6 +363,7 @@ class Author(models.Model):
 
 #点赞
 class Poll(models.Model):
+	#多对多  中间关系表
 	user = models.ForeignKey('NewUser', null=True)
 	article = models.ForeignKey(Article, null=True)
 	comment = models.ForeignKey(Comment, null=True)
