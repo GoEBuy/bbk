@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+#from bbk.focus.models import *
+#from bbk.users.models import *
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'narpk+=p5=zgyy43n+9r#2zig7fq^ez0_!8zz0j0k45=jt_ehe'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -80,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bbk.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -102,11 +102,42 @@ DATABASES = {
 		'NAME': 'bbk', #你的数据库名称 数据库需要自己提前建好
 		'USER': 'root', #你的数据库用户名
 		'PASSWORD': 'root', #你的数据库密码
-		'HOST': '192.168.1.160', #你的数据库主机，留空默认为localhost
+		'HOST': '192.168.0.160', #你的数据库主机，留空默认为localhost
 		'PORT': '3306', #你的数据库端口
 	}
 }
 
+LOGGING = {
+	'version': 1,
+	'disable_existing_loggers': False,
+	'formatters': {
+		'verbose': {
+			'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+		},
+		'simple': {
+			'format': '%(levelname)s %(message)s'
+		},
+	},
+	'handlers': {
+		'console': {
+			'level': 'DEBUG',
+			'class': 'logging.StreamHandler',
+			'formatter':'simple'
+		},
+		'file': {
+			'level': 'DEBUG',
+			'class': 'logging.FileHandler',
+			'filename': 'logs/debug.log',
+			'formatter':'verbose'
+		},
+	},
+	'loggers': {
+		'django': {
+			'handlers': ['console', 'file'],
+			'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+		},
+	},
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
