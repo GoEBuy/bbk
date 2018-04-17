@@ -14,3 +14,6 @@ __pycache__
 
 */migrations/*
 */*/migrations/*.py
+
+logs/*.log
+*/logs/*.log
