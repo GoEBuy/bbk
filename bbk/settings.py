@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 #替换默认User
-AUTH_USER_MODEL = "focus.NewUser"  
+AUTH_USER_MODEL = "users.NewUser"  
 
 #登录地址
 LOGIN_URL = "/focus/login/?next='article_id'"
@@ -44,7 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'focus',
+    #'focus',
 	'users',
 	'order',
 
@@ -142,7 +142,7 @@ LOGGING = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 

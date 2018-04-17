@@ -1,6 +1,7 @@
 #-*- coding: utf-8 -*-
 
 import datetime
+from django.db.models import Q
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
@@ -15,7 +16,6 @@ from django.contrib.auth.models import AbstractUser
 
 #Field.error_messages
 #Error message keys include null, blank, invalid, invalid_choice, unique, and unique_for_date
-from django.db.models import Q
 
 
 class Category(models.Model):
