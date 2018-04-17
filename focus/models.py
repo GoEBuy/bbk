@@ -26,10 +26,10 @@ class Category(models.Model):
 				  # ('2', 'Unknown'),
 			  ),
 
-# 如果没有models.AutoField，默认会创建一个id的自增列
+	# 如果没有models.AutoField，默认会创建一个id的自增列
 	cate_id =  models.AutoField( primary_key=True ) #unique=True,
 	cate_name=  models.CharField(max_length=20, null=False, blank=False )
-# 一对一关系, 级联删除, default=-1, on_delete=models.CASCADE
+	# 一对一关系, 级联删除, default=-1, on_delete=models.CASCADE
 	pcate = models.ForeignKey('self')
 	cate_desc = models.CharField(max_length=50, null=True, verbose_name="备注" )
 	state = models.IntegerField(choices =choices_state,  default=1, verbose_name="类别状态")
@@ -90,7 +90,8 @@ class NewUser(AbstractUser):
 
 	#多对多关系表 用户内行行业列表
 	preflist= models.ManyToManyField( Category, through="UserStar", through_fields=('user', 'cate' ) )
-
+	num_following = models.IntegerField(default=0, verbose_name="关注人数" )
+	num_followed = models.IntegerField(default=0, verbose_name="被关注人数" )
 
 	def __str__(self):
 		return "id:%d name:%s" %(self.id, self.username)
@@ -157,6 +158,7 @@ class UserStar(models.Model):
 #多对多关系表
 class UserFollowing(models.Model):
 	"""
+	关注信息表
 	用户的Following 和 Block 关系表
 	"""
 	CHOICES = (
