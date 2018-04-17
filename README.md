@@ -10,4 +10,6 @@ https://github.com/GoEBuy/bbk.git
 #sudo apt-get install sqliteman
 
 #python manage.py makemigrations
+#python manage.py sqlmigrate
+#python manage.py showmigrations
 #python manage.py migrate
