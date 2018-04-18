@@ -12,8 +12,8 @@ __pycache__
 
 *.swp
 
-*/migrations/*
-*/*/migrations/*.py
+#*/migrations/*
+#*/*/migrations/*.py
 
 logs/*.log
 */logs/*.log
