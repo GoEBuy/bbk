@@ -242,11 +242,16 @@ def deleteUserFollowing():
 
 def addOrder():
 	manager = Order.objects
+	print "count", getEntityCount(manager)
+
 	user = NewUser.objects.get(pk=1)
 	cate = Category.objects.get(pk=2)
 	pdb.set_trace()
 	print "user:", user
-	obj = manager.create( order_price='15.0', remark='add order', buyer = user, cate=cate  )
+	obj = manager.get_or_create( order_price='15.0', remark='add order', buyer = user, cate_id=3  )
+	obj = manager.get_or_create( order_price='15.0', remark='add order', buyer = user, cate=cate  )
+
+	print "count", getEntityCount(manager)
 
 def main():
 	

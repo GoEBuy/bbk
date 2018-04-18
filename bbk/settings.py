@@ -32,7 +32,8 @@ ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = "users.NewUser"  
 
 #登录地址
-LOGIN_URL = "/focus/login/?next='article_id'"
+LOGIN_URL = "/users/login/"
+#?next='article_id'"
 
 # Application definition
 

@@ -58,8 +58,6 @@ class NewUser(AbstractUser):
 	)
     #增加user其他字段
     #username = models.CharField( max_length=150, unique=True,
-    #    blank=False,
-    #    default="",
     #   # help_text=_('Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.'),
     #    validators=[AbstractUser.username_validator],
     #    error_messages={
@@ -119,6 +117,81 @@ class NewUser(AbstractUser):
 		#     NewUser.objects.get(pk=0)
 		#     return NewUser.objects.filter(pk=0).remove()
 
+class OpenUser(models.Model):
+	#id
+	user= models.ForeignKey(NewUser)
+	open_type=models.IntegerField(default=0,
+		choices=(
+			(0, 'unknown'),
+			(1, 'qq'),
+			(2, 'wechat'),
+			(3, 'taobao'),
+			(4, 'skype'),
+			(5, 'linkin'),
+			(6, '未知'),
+		), verbose_name='开放帐号类型'
+	)
+	def __str__(self):
+		return "OpenUser user:%s" %(self.id, self.user)
+
+	class Meta:
+		verbose_name = "用户开放登录帐号表"
+		verbose_name_plural = verbose_name
+
+class UserValidateInfo(models.Model):
+	#id
+	user = models.OneToOneField(NewUser)
+	valid_type=models.IntegerField(default=0,
+		choices=(
+			(0, '身份证'),
+			(1, '护照'),
+			(2, '学生证'),
+			(3, '工作证'),
+			(4, '士兵证'),
+			(5, '手机号'),
+			(6, '邮箱'),
+			(7, '未知'),
+		), verbose_name='认证类型'
+	)
+	cert_no=models.CharField(max_length=50, default="", blank=False , verbose_name='认证号码' )
+	valid_state =models.IntegerField(
+		choices=(
+			(0, '未认证'),
+			(1, '认证中'),
+			(2, '已认证'),
+			(3, '未知'),
+			(4, '士兵证'),
+			(5, '手机号'),
+			(6, '邮箱'),
+		),  default=0, verbose_name='认证状态'
+	)
+	valid_captcha=models.CharField(max_length=15, default='', verbose_name='认证验证码')
+	valid_captcha_exp =models.CharField(max_length=25, default='', verbose_name='认证验证码过期时间')
+
+	submit_time = models.DateTimeField(auto_now=True, verbose_name="申请验证时间")
+	audit_time = models.DateTimeField(auto_now=True, verbose_name="审核时间")
+	create_time = models.DateTimeField(auto_now=True, verbose_name="创建时间")
+	
+	def __str__(self):
+		return "UserValidateInfo user:%s" %(self.id, self.user)
+
+	class Meta:
+		verbose_name = "用户身份认证资料表"
+		verbose_name_plural = verbose_name
+	
+
+#class UserPoints(models.Model):
+#	#id
+#	user = models.OneToOneField(NewUser)
+#	points= models.IntegerField(default=0, verbose_name='积分')
+#	points_frozen=models.IntegerField(default=0, verbose_name='冻结积分')
+#	points_consumed=models.IntegerField(default=0, verbose_name='已消费积分')
+#	def __str__(self):
+#		return "UserPoints user:%s" %(self.id, self.user)
+#
+#	class Meta:
+#		verbose_name = "用户积分表"
+#		verbose_name_plural = verbose_name
 
 
 # class UserLoginInfo(models.Model):
