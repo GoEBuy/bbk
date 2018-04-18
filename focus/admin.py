@@ -8,6 +8,8 @@ class NewUserAdmin(admin.ModelAdmin):
 	list_display = ('id', 'username', 'truename', 'last_login', 'email', 'is_staff',
 					"phone", "gender", "city", "address", "is_validate", "email_verify", "mobile_verify",'date_joined' )
 
+# class NewUserAdmin(admin.ModelAdmin):
+# 	list_display = ('username','date_joined', 'profile')
 
 
 class CommentAdmin(admin.ModelAdmin):
@@ -22,8 +24,6 @@ class ArticleAdmin(admin.ModelAdmin):
     }
 	list_display = ('title','pub_date', 'poll_num') 
 
-# class NewUserAdmin(admin.ModelAdmin):
-# 	list_display = ('username','date_joined', 'profile')
 
 class ColumnAdmin(admin.ModelAdmin):
 	list_display = ('name', 'intro') 
@@ -32,9 +32,9 @@ class AuthorAdmin(admin.ModelAdmin):
 	list_display = ('name', 'profile')
 
 
-admin.site.register(NewUser,  NewUserAdmin)
-admin.site.register(Category)
-admin.site.register(UserStar)
+#admin.site.register(NewUser,  NewUserAdmin)
+#admin.site.register(Category)
+#admin.site.register(UserStar)
 
 
 #admin.site.register(Comment, CommentAdmin)

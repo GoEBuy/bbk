@@ -1,7 +1,9 @@
 #-*- coding:utf-8 -*-
 
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Article, Comment, Poll, NewUser
+from .models import Article, Comment, Poll
+from bbk.users.models import NewUser
+#from .models import NewUser
 from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -9,7 +11,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
 import pdb, traceback
-from .models import NewUser
 import markdown2, urlparse
 
 from django.db.models import Q

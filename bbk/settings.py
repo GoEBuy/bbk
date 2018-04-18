@@ -32,7 +32,8 @@ ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = "users.NewUser"  
 
 #登录地址
-LOGIN_URL = "/users/login/"
+LOGIN_URL = "/focus/"
+#LOGIN_URL = "/users/login/"
 #?next='article_id'"
 
 # Application definition
@@ -45,7 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'focus',
+    'focus',
 	'users',
 	'order',
 

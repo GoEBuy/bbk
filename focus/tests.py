@@ -5,7 +5,7 @@ from django.test import TestCase
 # Create your tests here.
 from django.test import  TestCase
 
-from models import NewUser as User
+from bbk.users.models import NewUser as User
 from models import *
 
 import pdb, traceback
