@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q

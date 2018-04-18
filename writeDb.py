@@ -3,15 +3,17 @@
 import os
 import django
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bbk.settings")
+
+
 django.setup()
 #setting.configure()
 
 import pdb,traceback
 
-#from focus.models import *
+from order.models import *
 from users.models import *
-from django.db.models import Manager
 
+from django.db.models import Manager
 import django.utils.timezone as timezone
 
 
@@ -236,14 +238,28 @@ def deleteUserFollowing():
 #		obj = Person(**new_values)
 #		obj.save()
 
+
+
+def addOrder():
+	manager = Order.objects
+	user = NewUser.objects.get(pk=1)
+	cate = Category.objects.get(pk=2)
+	pdb.set_trace()
+	print "user:", user
+	obj = manager.create( order_price='15.0', remark='add order', buyer = user, cate=cate  )
+
 def main():
+	
+	addOrder()
+
+
 	#getUserById()
 	#addUsers()
 	#getUsersByIdList()
 
 	#addCate()
 	#getSubCates()
-	getPCates()
+	#getPCates()
 	#addUserPref()
 
 

@@ -8,6 +8,7 @@ https://github.com/GoEBuy/bbk.git
 
 #Sqlite3 for Linux 可视化工具 SqliteMan
 #sudo apt-get install sqliteman
+#sudo apt-get install mysql-workbench 
 
 #python manage.py makemigrations
 #python manage.py sqlmigrate

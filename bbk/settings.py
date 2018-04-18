@@ -102,7 +102,8 @@ DATABASES = {
 		'NAME': 'bbk', #你的数据库名称 数据库需要自己提前建好
 		'USER': 'root', #你的数据库用户名
 		'PASSWORD': 'root', #你的数据库密码
-		'HOST': '192.168.0.160', #你的数据库主机，留空默认为localhost
+		'HOST': 'localhost', #你的数据库主机，留空默认为localhost
+		#'HOST': '192.168.0.160', #你的数据库主机，留空默认为localhost
 		'PORT': '3306', #你的数据库端口
 	}
 }
