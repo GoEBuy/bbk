@@ -8,7 +8,8 @@ django.setup()
 
 import pdb,traceback
 
-from focus.models import *
+#from focus.models import *
+from users.models import *
 from django.db.models import Manager
 
 import django.utils.timezone as timezone
@@ -68,6 +69,10 @@ def addCate():
 	count = getEntityCount(Category.objects)
 	print "count:%d" % (count)
 
+	#root_cate=Category.objects.get(pk=-1)
+	#Category.objects.create( pcate= root_cate, cate_name="buz", state=1, cate_desc="商务办公", update_time=timezone.now ) 
+
+	Category.objects.get_or_create(cate_id=-1, cate_name="root cate" , cate_desc="root cate" )
 
 	root_cate=Category.objects.get(pk=-1)
 
@@ -77,7 +82,7 @@ def addCate():
 		print insertCates[i]
 		cate_id, pcate, cate_name, cate_desc = insertCates[i]
 		try:
-			Category.objects.get(pk=cate_id)
+			Category.objects.get_or_create(pk=cate_id)
 			print "category:%s exists" %(cate_id)
 		except Category.DoesNotExist:
 			Category.objects.create(cate_id=cate_id, pcate=pcate, cate_name=cate_name, state=1, cate_desc=cate_desc, update_time=timezone.now ) 
@@ -102,6 +107,18 @@ def addCate():
 	count = getEntityCount(Category.objects)
 	print "count:%d" % (count)
 
+def getSubCates():
+	manager = Category.objects
+	print manager.values_list("cate_id", "cate_name", "pcate_id").filter(pcate_id=1)
+	pass
+
+def getPCates():
+	manager= Category.objects
+	cate = manager.get(pk=5)
+	pcate = manager.get(cate_id=cate.pcate.cate_id)
+	print pcate
+	pcate1 = manager.get(cate_id=pcate.pcate.cate_id)
+	print pcate1
 
 
 def addUserPref():
@@ -220,11 +237,13 @@ def deleteUserFollowing():
 #		obj.save()
 
 def main():
-	getUserById()
+	#getUserById()
 	#addUsers()
 	#getUsersByIdList()
 
 	#addCate()
+	#getSubCates()
+	getPCates()
 	#addUserPref()
 
 

@@ -38,7 +38,8 @@ class Category(models.Model):
 	update_time =  models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return ("Category:%s %s %s" %( self.cate_id, self.pcate.cate_id, self.cate_name ) )
+		return ("Category:%s %s %s" %( self.cate_id,
+		( self.pcate.cate_id if self.pcate  else "none" ), self.cate_name ) )
 
 	class Meta:
 		verbose_name = "分类"
