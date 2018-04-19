@@ -133,6 +133,13 @@ LOGGING = {
 			'filename': 'logs/debug.log',
 			'formatter':'verbose'
 		},
+		'time_rotatedfile': {
+			'level':'DEBUG',
+			'class':'logging.handlers.TimedRotatingFileHandler',
+			'filename':'logs/bbk',
+			'when':'D',
+			'interval':'1'
+		},
 	},
 	'loggers': {
 		'django': {
