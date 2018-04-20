@@ -11,6 +11,6 @@ class NewUserAdmin(admin.ModelAdmin):
 					"phone",  'date_joined' )
 
 
-admin.site.register(NewUser,  NewUserAdmin)
-admin.site.register(Category)
-admin.site.register(UserStar)
+#admin.site.register(NewUser,  NewUserAdmin)
+#admin.site.register(Category)
+#admin.site.register(UserStar)

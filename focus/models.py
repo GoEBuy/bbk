@@ -7,27 +7,6 @@ from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
-
-#
-#
-#用户邀请表
-#class Contact(models.Model):
-#    CHOICES_ORDER_TYPE = (
-#        (0, "0"),
-#        (1, "1")
-#    )
-#    #　related_name  设置从关联对象到自身的关系的名称，若值为'+'  则关联对象与自身无逆向关系
-#    #contact = models.AutoField( primary_key=True )
-#    user = models.OneToOneField(NewUser, related_name="user")
-#    contact_user = models.ForeignKey(NewUser, related_name="contact_users")
-#    cate = models.OneToOneField(Category, to_field="cate_id", verbose_name="分类"  )
-#    contact_date = models.DateTimeField(auto_now=True, verbose_name="邀请时间")
-#    task_date = models.DateTimeField(auto_now=True, verbose_name="任务时间")
-#    contact_type = models.IntegerField(choices=CHOICES_ORDER_TYPE,  default=0, verbose_name="类型" )
-#
-#    class Meta:
-#        verbose_name = "用户邀请表"
-#        verbose_name_plural = verbose_name
 ####################################################################################################################################################
 
 #自定义
