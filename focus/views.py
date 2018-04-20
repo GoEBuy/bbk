@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Article, Comment, Poll
-from bbk.users.models import NewUser
+from users.models import NewUser
 #from .models import NewUser
 from .forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm
 from django.contrib.auth.decorators import login_required

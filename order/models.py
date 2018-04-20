@@ -21,18 +21,21 @@ class Address(models.Model):
 	is_default_address = models.BooleanField( default=False)
 	create_time =  models.DateTimeField(auto_now_add=True)
 
-def __str__(self):
-	return ("UserStar:%s %s %s" %( self.user, self.cate, self.desc ) )
+	def __str__(self):
+		return ("UserStar:%s %s %s" %( self.user, self.cate, self.desc ) )
 
+	def printObj(self, sep='\n'):
+		"""自定义打印对象所有属性 """
+		return sep.join(['%s:%s' %item for item in user.__dict__items() ]  )  
 
-class Meta:
-	verbose_name = "收货地址表"
-	verbose_name_plural = verbose_name
+	class Meta:
+		verbose_name = "收货地址表"
+		verbose_name_plural = verbose_name
 
-	#添加索引
-	#indexes=[
-	#models.Index(fields=['pcate'], name='idx_pcate' ) , 
-	#models.Index(fields=['cate_name'], name='idx_cate_name' ) ]
+		#添加索引
+		#indexes=[
+		#models.Index(fields=['pcate'], name='idx_pcate' ) , 
+		#models.Index(fields=['cate_name'], name='idx_cate_name' ) ]
 
 
 
@@ -59,9 +62,14 @@ class Logistics(models.Model):
 	zipcode =models.CharField(max_length=15, verbose_name='邮政编码') #blank=False
 	express_type = models.IntegerField(choices= choices_express_type, default=3, verbose_name='物流方式')
 	desc = models.CharField(max_length=150, verbose_name='描述')
-class Meta:
-	verbose_name = "物流表"
-	verbose_name_plural = verbose_name
+
+	def printObj(self, sep='\n'):
+		"""自定义打印对象所有属性 """
+		return sep.join(['%s:%s' %item for item in user.__dict__items() ]  )  
+
+	class Meta:
+		verbose_name = "物流表"
+		verbose_name_plural = verbose_name
 
 	#添加索引
 	#indexes=[
@@ -99,7 +107,7 @@ class Order(models.Model):
 	order_price= models.CharField(max_length=30, default=0, blank=False, verbose_name="订单价格")
 	address = models.OneToOneField( Address, null=True, verbose_name='收货地址表')
 	cate = models.OneToOneField(Category, to_field="cate_id", verbose_name="分类" )
-	logistics= models.OneToOneField(Logistics, verbose_name='物流', null=True)
+	logistics= models.OneToOneField(Logistics, verbose_name='物流', null=True) #logistics_id
 	pay_channel=models.IntegerField(choices=choices_payment, default=0, blank=False, verbose_name='支付渠道')
 	
 	create_time =  models.DateTimeField(auto_now_add=True)
@@ -111,6 +119,11 @@ class Order(models.Model):
 
 	def __str__(self):
 		return ("Order:%s buyer:%s order_state:%s" %( self.order_id,	self.buyer, self.order_state ) )
+
+	def printObj(self, sep='\n'):
+		"""自定义打印对象所有属性 """
+		return sep.join(['%s:%s' %item for item in user.__dict__items() ]  )  
+
 
 	class Meta:
 		verbose_name = "订单表"
@@ -139,8 +152,13 @@ class OrderRemark(models.Model):
 	update_time= models.DateTimeField(auto_now=True, verbose_name="评价时间")
 	state= models.IntegerField(default=1,  verbose_name="是否展现")
 
-def __str__(self):
-	return ("OrderRemark:%s %s %s" %( self.seller, self.cate, self.buyer ) )
+	def __str__(self):
+		return ("OrderRemark:%s %s %s" %( self.seller, self.cate, self.buyer ) )
+
+	def printObj(self, sep='\n'):
+		"""自定义打印对象所有属性 """
+		return sep.join(['%s:%s' %item for item in user.__dict__items() ]  )  
+
 
 	class Meta:
 		verbose_name = "订单评价表"
@@ -149,6 +167,15 @@ def __str__(self):
 			
 		#默认降序排序
 		ordering =['-id']
+
+#
+#    ## 计算关注人数总数
+#    #def count_remarkusers(self):
+#    #    return ContactRemark.objects.filter(user=self).count()
+#
+#    ## 计算被关注数量
+#    #def count_follower(self):
+#    #    return ContactRemark.objects.filter(remark_user=self).count()
 
 
 

@@ -2,6 +2,8 @@
 
 import os
 import django
+
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bbk.settings")
 
 
@@ -23,10 +25,21 @@ def getEntityCount(entity):
 	#print "count:%d" % (count)
 	return count
 	
+def testFindUser():
+	print "testFindUser"
+	manager = NewUser.objects
+	pdb.set_trace()
+	#print manager.values('id','username', 'password').filter(username='yyy', password='yyy').exists()
+	#wrong print manager.exists(username='yyy', password='yyy')
+	#print manager.filter(pk=2).exists()
+	print user.printObj()
+	
+	
 
 def getUsersByIdList():
 	manager=NewUser.objects
 	idlist=[1,2,3]
+	#select in 
 	dict_users= manager.in_bulk(idlist)
 	for k, v in dict_users.iteritems():
 		print k, v
@@ -37,6 +50,17 @@ def getUserById():
 		print "exists"
 	else:
 		print "not exist"
+	
+def addUserInfo():
+	pdb.set_trace()
+	user = NewUser.objects.get(pk=2)
+	#NewUser.objects.get(id__
+	userinfo = UserInfo.objects.get(user_id=2)
+	user.userinfo = UserInfo.objects.create(user_id=1, truename='root true name')
+	user.save()
+	user.userinfo.truename='root true name update'
+	user.save()
+
 	
 
 def addUsers():
@@ -122,6 +146,16 @@ def getPCates():
 	pcate1 = manager.get(cate_id=pcate.pcate.cate_id)
 	print pcate1
 
+def updateUserPref():
+	print "updateUserPref"
+	pdb.set_trace()
+	#user= NewUser.objects.get(pk=1)
+	user = NewUser.getUser("admin","admin")
+	if UserStar.objects.filter(user_id=1, cate_id=1).exists():
+		userstar = UserStar.objects.get(user_id=user.id, cate_id=1)
+		userstar.star_service=5
+		userstar.save()
+	print userstar
 
 def addUserPref():
 	""" 用户内行专业CRUD """
@@ -253,9 +287,13 @@ def addOrder():
 
 	print "count", getEntityCount(manager)
 
+
+
 def main():
 	
-	addOrder()
+	#addOrder()
+	#testFindUser()
+	#addUserInfo()
 
 
 	#getUserById()
@@ -266,6 +304,7 @@ def main():
 	#getSubCates()
 	#getPCates()
 	#addUserPref()
+	updateUserPref()
 
 
 	#addUserFollowing()
