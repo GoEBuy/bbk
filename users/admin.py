@@ -7,10 +7,10 @@ from .models import *
 # Register your models here.
 
 class NewUserAdmin(admin.ModelAdmin):
-	list_display = ('id', 'username', 'truename', 'last_login', 'email', 'is_staff',
-					"phone", "gender", "city", "address", "is_validate", "email_verify", "mobile_verify",'date_joined' )
+	list_display = ('id', 'username',  'last_login', 'email', 'is_staff',
+					"phone",  'date_joined' )
 
 
 admin.site.register(NewUser,  NewUserAdmin)
 admin.site.register(Category)
-#admin.site.register(UserStar)
+admin.site.register(UserStar)

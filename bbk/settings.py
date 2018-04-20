@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'focus',
 	'users',
 	'order',
@@ -107,6 +108,7 @@ DATABASES = {
 		'HOST': 'localhost', #你的数据库主机，留空默认为localhost
 		#'HOST': '192.168.0.160', #你的数据库主机，留空默认为localhost
 		'PORT': '3306', #你的数据库端口
+		 'OPTIONS': { 'init_command': 'SET default_storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci;' }
 	}
 }
 
@@ -115,7 +117,7 @@ LOGGING = {
 	'disable_existing_loggers': False,
 	'formatters': {
 		'verbose': {
-			'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+			'format': '%(levelname)s %(asctime)s %(filename)s %(lineno)d %(module)s %(process)d %(thread)d %(message)s'
 		},
 		'simple': {
 			'format': '%(levelname)s %(message)s'
@@ -138,12 +140,12 @@ LOGGING = {
 			'class':'logging.handlers.TimedRotatingFileHandler',
 			'filename':'logs/bbk',
 			'when':'D',
-			'interval':'1'
+			'interval':1
 		},
 	},
 	'loggers': {
 		'django': {
-			'handlers': ['console', 'file'],
+			'handlers': ['console', 'file', 'time_rotatedfile' ],
 			'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
 		},
 	},

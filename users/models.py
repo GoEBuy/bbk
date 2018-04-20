@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
 import datetime
@@ -32,8 +32,8 @@ class Category(models.Model):
 	cate_name=  models.CharField(max_length=20, null=False, blank=False )
 	# 一对一关系, 级联删除, default=-1, on_delete=models.CASCADE
 	pcate = models.ForeignKey('self', null=True )
-	cate_desc = models.CharField(max_length=50, null=True, verbose_name="备注" )
-	state = models.IntegerField(choices =choices_state,  default=1, verbose_name="类别状态")
+	cate_desc = models.CharField(max_length=50, null=True, verbose_name=u"备注" )
+	state = models.IntegerField(choices =choices_state,  default=1, verbose_name=u"类别状态")
 	update_time =  models.DateTimeField(auto_now=True)
 
 	def __str__(self):
@@ -45,7 +45,7 @@ class Category(models.Model):
 		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
 	class Meta:
-		verbose_name = "分类"
+		verbose_name = u"分类"
 		verbose_name_plural = verbose_name
 
 		#添加索引
@@ -57,8 +57,8 @@ class Category(models.Model):
 class NewUser(AbstractUser):
 	""" 用户 """
 	VERIFY_STATUS = (
-		(0, "未验证"),
-		(1, "已验证")
+		(0, u"未验证"),
+		(1, u"已验证")
 	)
     #增加user其他字段
     #username = models.CharField( max_length=150, unique=True,
@@ -71,13 +71,13 @@ class NewUser(AbstractUser):
 	pwd = models.CharField(max_length=20, blank=False, default="", verbose_name=u'密码')
 	phone = models.CharField(max_length=30,  blank=True, verbose_name=u'手机')
 	session = models.CharField(max_length=50, null=True, blank=True, default="",
-							   verbose_name="用户登录时会写入当前session_key")
+							   verbose_name=u"用户登录时会写入当前session_key")
 
-	level= models.IntegerField(default=0, help_text='用户等级')
+	level= models.IntegerField(default=0, help_text=u'用户等级')
 	#多对多关系表 用户内行行业列表
 	preflist= models.ManyToManyField( Category, through="UserStar", through_fields=('user', 'cate' ) )
-	num_following = models.IntegerField(default=0, verbose_name="关注人数" )
-	num_followed = models.IntegerField(default=0, verbose_name="被关注人数" )
+	num_following = models.IntegerField(default=0, verbose_name=u"关注人数" )
+	num_followed = models.IntegerField(default=0, verbose_name=u"被关注人数" )
 	#update_time = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 
 	def __str__(self):
@@ -88,7 +88,7 @@ class NewUser(AbstractUser):
 		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
 	class Meta:
-		verbose_name = "用户"
+		verbose_name = u"用户"
 		verbose_name_plural = verbose_name
 
 
@@ -112,20 +112,20 @@ class NewUser(AbstractUser):
 
 class UserInfo(models.Model):
 	VERIFY_STATUS = (
-		(0, "未验证"),
-		(1, "已验证")
+		(0, u"未验证"),
+		(1, u"已验证")
 	)
 	#id
 	user = models.OneToOneField(NewUser)
-	truename =  models.CharField(max_length=20,  blank=True, default="", verbose_name=u'真实姓名')
-	birthdate = models.DateField(null=True, blank=True, help_text='出生日期' )
-	is_validate = models.IntegerField(choices=VERIFY_STATUS, default=0, verbose_name=u'姓名是否验证')
-	email_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, verbose_name="Email是否已经验证")
-	mobile_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, verbose_name="Mobile是否已经验证")
+	truename =  models.CharField(max_length=20,  blank=True, default="", help_text=u'真实姓名')
+	birthdate = models.DateField(null=True, blank=True, help_text=u'出生日期' )
+	is_validate = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u'姓名是否验证')
+	email_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u"Email是否已经验证")
+	mobile_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u"Mobile是否已经验证")
 
 	city = models.CharField(max_length=50, blank=True, verbose_name=u'所在地')
 	address = models.CharField(max_length=150, blank=True, verbose_name=u'地址')
-	img = models.ImageField(upload_to="imgs/img_user", blank=True, default="" , verbose_name="头像")
+	img = models.ImageField(upload_to="imgs/img_user", blank=True, default="" , verbose_name=u"头像")
 	profile = models.CharField('profile', default='',max_length=256)
 	gender = models.CharField(
 		max_length=1,
@@ -136,8 +136,8 @@ class UserInfo(models.Model):
 		),
 		default='M',
 	)
-	register_ip=models.CharField(max_length=30, blank=True, default='', help_text='注册ip' )
-	update_time = models.DateTimeField(auto_now=True, verbose_name="更新时间")
+	register_ip=models.CharField(max_length=30, blank=True, default='', help_text=u'注册ip' )
+	update_time = models.DateTimeField(auto_now=True, help_text=u"更新时间")
 
 	def __str__(self):
 		return "id:%d name:%s" %(self.id, self.user)
@@ -147,7 +147,7 @@ class UserInfo(models.Model):
 		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
 	class Meta:
-		verbose_name = "用户详细信息表"
+		verbose_name = u"用户详细信息表"
 		verbose_name_plural = verbose_name
 
 class OpenUser(models.Model):
@@ -161,17 +161,17 @@ class OpenUser(models.Model):
 			(3, 'taobao'),
 			(4, 'skype'),
 			(5, 'linkin'),
-			(6, '未知'),
-		), verbose_name='开放帐号类型'
+			(6, u'未知'),
+		), verbose_name=u'开放帐号类型'
 	)
 	def __str__(self):
 		return "OpenUser user:%s" %(self.id, self.user)
 	def printObj(self, sep='\t'):
 		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__items() ]  )  
+		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
 	class Meta:
-		verbose_name = "用户开放登录帐号表"
+		verbose_name = u"用户开放登录帐号表"
 		verbose_name_plural = verbose_name
 
 class UserValidateInfo(models.Model):
@@ -179,34 +179,34 @@ class UserValidateInfo(models.Model):
 	user = models.OneToOneField(NewUser)
 	valid_type=models.IntegerField(default=0,
 		choices=(
-			(0, '身份证'),
-			(1, '护照'),
-			(2, '学生证'),
-			(3, '工作证'),
-			(4, '士兵证'),
-			(5, '手机号'),
-			(6, '邮箱'),
-			(7, '未知'),
-		), verbose_name='认证类型'
+			(0, u'身份证'),
+			(1, u'护照'),
+			(2, u'学生证'),
+			(3, u'工作证'),
+			(4, u'士兵证'),
+			(5, u'手机号'),
+			(6, u'邮箱'),
+			(7, u'未知'),
+		), verbose_name=u'认证类型'
 	)
-	cert_no=models.CharField(max_length=50, default="", blank=False , verbose_name='认证号码' )
+	cert_no=models.CharField(max_length=50, default="", blank=False , verbose_name=u'认证号码' )
 	valid_state =models.IntegerField(
 		choices=(
-			(0, '未认证'),
-			(1, '认证中'),
-			(2, '已认证'),
-			(3, '未知'),
-			(4, '士兵证'),
-			(5, '手机号'),
-			(6, '邮箱'),
-		),  default=0, verbose_name='认证状态'
+			(0, u'未认证'),
+			(1, u'认证中'),
+			(2, u'已认证'),
+			(3, u'未知'),
+			(4, u'士兵证'),
+			(5, u'手机号'),
+			(6, u'邮箱'),
+		),  default=0, verbose_name=u'认证状态'
 	)
-	valid_captcha=models.CharField(max_length=15, default='', verbose_name='认证验证码')
-	valid_captcha_exp =models.CharField(max_length=25, default='', verbose_name='认证验证码过期时间')
+	valid_captcha=models.CharField(max_length=15, default='', verbose_name=u'认证验证码')
+	valid_captcha_exp =models.CharField(max_length=25, default='', verbose_name=u'认证验证码过期时间')
 
-	submit_time = models.DateTimeField(auto_now=True, verbose_name="申请验证时间")
-	audit_time = models.DateTimeField(auto_now=True, verbose_name="审核时间")
-	create_time = models.DateTimeField(auto_now=True, verbose_name="创建时间")
+	submit_time = models.DateTimeField(auto_now=True, verbose_name=u"申请验证时间")
+	audit_time = models.DateTimeField(auto_now=True, verbose_name=u"审核时间")
+	create_time = models.DateTimeField(auto_now=True, verbose_name=u"创建时间")
 	
 	def __str__(self):
 		return "UserValidateInfo user:%s" %(self.id, self.user)
@@ -215,7 +215,7 @@ class UserValidateInfo(models.Model):
 		"""自定义打印对象所有属性 """
 		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 	class Meta:
-		verbose_name = "用户身份认证资料表"
+		verbose_name = u"用户身份认证资料表"
 		verbose_name_plural = verbose_name
 	
 
@@ -249,14 +249,14 @@ class UserValidateInfo(models.Model):
 
 class UserStar(models.Model):
 	"""用户星级表"""
-#多对多关系
+	#多对多关系
 	user = models.ForeignKey(NewUser)
 	#user = models.OneToOneField(NewUser)
 #user = models.ForeignKey(NewUser, to_field="id", unique=True )
 	cate = models.ForeignKey(Category, related_name="cate") 
-	star_service = models.IntegerField(default=1,  verbose_name="服务态度")
-	star_personal = models.IntegerField(default=1, verbose_name="专业程度")
-	desc = models.CharField(max_length=300, default="",verbose_name="用户内行行业自我描述")
+	star_service = models.IntegerField(default=1,  verbose_name=u"服务态度")
+	star_personal = models.IntegerField(default=1, verbose_name=u"专业程度")
+	desc = models.CharField(max_length=300, default="",verbose_name=u"用户内行行业自我描述")
 
 	def __str__(self):
 		return ("UserStar:%s %s %s" %( self.user, self.cate, self.desc ) )
@@ -265,7 +265,7 @@ class UserStar(models.Model):
 		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
 	class Meta:
-		verbose_name = "用户星级表"
+		verbose_name = u"用户星级表"
 		verbose_name_plural = verbose_name
 
 		unique_together= ("user", "cate")
@@ -284,13 +284,13 @@ class UserFollowing(models.Model):
 		(1, "True"),
 	)
 
-	user = models.ForeignKey(NewUser, verbose_name="用户", on_delete=models.CASCADE, related_name="follower")
-	following = models.ForeignKey(NewUser, verbose_name="自己关注的那个用户", on_delete=models.CASCADE,
+	user = models.ForeignKey(NewUser, verbose_name=u"用户", on_delete=models.CASCADE, related_name="follower")
+	following = models.ForeignKey(NewUser, verbose_name=u"自己关注的那个用户", on_delete=models.CASCADE,
 								  related_name="following")
-	is_following = models.IntegerField(choices=CHOICES, default=-1, verbose_name="是否Following")
-	is_block = models.IntegerField(choices=CHOICES, default=-1, verbose_name="是否Block")
-	add_time = models.DateTimeField( auto_now_add=True, verbose_name="添加时间")
-	update_time = models.DateTimeField(auto_now=True, verbose_name="更新时间")
+	is_following = models.IntegerField(choices=CHOICES, default=-1, verbose_name=u"是否Following")
+	is_block = models.IntegerField(choices=CHOICES, default=-1, verbose_name=u"是否Block")
+	add_time = models.DateTimeField( auto_now_add=True, verbose_name=u"添加时间")
+	update_time = models.DateTimeField(auto_now=True, verbose_name=u"更新时间")
 
 	def __str__(self):
 		return "%s %s" %(self.user.username, self.following.username)
@@ -299,15 +299,15 @@ class UserFollowing(models.Model):
 		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
 	class Meta:
-		verbose_name = "用户的Following 和 Block 关系表"
+		verbose_name = u"用户的Following 和 Block 关系表"
 		verbose_name_plural = verbose_name
 		unique_together = ('user', 'following',)
 
-# 计算关注人数总数
+	# 计算关注人数总数
 	def count_following(self):
 		return UserFollowing.objects.filter(user=self, is_following=1).count()
 
-# 计算被关注数量
+	# 计算被关注数量
 	def count_follower(self):
 		return UserFollowing.objects.filter(following=self, is_following=1).count()
 
