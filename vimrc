@@ -2,8 +2,11 @@ syntax on
 "使用vim的键盘模式
 set nocompatible
 "tab缩进
-set tabstop=4
+set tabstop=4 "tab宽为4个空格
+"set softtabstop=4 "编辑模式下退格键的时候退回缩进的长度
 set shiftwidth=4
+"set expandtab "tab替换为空格 缩进用空格表示
+"set noexpandtab "空格替换为tab， 制表符表示缩进
 "自动对齐
 set autoindent
 "智能缩进
@@ -20,6 +23,11 @@ set showcmd         " 输入的命令显示出来，看的清楚些
 set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
+
+set laststatus=2 "总是显示状态行
+
+" 命令行（在状态行下）的高度，默认为1，这里是2
+set cmdheight=2
 
 "设置tags  
 set tags=tags,/home/yyy/tags/tags_django

@@ -1,4 +1,5 @@
-{% load static %}   <!--这个地方引入static这个文件 -->
+
+   <!--这个地方引入static这个文件 -->
 
 <!DOCTYPE html>
 <html>
@@ -8,11 +9,7 @@
 	<!--自适应 -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<!-- block title -->
-	<title> {% block title %} </title>
-	 <!-- block extrahead -->
-	 {% block extrahead %}{% endblock %}  
-    <!-- <title>帮帮看</title> -->
+    <title>帮帮看</title>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
     <link rel="stylesheet" href="/static/css/font-awesome.css">
     <link rel="stylesheet" href="/static/plugin/highlight/tomorrow.css">
@@ -141,18 +138,15 @@
             height: 73px;
         }
         .copyright{
-		background-color: #343a40;
-		color: #6c7980;
-		font-size: 14px;
-		line-height: 20px;
 		text-align: center;
         clear: both;
-        font-family: initial;
+         font-size: 12px;
+            font-family: initial;
 }
     </style>
 
 	<!-- css样式表 -->
-    {% block CSS %} {% endblock %}
+     
 </head>
                     <!-- <td width="110" align="left"><a href="#" name="top" title="way to explore"><img
                             src="/static/img/fake_logo@2x.png" border="0" align="default" alt="帮帮看"
@@ -176,21 +170,13 @@
                             </form>
                         </div>
                     </td> -->
-                    {% if request.session.user_info %}
-                        <td width="570" align="right" style="padding-top: 2px;">
-                            <a href="#" class="top">首页</a>
-                            &nbsp;&nbsp;&nbsp;<a href="#" class="top">{{ request.session.user_info.username }}</a>
-                            &nbsp;&nbsp;&nbsp;<a href="/notes" class="top">记事本</a>
-                            &nbsp;&nbsp;&nbsp;<a href="/settings" class="top">设置</a>
-                            &nbsp;&nbsp;&nbsp;<a href="#;" onclick="if (confirm('确定要从 V2EX 登出？'))
-                             { location.href= '#'; }" class="top">登出</a></td>
-                    {% else %}
+                    
                         <td width="570" align="right" style="padding-top: 2px;">
 						<a href="#" class="top">首页</a>&nbsp;&nbsp;&nbsp;
 						<a href="#" class="top">登录</a>
 						<span style="font-style: italic">| </span> 
 						<a href="#" class="top">注册</a>&nbsp;&nbsp;&nbsp;</td>
-                    {% endif %}
+                    
 					<td width="85" align="right" style="padding-top: 2px;">
 					 <a href="#" class="top">个人中心</a>&nbsp;&nbsp;&nbsp;</td>
 					<td width="85" align="right" style="padding-top: 2px;">
@@ -210,25 +196,30 @@
     <div class="content">
         <div id="Leftbar">
             <div class="sep20"></div>
-            {% block leftbar %} {% endblock %}
+             
 		</div>
 
         <div id="Rightbar">
             <div class="sep20"></div>
-            {% block rightbar %} {% endblock %}
+             
         </div>
         <div class="sep20"></div>
     </div>
     <div class="c"></div>
-    {% if is_login %}
-        {% csrf_token %}
-    {% endif %}
+    
 -->
 
   <div id="Main">
            <!-- <div class="sep10"></div>-->
-            {% block main %}
-            {% endblock %}
+            
+<h2>users</h2>
+<ul>
+ admin
+ </p>
+userid: <a class="node" href="/users/1/">1</a> </p>
+username:admin
+</ul>
+
         </div>
 
 
@@ -246,8 +237,8 @@
                     href="/mission" class="dark" target="_self">我们的愿景</a> &nbsp; <span class="snow">·</span> &nbsp; <a
                     href="/advertise" class="dark" target="_self">广告投放</a> &nbsp; <span class="snow">·</span> &nbsp; <a
                     href="/advertise/2016.html" class="dark" target="_self">鸣谢</a> &nbsp; <span class="snow">·</span>
-                    &nbsp; {{ request.online_member_count }} 人在线</strong>&nbsp;<span
-                    class="snow">·</span> &nbsp; <span>您的IP是: {{ request.current_visitor_ip }}</span></a>
+                    &nbsp;  人在线</strong>&nbsp;<span
+                    class="snow">·</span> &nbsp; <span>您的IP是: </span></a>
             <div class="sep20"></div>
             创意工作者们的社区
             <div class="sep5"></div>
@@ -256,13 +247,25 @@
             <div class="sep10"></div>
         </div>
     </div>
-    {% block footer %} {% endblock %}
+     
 </div>
 
 
 <div  class="copyright">
 	<!-- copyright -->
-	{% include 'include/copyright.html' %}
+	<!-- 公共模板 -->
+<div id="copyright">
+        <p>
+            ©<span>2018</span>
+            <a href="http://meituan.com/">帮帮看</a>
+            bbk.com
+            <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP证070791号</a>
+            京公网安备11010502025545号<a href="http://meituan.com/about/rules" target="_blank"> 电子公告服务规则</a>
+        </p>
+    <div>
+
+</div>
+
 </div>
 
 <script src="/static/js/jquery-3.3.1.js"></script>
@@ -294,8 +297,9 @@
 <script>hljs.initHighlightingOnLoad();</script>
 -->
 
-{% block JS %}
- {% endblock %}
+
+ 
 
 </body>
 </html>
+

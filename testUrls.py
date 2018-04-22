@@ -17,18 +17,48 @@ from focus import views
 from django.urls import reverse
 from django.template import engines
 from django.template.loader import get_template, select_template 
+from django.shortcuts import render_to_response 
+from django.template import Context  
 
 FLAG_DEBUG=True
 
+def printReverseUrl(nameUrl):
+	try:
+		print "url[%s]: %s" %(nameUrl, reverse ('users:register') )
+	except Exception as e:
+		print traceback.sys_exc()
+
+def printTemplateRender(template, context=None, saveFmt=False, **kawgs):
+	""" 打印渲染后的模板 """
+	if not context:
+		if kawgs:
+			context = Context(kawgs)
+		else:
+			context = Context({})
+
+	html = get_template(template).render(context).encode('utf-8')
+	print ("html for template:", template)
+	print html
+	if saveFmt:
+		#"save formate html"
+		with open(template+'.fmt', 'w') as fout:
+			fout.write(html+'\n')
+			fout.close()
 
 
 def testUsers():
 	pdb.set_trace()
-	reverse ('users:register')
-	print reverse ('users:login')
+	#print reverse ('users:register')
+	#print reverse ('users:login')
+	printReverseUrl('users:register')
+	printReverseUrl('users:login')
 
-	get_template('users/index.html')
-	get_template('users/login.html')
+	#print get_template('users/login.html')
+	#print get_template('users/index.html')
+	#printTemplateRender('users/login.html')
+	from users.models import NewUser 
+	user = NewUser.objects.get(pk=1)
+	printTemplateRender('users/user_detail.html', context={'user':user}, saveFmt=True )
 	pass
 
 def main():
