@@ -124,7 +124,7 @@ LOGGING = {
 	'disable_existing_loggers': False,
 	'formatters': {
 		'verbose': {
-			'format': '%(levelname)s %(asctime)s %(filename)s[%(lineno)d] %(module)s %(process)d %(thread)d %(message)s'
+			'format': '%(levelname)s %(asctime)s [%(filename)s:%(lineno)d] [%(module)s] %(process)d %(thread)d %(message)s'
 		},
 		'simple': {
 			'format': '%(levelname)s %(message)s'
@@ -147,6 +147,13 @@ LOGGING = {
 			'class': 'django.utils.log.AdminEmailHandler',
 			'include_html' : True,
 		},
+		'error': {
+			'level':'ERROR',
+			'class':'logging.handlers.TimedRotatingFileHandler',
+			'filename': 'logs/error.log',
+			'backupCount': 5,
+			'formatter':'verbose',
+		},
 		'time_rotatedfile': {
 			'level':'DEBUG',
 			'class':'logging.handlers.TimedRotatingFileHandler',
@@ -157,7 +164,7 @@ LOGGING = {
 	},
 	'loggers': {
 		'django': {
-			'handlers': ['console', 'file', 'time_rotatedfile' ],
+			'handlers': ['console', 'file', 'time_rotatedfile', 'error' ],
 			'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
 		},
 	},
@@ -176,7 +183,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-
+# 头像存放目录（当然也可以使用OSS等云存储，这里存储到本地）
+#AVATAR_FILE_PATH = os.path.join(BASE_DIR, 'static', 'img')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
@@ -184,3 +192,69 @@ USE_L10N = True
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+
+
+# 缓存相关
+#CACHES = {
+## 默认配置，cache 单独使用
+#	"default": {
+#		"BACKEND": "django_redis.cache.RedisCache",
+#		"LOCATION": "redis://127.0.0.1:6379/1",
+#		"OPTIONS": {
+#			"CLIENT_CLASS": "django_redis.client.DefaultClient",
+#		}
+#	},
+## 新增配置让session 使用，
+#	"session": {
+#		"BACKEND": "django_redis.cache.RedisCache",
+#		"LOCATION": "redis://127.0.0.1:6379/0",
+#		"OPTIONS": {
+#			"CLIENT_CLASS": "django_redis.client.DefaultClient",
+#		}
+#	}
+#}
+# session 相关配置
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+#SESSION_CACHE_ALIAS = "session"
+#SESSION_COOKIE_NAME = "sessionid"
+#SESSION_COOKIE_PATH = "/"
+#SESSION_COOKIE_AGE = 60 * 20
+## 用户刷新页面，重新设置缓存时间
+#SESSION_SAVE_EVERY_REQUEST = True
+
+
+# 分页器配置
+#PRE_PAGE_COUNT = 15
+#PAGER_NUMS = 7
+
+# 邮件配置
+#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+## SMTP服务器
+#EMAIL_HOST = 'smtp.sina.com'
+#EMAIL_PORT = 25
+# TODO
+# 发送邮件的邮箱
+#EMAIL_HOST_USER = 'luremind@sina.com'
+## 在邮箱中设置的客户端授权密码
+#EMAIL_HOST_PASSWORD = ''
+## 收件人看到的发件人
+#EMAIL_FROM = '假的V2EX<luremind@sina.com>'
+
+
+#CELERY_BEAT_SCHEDULE = {
+#    # 周期性任务
+#    'task-one': {
+#        'task': 'app.tasks.print_hello',
+#        'schedule': 5.0, # 每5秒执行一次
+#        # 'args': ()
+#    },
+#    # 定时任务
+#    'task-two': {
+#        'task': 'app.tasks.print_hello',
+#        'schedule': crontab(minute=0, hour='*/3,10-19'),
+#        # 'args': ()
+#    }
+#}
+
+
+

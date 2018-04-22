@@ -34,7 +34,6 @@ def getEntityCount(entity):
 def testFindUser():
 	print "testFindUser"
 	manager = NewUser.objects
-	pdb.set_trace()
 	#print manager.values('id','username', 'password').filter(username='yyy', password='yyy').exists()
 	#wrong print manager.exists(username='yyy', password='yyy')
 	#print manager.filter(pk=2).exists()
@@ -42,7 +41,6 @@ def testFindUser():
 	
 def getUserListByCate():
 	cate_id=1
-	pdb.set_trace()
 	qset= UserStar.objects.filter(cate_id=str(cate_id))
 	if qset.exists():
 		useridList = [p.user_id for p in qset ]
@@ -66,7 +64,6 @@ def getUserById():
 		print "not exist"
 	
 def addUserInfo():
-	pdb.set_trace()
 	user = NewUser.objects.get(pk=2)
 	#NewUser.objects.get(id__
 	userinfo = UserInfo.objects.get(user_id=2)
@@ -165,7 +162,6 @@ def getCatePrefsForUser():
 	# __:两个下划线可以生成连接查询，查询关联的字段信息
 	# _set:提供了对象访问相关联表数据的方法。但这种方法只能是相关类访问定义了关系的类（主键类访问外键类）
 	manager = UserStar.objects
-	pdb.set_trace()
 	manager.filter(user__id='1').values()
 	manager.filter(user__id=1).values()
 	if manager.filter(user__id='2').exists():
@@ -181,7 +177,6 @@ def getPCates():
 
 def updateUserPref():
 	print "updateUserPref"
-	pdb.set_trace()
 	#user= NewUser.objects.get(pk=1)
 	user = NewUser.getUser("admin","admin")
 	if UserStar.objects.filter(user_id=1, cate_id=1).exists():
@@ -192,7 +187,6 @@ def updateUserPref():
 
 def getUserPrefList():
 	user = NewUser.objects.get(pk=1)
-	pdb.set_trace()
 	qset = user.preflist.values()
 	if qset.exists():
 		for p in qset:
@@ -200,7 +194,6 @@ def getUserPrefList():
 
 
 def getStarService(user_id, cate_id):
-	pdb.set_trace()
 	manager = NewUser.objects
 	avg_service = manager.star_service(user_id, cate_id)
 	avg_personal = manager.star_personal(user_id, cate_id)
@@ -352,7 +345,6 @@ def addOrder():
 
 	user = NewUser.objects.get(pk=1)
 	cate = Category.objects.get(pk=2)
-	pdb.set_trace()
 	print "user:", user
 	obj = manager.get_or_create( order_price='15.0', remark='add order', buyer = user, cate_id=3  )
 	obj = manager.get_or_create( order_price='15.0', remark='add order', buyer = user, cate=cate  )

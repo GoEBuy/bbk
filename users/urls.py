@@ -16,9 +16,12 @@ urlpatterns = [
 
 	#url(r'', views.index.as_view() ),
 
-    #url(r'^register/$', views.register, name='register'),
-    #url(r'^login/$', views.log_in, name='login'),
-    #url(r'^logout/$', views.log_out, name='logout'),
+	#ex: /register
+    url(r'^register/$', views.register, name='register'),
+
+    url(r'^login/$', views.login, name='login'),
+
+    url(r'^logout/$', views.logout, name='logout'),
 
 	#url('user/add/', AuthorCreate.as_view(), name='author-add'),
 	#url('user/<int:pk>/delete/', AuthorDelete.as_view(), name='author-delete'),

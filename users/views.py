@@ -2,9 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, get_object_or_404
-#
-#from bbk.focus.models import Article, Comment, Poll, NewUser
-#from bbk.focus.forms import CommmentForm, LoginForm, RegisterForm, SetInfoForm, SearchForm
+from django.urls import reverse
 
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
@@ -32,46 +30,47 @@ logger = logging.getLogger(__name__)
 
 
 def check_code(request):
-    """
-    验证码
-    :param request:
-    :return:
-    """
-    stream = BytesIO()
-    img, code = create_validate_code()
-    img.save(stream, 'PNG')
-    request.session['CheckCode'] = code
-    return HttpResponse(stream.getvalue())
+	"""
+	验证码
+	:param request:
+	:return:
+	"""
+	stream = BytesIO()
+	img, code = create_validate_code()
+	img.save(stream, 'PNG')
+	request.session['CheckCode'] = code
+	return HttpResponse(stream.getvalue())
 
 
-def log_in(request):
+def login(request):
+
 	if request.method == 'GET':
 		form = LoginForm()
-		return render(request, 'login.html', {'form': form})
+		return render(request, 'users/login.html', {'form': form})
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
 		if form.is_valid():
-			username = form.cleaned_data['uid'].encode('utf-8')
-			password = form.cleaned_data['pwd'].encode('utf-8')
+			username = form.cleaned_data['username'].encode('utf-8')
+			password = form.cleaned_data['password1'].encode('utf-8')
 			user = authenticate(username=username, password=password)
-			# user = authenticate(username=username, pwd=password)
-			# user = NewUser.objects.get( Q(username=username) & Q(password =password) )
 			if user is not None and user.is_active:
-				login(request, user)
-				url = request.POST.get('source_url', '/focus')
-				return redirect(url)
+				#login(request, user)
+				#url = request.POST.get('source_url', '/focus')
+				#return redirect(url)
+				return redirect( reverse('users:index' ),{} )
 			else:
-				return render(request, 'login.html', {'form': form, 'error': "password or username is not ture!"})
+				return render(request, 'users/login.html', {'form': form, 'error': "password or username is not ture!"})
 
 		else:
-			return render(request, 'login.html', {'form': form})
+			return render(request, 'users/login.html', {'form': form})
 
 
 @login_required
-def log_out(request):
-	url = request.POST.get('source_url', '/focus/')
-	logout(request)
-	return redirect(url)
+def logout(request):
+	pass
+	#url = request.POST.get('source_url', '/focus/')
+	#logout(request)
+	#return redirect(url)
 
 
 def register(request):
@@ -79,34 +78,25 @@ def register(request):
 	valid = "this name is valid"
 
 	if request.method == 'GET':
+		#if a GET (or any other method) we'll create a blank form
 		form = RegisterForm()
-		return render(request, 'register.html', context = {'form': form})
+		return render(request, 'users/register.html', context = {'form': form})
 	if request.method == 'POST':
+		# create a form instance and populate it with data from the request:
 		form = RegisterForm(request.POST)
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			email = form.cleaned_data['email']
-			password1 = form.cleaned_data['password']
+			password1 = form.cleaned_data['password1']
 			password2 = form.cleaned_data['password2']
 			if password1 != password2:
 				return render(request, 'register.html', {'form': form, 'msg': "two password is not equal"})
 			else:
-				user = NewUser.objects.create_user(username= username, email= email, password = password1, pwd=password1 )
+				user = NewUser.objects.create(username= username, email= email, password = password1, pwd=password1 )
 				user.save()
-		# if request.POST.get('raw_username', 'erjgiqfv240hqp5668ej23foi') != 'erjgiqfv240hqp5668ej23foi':  # if ajax
-		# 	try:
-		# 		user = NewUser.objects.get(username=request.POST.get('raw_username', ''))
-		# 	except ObjectDoesNotExist:
-		# 		return render(request, 'register.html', {'form': form, 'msg': valid})
-		# 	else:
-		# 		return render(request, 'register.html', {'form': form, 'msg': error1})
-
-		# else:
-		# 	if form.is_valid()
-				# return render(request, 'login.html', {'success': "you have successfully registered!"})
-				return redirect('/focus/login')
+				return redirect( reverse('users:login'), {'success': "you have successfully registered!", "username":username})
 		else:
-			return render(request, 'register.html', {'form': form})
+			return render(request, 'users/register.html', {'form': form})
 
 
 @require_http_methods(["GET", "POST"])
