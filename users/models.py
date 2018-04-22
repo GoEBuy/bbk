@@ -318,7 +318,7 @@ class UserFollowing(models.Model):
 
 	@classmethod
 	def count_follower(cls, user):
-		return UserFollowing.objects.filter(following=self, is_following=1).count()
+		return UserFollowing.objects.filter(following='self', is_following=1).count()
 
 
 

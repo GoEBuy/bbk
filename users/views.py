@@ -23,11 +23,90 @@ import logging
 import pdb, traceback
 
 # Create your views here.
+from io import BytesIO
+from django.shortcuts import render, HttpResponse, redirect
+from utils.check_code import create_validate_code
+from .forms import *
 
 logger = logging.getLogger(__name__)
 
 
+def check_code(request):
+    """
+    验证码
+    :param request:
+    :return:
+    """
+    stream = BytesIO()
+    img, code = create_validate_code()
+    img.save(stream, 'PNG')
+    request.session['CheckCode'] = code
+    return HttpResponse(stream.getvalue())
 
+
+def log_in(request):
+	if request.method == 'GET':
+		form = LoginForm()
+		return render(request, 'login.html', {'form': form})
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data['uid'].encode('utf-8')
+			password = form.cleaned_data['pwd'].encode('utf-8')
+			user = authenticate(username=username, password=password)
+			# user = authenticate(username=username, pwd=password)
+			# user = NewUser.objects.get( Q(username=username) & Q(password =password) )
+			if user is not None and user.is_active:
+				login(request, user)
+				url = request.POST.get('source_url', '/focus')
+				return redirect(url)
+			else:
+				return render(request, 'login.html', {'form': form, 'error': "password or username is not ture!"})
+
+		else:
+			return render(request, 'login.html', {'form': form})
+
+
+@login_required
+def log_out(request):
+	url = request.POST.get('source_url', '/focus/')
+	logout(request)
+	return redirect(url)
+
+
+def register(request):
+	error1 = "this name is already exist"
+	valid = "this name is valid"
+
+	if request.method == 'GET':
+		form = RegisterForm()
+		return render(request, 'register.html', context = {'form': form})
+	if request.method == 'POST':
+		form = RegisterForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			email = form.cleaned_data['email']
+			password1 = form.cleaned_data['password']
+			password2 = form.cleaned_data['password2']
+			if password1 != password2:
+				return render(request, 'register.html', {'form': form, 'msg': "two password is not equal"})
+			else:
+				user = NewUser.objects.create_user(username= username, email= email, password = password1, pwd=password1 )
+				user.save()
+		# if request.POST.get('raw_username', 'erjgiqfv240hqp5668ej23foi') != 'erjgiqfv240hqp5668ej23foi':  # if ajax
+		# 	try:
+		# 		user = NewUser.objects.get(username=request.POST.get('raw_username', ''))
+		# 	except ObjectDoesNotExist:
+		# 		return render(request, 'register.html', {'form': form, 'msg': valid})
+		# 	else:
+		# 		return render(request, 'register.html', {'form': form, 'msg': error1})
+
+		# else:
+		# 	if form.is_valid()
+				# return render(request, 'login.html', {'success': "you have successfully registered!"})
+				return redirect('/focus/login')
+		else:
+			return render(request, 'register.html', {'form': form})
 
 
 @require_http_methods(["GET", "POST"])
