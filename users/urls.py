@@ -2,17 +2,32 @@
 
 from django.conf.urls import include, url
 from . import views
+#from .views import *
 
 app_name = 'users'
 
 urlpatterns = [
+
+	#ex /users/ [?cate=<cate_id>&city=<city_name>&]
     url(r'^$', views.index, name='index'),
+
+	#ex: /users/<id> [?cate=<cate_id>&city=<city_name>&] 
+	url('^(?P<id>\d+)/', views.detail, name='detail'),
+
+	#url(r'', views.index.as_view() ),
+
     #url(r'^register/$', views.register, name='register'),
     #url(r'^login/$', views.log_in, name='login'),
     #url(r'^logout/$', views.log_out, name='logout'),
 
+	#url('user/add/', AuthorCreate.as_view(), name='author-add'),
+	#url('user/<int:pk>/delete/', AuthorDelete.as_view(), name='author-delete'),
+
+	
 
     ##TODO
+    #url(r'^$', views.index.as_view(), name='index'),
+	#url('^(?P<pk>\d+)/', views.detail.as_view(), name='detail'),
     ##分类列表页面
     #url(r'^(?P<cate_name>\w+)/$', views.cate-list, name='cate-list')
 

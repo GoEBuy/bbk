@@ -66,10 +66,13 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'bbk.urls'
 
+
+#模板引擎
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
+		# APP_DIRS 告诉模板引擎是否应该进入每个已安装的应用中查找模板。每种模板引擎后端都定义了一个惯用的名称作为应用内部存放模板的子目录名称。
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,6 +83,10 @@ TEMPLATES = [
             ],
         },
     },
+	#{
+	#	'BACKEND': 'django.template.backends.jinja2.Jinja2',
+	#		'DIRS': [	'/home/html/jinja2', ],
+	#},
 ]
 
 WSGI_APPLICATION = 'bbk.wsgi.application'
@@ -106,7 +113,7 @@ DATABASES = {
 		'USER': 'root', #你的数据库用户名
 		'PASSWORD': 'root', #你的数据库密码
 		'HOST': 'localhost', #你的数据库主机，留空默认为localhost
-		#'HOST': '192.168.0.160', #你的数据库主机，留空默认为localhost
+		#'HOST': '192.168.1.160', #你的数据库主机，留空默认为localhost
 		'PORT': '3306', #你的数据库端口
 		 'OPTIONS': { 'init_command': 'SET default_storage_engine=INNODB,character_set_connection=utf8,collation_connection=utf8_unicode_ci;' }
 	}
@@ -117,7 +124,7 @@ LOGGING = {
 	'disable_existing_loggers': False,
 	'formatters': {
 		'verbose': {
-			'format': '%(levelname)s %(asctime)s %(filename)s %(lineno)d %(module)s %(process)d %(thread)d %(message)s'
+			'format': '%(levelname)s %(asctime)s %(filename)s[%(lineno)d] %(module)s %(process)d %(thread)d %(message)s'
 		},
 		'simple': {
 			'format': '%(levelname)s %(message)s'
@@ -135,12 +142,17 @@ LOGGING = {
 			'filename': 'logs/debug.log',
 			'formatter':'verbose'
 		},
+		'email': {
+			'level': 'ERROR',
+			'class': 'django.utils.log.AdminEmailHandler',
+			'include_html' : True,
+		},
 		'time_rotatedfile': {
 			'level':'DEBUG',
 			'class':'logging.handlers.TimedRotatingFileHandler',
-			'filename':'logs/bbk',
-			'when':'D',
-			'interval':1
+			'filename':'logs/bbk.log',
+			#'when':'D',
+			#'interval':1
 		},
 	},
 	'loggers': {

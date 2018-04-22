@@ -3,20 +3,26 @@
 import os
 import django
 
-
+#在导入任何模块之前 设置变量
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bbk.settings")
-
-
 django.setup()
 #setting.configure()
+
+
+from django.db.models import Avg, Sum, Max, Min
+
 
 import pdb,traceback
 
 from order.models import *
 from users.models import *
+from users import UserManager
 
 from django.db.models import Manager
 import django.utils.timezone as timezone
+
+
+FLAG_DEBUG=True
 
 
 def getEntityCount(entity):
@@ -34,7 +40,15 @@ def testFindUser():
 	#print manager.filter(pk=2).exists()
 	print user.printObj()
 	
-	
+def getUserListByCate():
+	cate_id=1
+	pdb.set_trace()
+	qset= UserStar.objects.filter(cate_id=str(cate_id))
+	if qset.exists():
+		useridList = [p.user_id for p in qset ]
+		for k, v in NewUser.objects.in_bulk(useridList).iteritems():
+
+			print k, v
 
 def getUsersByIdList():
 	manager=NewUser.objects
@@ -61,6 +75,8 @@ def addUserInfo():
 	user.userinfo.truename='root true name update'
 	user.save()
 
+
+
 	
 
 def addUsers():
@@ -77,7 +93,7 @@ def addUsers():
 		#NewUser.objects.bulk_create([]) #数据批量导入bulk_create()
 		
 		if not NewUser.getUser(name, pwd):
-			NewUser.objects.create(username=name, password=pwd, pwd=pwd,  phone="15011033945", city="beijing", email="8678@qq.com" )
+			NewUser.objects.create(username=name, password=pwd, pwd=pwd,  phone="15011033945" ) #, city="beijing", email="8678@qq.com" )
 		else:
 			print "username:%s exists" %(name)
 
@@ -90,6 +106,12 @@ def addUsers():
 	#Blog.objects.create(title=title,content=content)
 	#f.close()
 
+def updateCate(id,  cate_name=None, cate_desc=None):
+	cate = Category.objects.get(pk=id)
+	cate.cate_name=cate_name
+	cate.cate_desc=cate_desc
+	cate.save()
+
 
 def addCate():
 	count = getEntityCount(Category.objects)
@@ -97,7 +119,6 @@ def addCate():
 
 	#root_cate=Category.objects.get(pk=-1)
 	#Category.objects.create( pcate= root_cate, cate_name="buz", state=1, cate_desc="商务办公", update_time=timezone.now ) 
-
 	Category.objects.get_or_create(cate_id=-1, cate_name="root cate" , cate_desc="root cate" )
 
 	root_cate=Category.objects.get(pk=-1)
@@ -138,6 +159,18 @@ def getSubCates():
 	print manager.values_list("cate_id", "cate_name", "pcate_id").filter(pcate_id=1)
 	pass
 
+
+def getCatePrefsForUser():
+	""" 多表关联查询 查询用户所有内行行业及相应分值"""
+	# __:两个下划线可以生成连接查询，查询关联的字段信息
+	# _set:提供了对象访问相关联表数据的方法。但这种方法只能是相关类访问定义了关系的类（主键类访问外键类）
+	manager = UserStar.objects
+	pdb.set_trace()
+	manager.filter(user__id='1').values()
+	manager.filter(user__id=1).values()
+	if manager.filter(user__id='2').exists():
+		print manager.filter(user__id='2')
+
 def getPCates():
 	manager= Category.objects
 	cate = manager.get(pk=5)
@@ -157,6 +190,42 @@ def updateUserPref():
 		userstar.save()
 	print userstar
 
+def getUserPrefList():
+	user = NewUser.objects.get(pk=1)
+	pdb.set_trace()
+	qset = user.preflist.values()
+	if qset.exists():
+		for p in qset:
+			print p
+
+
+def getStarService(user_id, cate_id):
+	pdb.set_trace()
+	manager = NewUser.objects
+	avg_service = manager.star_service(user_id, cate_id)
+	avg_personal = manager.star_personal(user_id, cate_id)
+	avg_total = manager.star_total(user_id, cate_id)
+	pass
+
+	#avg_service =0
+	#avg_personal =0
+	#avg_total =0
+	#user = NewUser.objects.get(pk=1)
+	##多表关联， 通过关联表反向查询
+	#qset =UserStar.objects.filter(user__id=1)
+	#if qset.exists():
+	#	avg_service = qset.values_list('star_service').aggregate(Avg('star_service')).values()[0]
+	#	avg_personal = qset.values_list('star_personal').aggregate(Avg('star_personal')).values()[0]
+	#	#servicelist=[f.star_service for f in qset.values('star_service') ]
+	#	#personallist=[f.star_personal for f in qset.values('star_personal') ]
+	#	#avg_service = mean(servicelist)
+	#	#avg_personal = mean(personallist)
+	#	avg_total = (avg_service+avg_personal)/2
+	print "avg_service:%f avg_personal:%f avg_total :%f" %(avg_service ,avg_personal, avg_total)
+	#return avg_service
+
+
+
 def addUserPref():
 	""" 用户内行专业CRUD """
 	manager = UserStar.objects
@@ -164,8 +233,6 @@ def addUserPref():
 	print "count:%d" % (count)
 
 	user = NewUser.getUser("admin","admin")
-	
-	
 	cate1=Category.objects.get(pk=1)
 	cate2=Category.objects.get(pk=2)
 	cate3=Category.objects.get(pk=3)
@@ -175,8 +242,10 @@ def addUserPref():
 		print insertCates1[i]
 		cate, star_service , star_personal, desc = insertCates1[i]
 		try:
-			manager.create(user=user, cate = cate, star_personal=star_personal, star_service = star_service, desc = desc)
-			#Category.objects.get(pk=cate_id)
+			#多对多关系表,由第三方关系表添加
+			manager.get_or_create(user=user, cate = cate, star_personal=star_personal, star_service = star_service, desc = desc)
+			user.is_pref=1
+			user.save()
 			#print "category:%s exists" %(cate_id)
 		except Exception as e:
 			print "err", e
@@ -204,7 +273,8 @@ def addUserFollowing():
 	try:
 		following_list=[(user1, user2), (user1,user3), (user1, user4), (user1,user5), (user2, user3), (user2, user4) ]
 		for k,v in following_list:
-			manager.get_or_create(user=k, following=v, add_time=timezone.now  )
+			manager.create(user=k, following=v, add_time=timezone.now  )
+			#manager.get_or_create(user=k, following=v, add_time=timezone.now  )
 
 		#manager.create(user=user1, following=user2, add_time=timezone.now , update_time=timezone.now)
 		#manager.create(user=user1, following=user3, add_time=timezone.now , update_time=timezone.now)
@@ -224,7 +294,9 @@ def updateUserFollowing():
 	manager.filter(pk=1).update(update_time=timezone.now() )
 	print "update affter", manager.get(pk=1).update_time
 
+
 def findUserFollowing():
+	""" 获取user的所有关注 """
 	user_id =1
 	manager = UserFollowing.objects
 	user1 = NewUser.objects.get(pk=1)
@@ -295,18 +367,25 @@ def main():
 	#testFindUser()
 	#addUserInfo()
 
-
+	#getUserListByCate()
 	#getUserById()
 	#addUsers()
 	#getUsersByIdList()
 
 	#addCate()
+	#updateCate(1,"transport", "交通运输")
+	#updateCate(2,"house", "房产销售")
+	#updateCate(3,"bussiness", "电脑办公")
+	#updateCate(4,"guide", "当地向导")
 	#getSubCates()
 	#getPCates()
+
+	getStarService(1, -1)
+	#getUserPrefList()
 	#addUserPref()
-	updateUserPref()
+	#updateUserPref()
 
-
+	#getCatePrefsForUser()
 	#addUserFollowing()
 	#updateUserFollowing()
 	#findUserFollowing()

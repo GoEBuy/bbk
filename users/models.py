@@ -2,11 +2,13 @@
 from __future__ import unicode_literals
 
 import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
+import UserManager
 
 
 #null: default False
@@ -44,6 +46,10 @@ class Category(models.Model):
 		"""自定义打印对象所有属性 """
 		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
+	#def get_absolute_url(self):
+	#	return reverse('author-detail', kwargs={'pk': self.pk})
+
+
 	class Meta:
 		verbose_name = u"分类"
 		verbose_name_plural = verbose_name
@@ -70,10 +76,10 @@ class NewUser(AbstractUser):
     #)
 	pwd = models.CharField(max_length=20, blank=False, default="", verbose_name=u'密码')
 	phone = models.CharField(max_length=30,  blank=True, verbose_name=u'手机')
-	session = models.CharField(max_length=50, null=True, blank=True, default="",
-							   verbose_name=u"用户登录时会写入当前session_key")
+	session = models.CharField(max_length=50, null=True, blank=True, default="", help_text=u"用户登录时会写入当前session_key")
 
 	level= models.IntegerField(default=0, help_text=u'用户等级')
+	is_pref= models.BooleanField(default=False, help_text='是否是内行人')
 	#多对多关系表 用户内行行业列表
 	preflist= models.ManyToManyField( Category, through="UserStar", through_fields=('user', 'cate' ) )
 	num_following = models.IntegerField(default=0, verbose_name=u"关注人数" )
@@ -91,23 +97,14 @@ class NewUser(AbstractUser):
 		verbose_name = u"用户"
 		verbose_name_plural = verbose_name
 
+	#使用自定义的Manager
+	#objects = UserManager()
+	objects = UserManager.UserManager()
+
+
 
 	def count_user(self):
 		return NewUser.objects.count()
-
-	@classmethod
-	def getUser(cls, username, password):
-		try:
-			user = NewUser.objects.get(Q(username=username) & Q(password=password))
-		except Exception as e:
-			print "error:", e
-			return None
-		else:
-			return user
-		# def delete_user(self, pk=0):
-		#     NewUser.objects.get(pk=0)
-		#     return NewUser.objects.filter(pk=0).remove()
-
 
 
 class UserInfo(models.Model):
@@ -125,7 +122,7 @@ class UserInfo(models.Model):
 
 	city = models.CharField(max_length=50, blank=True, verbose_name=u'所在地')
 	address = models.CharField(max_length=150, blank=True, verbose_name=u'地址')
-	img = models.ImageField(upload_to="imgs/img_user", blank=True, default="" , verbose_name=u"头像")
+	img = models.ImageField(upload_to="imgs/img_user", blank=True, default="/static/img/default-avatar.png" , verbose_name=u"头像")
 	profile = models.CharField('profile', default='',max_length=256)
 	gender = models.CharField(
 		max_length=1,
@@ -150,9 +147,13 @@ class UserInfo(models.Model):
 		verbose_name = u"用户详细信息表"
 		verbose_name_plural = verbose_name
 
+
+
+
+
 class OpenUser(models.Model):
 	#id
-	user= models.ForeignKey(NewUser)
+	user= models.OneToOneField(NewUser)
 	open_type=models.IntegerField(default=0,
 		choices=(
 			(0, 'unknown'),
@@ -318,3 +319,6 @@ class UserFollowing(models.Model):
 	@classmethod
 	def count_follower(cls, user):
 		return UserFollowing.objects.filter(following=self, is_following=1).count()
+
+
+

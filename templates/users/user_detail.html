@@ -1,0 +1,12 @@
+
+{% extends '../layout.html' %}
+
+{% block main %}
+<h2>users</h2>
+<ul>
+ {{user}}
+ </p>
+userid: <a class="node" href="{% url 'users:detail' user.id %}">{{user.id}}</a> </p>
+username:{{user.username}}
+</ul>
+{% endblock %}
