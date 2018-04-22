@@ -1,3 +1,5 @@
+{% load static %}   #这个地方引入static这个文件
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,8 +133,12 @@
             width: 73px;
             height: 73px;
         }
-		
-
+        .copyright{
+		text-align: left;
+        clear: both;
+         font-size: 12px;
+            font-family: initial;
+}
     </style>
 
 	<!-- css样式表 -->
@@ -242,6 +248,17 @@
     </div>
     {% block footer %} {% endblock %}
 </div>
+
+<div id="copyright", class="copyright">
+        <p>
+            ©<span>2018</span>
+            <a href="http://meituan.com/">帮帮看</a>
+            bbk.com
+            <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP证070791号</a>
+            京公网安备11010502025545号<a href="http://meituan.com/about/rules" target="_blank"> 电子公告服务规则</a>
+        </p>
+    <div>
+
 </div>
 
 
