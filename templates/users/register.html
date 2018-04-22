@@ -1,0 +1,65 @@
+{% load static %}   #这个地方引入static这个文件
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>注册会员-58同城</title>
+  <!--  <script src="//j1.58cdn.com.cn/js/5_1/jquery1.3.2_v0.js"></script>
+    <script src="//passport.58.com/rsa/ppt_security.js"></script>
+    <script src="//j1.58cdn.com.cn/js/placeholders.min.js"></script>
+    <link rel="Shortcut Icon" href="//img.58cdn.com.cn/n/tuan/v3/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://c.58cdn.com.cn/ppt/ui6/my/css/mobile_reg_v20171123144136.css"/>
+ 	<script  src="https://j1.58cdn.com.cn/git/monitor/index.min_v20180104173508.js"></script>-->
+    <!--<script>
+   		var passport_whitelist = ['58cdn.com.cn'];
+   		try {
+   			var monitor = window.FeMonitor.getInstance({
+   				projectID: 'passport_reg',
+   				//reportUrl: '',
+   				whitelist: passport_whitelist
+   			});
+   			monitor.init();
+   		}catch (e){
+   		}
+    </script>-->
+</head>
+<body>
+    <!--<img src="/static/img/bg.jpg" alt="" width="100%" height="100%" style="z-index:-1;position:fixed;_position:absolute;left:0;right:0;bottom:0;top:0;_left:expression(eval(document.documentElement.scrollLeft+document.documentElement.clientWidth-this.offsetWidth)-(parseInt(this.currentStyle.marginLeft,10)||0)-(parseInt(this.currentStyle.marginRight,10)||0));_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));">-->
+    <img src="{% static 'img/bg.jpg' %}" alt="" width="100%" height="100%" style="z-index:-1;position:fixed;_position:absolute;left:0;right:0;bottom:0;top:0;_left:expression(eval(document.documentElement.scrollLeft+document.documentElement.clientWidth-this.offsetWidth)-(parseInt(this.currentStyle.marginLeft,10)||0)-(parseInt(this.currentStyle.marginRight,10)||0));_top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop,10)||0)-(parseInt(this.currentStyle.marginBottom,10)||0)));">
+
+
+    <div id="overlay"></div>
+    <div id="regContent">
+        <div id="outregBox">
+            <div id="backtoindex"><a href="#">返回首页</a></div>
+            <div id="goLogin">已有账户？<a href="#">去登录</a></div>
+        </div>
+        <div class="wrap">
+
+            <div id="regLogo" class="regLogo"><a id="logoHref" href="#"></a></div>
+            <div id="regBox" class="regBox">
+
+                  <!-- <script src="//passport.58.com/mobile/pc/showmobilereg?divid=regBox&source=passport&voicetype=0&callback=&path="></script>
+-->
+            </div>
+        </div>
+	  <!--  <div class="login-footer">
+	        <span id="footerTip" href="javascript:;">© 58.com</span><span>|</span><a href="http://ai.58.com/pc/#/entry/scene_id=2&joinfrom=regist" target="_blank" onclick="clickLog('from=pc_register_ai_click')">联系客服</a><span>|</span><a href="//about.58.com/customerservice.html" target="_blank">帮助</a>
+	    </div>-->
+    </div>
+	<!--基本统计代码begin-->
+	<!--<script type="text/javascript">
+		var _trackURL = "{'cate':'','area':'','pagetype':'PC_regist_sj','page':''}";
+	</script>
+	<script src="//tracklog.58.com/referrer4.js"></script>-->
+	<!--基本统计代码end-->
+
+    <!--<script>
+    window.onload = function(){
+        $(".regLable").html("");
+
+    }
+    </script>-->
+</body>
+</html>
