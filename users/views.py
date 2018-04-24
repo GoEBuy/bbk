@@ -74,6 +74,7 @@ def logout(request):
 
 
 def register(request):
+	#pdb.set_trace()
 	error1 = "this name is already exist"
 	valid = "this name is valid"
 

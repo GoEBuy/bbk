@@ -1,0 +1,96 @@
+ERROR 2018-04-22 14:05:17,952 [exception.py:135] [exception] 6632 140706282731264 Internal Server Error: /users/register/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 186, in _get_response
+    except Exception as e:
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 97, in register
+    user = NewUser.objects.create_user(username= username, email= email, password = password1, pwd=password1 )
+AttributeError: 'UserManager' object has no attribute 'create_user'
+ERROR 2018-04-22 14:05:18,046 [basehttp.py:124] [basehttp] 6632 140706282731264 "POST /users/register/ HTTP/1.1" 500 74447
+ERROR 2018-04-22 15:00:38,364 [exception.py:135] [exception] 7356 140102606296832 Internal Server Error: /users/register/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 81, in register
+    if request.method == 'GET':
+  File "/home/yyy/mygit/bbk/users/views.py", line 81, in register
+    if request.method == 'GET':
+  File "/usr/lib/python2.7/bdb.py", line 49, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "/usr/lib/python2.7/bdb.py", line 68, in dispatch_line
+    if self.quitting: raise BdbQuit
+BdbQuit
+ERROR 2018-04-22 15:00:38,538 [basehttp.py:124] [basehttp] 7356 140102606296832 "POST /users/register/ HTTP/1.1" 500 83060
+ERROR 2018-04-22 15:07:11,926 [exception.py:135] [exception] 7501 140091653007104 Internal Server Error: /users/register/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 97, in register
+    return render(request, reverse('users:login'), {'success': "you have successfully registered!"})
+  File "/usr/local/lib/python2.7/dist-packages/django/shortcuts.py", line 30, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/usr/local/lib/python2.7/dist-packages/django/template/loader.py", line 67, in render_to_string
+    template = get_template(template_name, using=using)
+  File "/usr/local/lib/python2.7/dist-packages/django/template/loader.py", line 25, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+TemplateDoesNotExist: /users/login/
+ERROR 2018-04-22 15:07:12,110 [basehttp.py:124] [basehttp] 7501 140091653007104 "POST /users/register/ HTTP/1.1" 500 87222
+ERROR 2018-04-22 15:10:04,840 [exception.py:135] [exception] 7537 140484283459328 Internal Server Error: /users/register/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 97, in register
+    return redirect(request, reverse('users:login'), {'success': "you have successfully registered!"})
+  File "/usr/local/lib/python2.7/dist-packages/django/shortcuts.py", line 56, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+  File "/usr/local/lib/python2.7/dist-packages/django/shortcuts.py", line 147, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/urls/base.py", line 91, in reverse
+    return force_text(iri_to_uri(resolver._reverse_with_prefix(view, prefix, *args, **kwargs)))
+  File "/usr/local/lib/python2.7/dist-packages/django/urls/resolvers.py", line 497, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+NoReverseMatch: Reverse for '<WSGIRequest: POST '/users/register/'>' not found. '<WSGIRequest: POST '/users/register/'>' is not a valid view function or pattern name.
+ERROR 2018-04-22 15:10:05,041 [basehttp.py:124] [basehttp] 7537 140484283459328 "POST /users/register/ HTTP/1.1" 500 93799
+ERROR 2018-04-22 15:13:41,037 [exception.py:135] [exception] 7554 140571498727168 Internal Server Error: /users/register/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 98, in register
+    return redirect(request, reverse('users:login'), {'success': "you have successfully registered!", "username":username})
+  File "/home/yyy/mygit/bbk/users/views.py", line 98, in register
+    return redirect(request, reverse('users:login'), {'success': "you have successfully registered!", "username":username})
+  File "/usr/lib/python2.7/bdb.py", line 49, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "/usr/lib/python2.7/bdb.py", line 68, in dispatch_line
+    if self.quitting: raise BdbQuit
+BdbQuit
+ERROR 2018-04-22 15:13:41,204 [basehttp.py:124] [basehttp] 7554 140571498727168 "POST /users/register/ HTTP/1.1" 500 86259

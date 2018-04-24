@@ -3,33 +3,33 @@
 
 {% block main %}
 
-	<div>
-	<!-- Center Column -->
-	<div class="col-sm-12">
+<div>
+<!-- Center Column -->
+<div class="col-sm-12">
 <h2>users</h2>
-{% for u in user_list %}
-			<div class="row">
 
-				<article class="col-xs-12">
+{% for u in user_list %}
+<div class="row">
+
+<article class="col-xs-12">
 
 <ul>
 {{u.userinfo.img}}
 <li> <a class="node" href="{% url 'users:detail' u.id %}"> {{ u.id }}</a> : <strong> {{ u.username}}</strong> : {{ u.date_joined}} 
 <p>
 
-					<!-- 用户标签 -->
-					<p class="pull-right"><span class="label label-default">{{ cate.cate_name }}</span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
-					<ul class="list-inline">
-					<!--	<li><a href="#">{{ article.pub_date | date:"j M" }}</a></li> -->
-						<!-- 评论数量 -->
-						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} &nbsp;Comments</a></li>
-						<!-- 关注人数 -->
-						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>{{ num_following }} &nbsp;人已关注</a></li>
-					</ul>
+<!-- 用户标签 -->
+<p class="pull-right"><span class="label label-default">{{ cate.cate_name }}</span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
+<ul class="list-inline">
+<!--	<li><a href="#">{{ article.pub_date | date:"j M" }}</a></li> -->
+<!-- 评论数量 -->
+<li><a href="#"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} &nbsp;Comments</a></li>
+<!-- 关注人数 -->
+<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>{{ num_following }} &nbsp;人已关注</a></li>
+</ul>
 
-
-				</article>
-			</div>
+</article>
+</div>
 {% endfor %}
 
 </div>

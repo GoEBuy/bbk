@@ -1,0 +1,351 @@
+(0.067) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.053) SELECT VERSION(); args=None
+(0.902) SHOW FULL TABLES; args=None
+(0.541) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+"GET /users HTTP/1.1" 301 0
+(0.001) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.149) SELECT (1) AS `a` FROM `users_userstar` LIMIT 1; args=()
+(0.030) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar`; args=()
+(0.001) SELECT VERSION(); args=None
+(0.320) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` IN (1, 2); args=(1, 2)
+(0.120) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar` WHERE (`users_userstar`.`user_id` = 1 AND `users_userstar`.`cate_id` = 1) LIMIT 21; args=(1, 1)
+(0.036) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.128) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.001) SELECT (1) AS `a` FROM `users_userstar` WHERE (`users_userstar`.`user_id` = 1 AND `users_userstar`.`cate_id` = 1) LIMIT 1; args=(1, 1)
+(0.024) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE (`users_userstar`.`user_id` = 1 AND `users_userstar`.`cate_id` = 1); args=(1, 1)
+(0.001) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar`; args=()
+Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 57, in index
+    star_service = u.star_service(cate_id)
+TypeError: 'float' object is not callable
+(0.001) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 2; args=(2,)
+(0.018) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.017) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.004) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.013) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.001) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.023) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.001) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 3; args=(3,)
+"GET /users/ HTTP/1.1" 500 77279
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.038) SELECT (1) AS `a` FROM `users_userstar` LIMIT 1; args=()
+(0.000) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar`; args=()
+(0.000) SELECT VERSION(); args=None
+(0.063) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` IN (1, 2); args=(1, 2)
+(0.021) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.011) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 40, in index
+    user_list = NewUser.objects.all()
+TypeError: 'float' object is not callable
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 2; args=(2,)
+(0.009) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 3; args=(3,)
+"GET /users/ HTTP/1.1" 500 76901
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.034) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar` WHERE `users_userstar`.`cate_id` = 1 LIMIT 21; args=(1,)
+(0.044) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.001) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.001) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`cate_id` = 1 LIMIT 1; args=(1,)
+(0.001) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar` WHERE `users_userstar`.`cate_id` = 1; args=(1,)
+(0.002) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` IN (1); args=(1,)
+(0.001) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.000) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 186, in _get_response
+    except Exception as e:
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 57, in index
+    star_service = u.star_service(cate_id)
+TypeError: 'float' object is not callable
+(0.001) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+"GET /users/ HTTP/1.1" 500 77771
+(0.001) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.037) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`cate_id` = 1 LIMIT 1; args=(1,)
+(0.001) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar` WHERE `users_userstar`.`cate_id` = 1; args=(1,)
+(0.039) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` IN (1); args=(1,)
+(0.001) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 21; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.128) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.015) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 3; args=(3,)
+(0.001) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.001) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+(0.001) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+(0.001) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 187, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 57, in index
+    star_service = u.star_service(cate_id)
+TypeError: 'float' object is not callable
+(0.001) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+"GET /users/ HTTP/1.1" 500 76755
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.074) SHOW FULL TABLES; args=None
+(0.075) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.003) SHOW FULL TABLES; args=None
+(0.026) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+(0.001) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.069) SELECT (1) AS `a` FROM `users_userstar` LIMIT 1; args=()
+(0.022) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar`; args=()
+(0.001) SELECT VERSION(); args=None
+(0.049) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` IN (1, 2); args=(1, 2)
+(0.001) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.000) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 57, in index
+    star_service1 = u.star_service(cate_id)
+  File "/usr/lib/python2.7/bdb.py", line 55, in trace_dispatch
+    return self.dispatch_exception(frame, arg)
+  File "/usr/lib/python2.7/bdb.py", line 97, in dispatch_exception
+    if self.quitting: raise BdbQuit
+BdbQuit
+(0.001) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 2; args=(2,)
+(0.016) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 3; args=(3,)
+"GET /users/ HTTP/1.1" 500 85058
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.014) SHOW FULL TABLES; args=None
+(0.034) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+(0.001) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.035) SELECT (1) AS `a` FROM `users_userstar` LIMIT 1; args=()
+(0.001) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar`; args=()
+(0.000) SELECT VERSION(); args=None
+(0.072) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` IN (1, 2); args=(1, 2)
+(0.001) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.002) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+Internal Server Error: /users/
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/exception.py", line 41, in inner
+    response = get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 249, in _legacy_get_response
+    response = self._get_response(request)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/core/handlers/base.py", line 185, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/usr/local/lib/python2.7/dist-packages/django/views/decorators/http.py", line 40, in inner
+    return func(request, *args, **kwargs)
+  File "/home/yyy/mygit/bbk/users/views.py", line 57, in index
+    star_service1 = u.star_service(cate_id)
+  File "/home/yyy/mygit/bbk/users/models.py", line 99, in star_service
+    return avg_service
+  File "/home/yyy/mygit/bbk/users/models.py", line 99, in star_service
+    return avg_service
+  File "/usr/lib/python2.7/bdb.py", line 49, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "/usr/lib/python2.7/bdb.py", line 68, in dispatch_line
+    if self.quitting: raise BdbQuit
+BdbQuit
+(0.001) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 2; args=(2,)
+(0.022) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 3; args=(3,)
+(0.000) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 21; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 3; args=(3,)
+(0.000) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 21; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 1; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 2; args=(2,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1; args=(1,)
+(0.000) SELECT `users_category`.`cate_id`, `users_category`.`cate_name`, `users_category`.`pcate_id`, `users_category`.`cate_desc`, `users_category`.`state`, `users_category`.`update_time` FROM `users_category` WHERE `users_category`.`cate_id` = 3; args=(3,)
+"GET /users/ HTTP/1.1" 500 92778
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.001) SHOW FULL TABLES; args=None
+(0.000) SELECT `django_migrations`.`app`, `django_migrations`.`name` FROM `django_migrations`; args=()
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT (1) AS `a` FROM `users_userstar` LIMIT 1; args=()
+(0.000) SELECT `users_userstar`.`id`, `users_userstar`.`user_id`, `users_userstar`.`cate_id`, `users_userstar`.`star_service`, `users_userstar`.`star_personal`, `users_userstar`.`desc` FROM `users_userstar`; args=()
+(0.000) SELECT VERSION(); args=None
+(0.120) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` IN (1, 2); args=(1, 2)
+(0.017) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.000) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+(0.000) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.000) SELECT AVG(`users_userstar`.`star_personal`) AS `star_personal__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+(0.000) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.000) SELECT AVG(`users_userstar`.`star_personal`) AS `star_personal__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+(0.000) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1 LIMIT 1; args=(1,)
+(0.000) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 1; args=(1,)
+(0.000) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2 LIMIT 1; args=(2,)
+(0.000) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2; args=(2,)
+(0.000) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2 LIMIT 1; args=(2,)
+(0.000) SELECT AVG(`users_userstar`.`star_personal`) AS `star_personal__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2; args=(2,)
+(0.000) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2 LIMIT 1; args=(2,)
+(0.000) SELECT AVG(`users_userstar`.`star_personal`) AS `star_personal__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2; args=(2,)
+(0.000) SELECT (1) AS `a` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2 LIMIT 1; args=(2,)
+(0.000) SELECT AVG(`users_userstar`.`star_service`) AS `star_service__avg` FROM `users_userstar` WHERE `users_userstar`.`user_id` = 2; args=(2,)
+Exception while resolving variable 'user_info' in template 'users/user_list.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [user_info] in u'<django.contrib.sessions.backends.db.SessionStore object at 0x7f6bd8bee050>'
+Exception while resolving variable 'is_login' in template 'users/user_list.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [is_login] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x7f6bd81b0a28>>, 'user': <SimpleLazyObject: <function <lambda> at 0x7f6bd8be5668>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x7f6bd81b30d0>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x7f6bd8bee0d0>, u'request': <WSGIRequest: GET '/users/'>}, {}, {u'star_personalDict': {1L: 4.0, 2L: 2.0}, u'star_serviceDict': {1L: 2.0, 2L: 1.0}, u'user_list': [<NewUser: admin>, <NewUser: root>], u'star_totalDict': {1L: 3.0, 2L: 1.5}}]"
+Exception while resolving variable 'online_member_count' in template 'users/user_list.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [online_member_count] in u"<WSGIRequest: GET '/users/'>"
+Exception while resolving variable 'current_visitor_ip' in template 'users/user_list.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [current_visitor_ip] in u"<WSGIRequest: GET '/users/'>"
+"GET /users/ HTTP/1.1" 200 8377
+"GET /static/css/font-awesome.css HTTP/1.1" 404 1677
+"GET /static/plugin/highlight/tomorrow.css HTTP/1.1" 404 1704
+"GET /static/plugin/highlight/highlight.pack.js HTTP/1.1" 404 1719
+"GET /static/js/jquery.cookie.js HTTP/1.1" 404 1674
+"GET /static/js/jquery-3.3.1.js HTTP/1.1" 404 1671
+"GET /static/js/bootstrap.js HTTP/1.1" 304 0
+"GET /static/js/jquery.cookie.js HTTP/1.1" 404 1674
+"GET /static/css/bootstrap.css HTTP/1.1" 200 147430
+"GET /static/plugin/highlight/highlight.pack.js HTTP/1.1" 404 1719
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.039) SELECT (1) AS `a` FROM `users_newuser` WHERE `users_newuser`.`id` = 1 LIMIT 1; args=(1,)
+(0.001) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1 LIMIT 1; args=(1,)
+Exception while resolving variable 'user_info' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [user_info] in u'<django.contrib.sessions.backends.db.SessionStore object at 0x7f6bd8112ad0>'
+Exception while resolving variable 'is_login' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [is_login] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x7f6bd8153de8>>, 'user': <SimpleLazyObject: <function <lambda> at 0x7f6bd8153b90>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x7f6bd8127550>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x7f6bd8112fd0>, u'request': <WSGIRequest: GET '/users/1/'>}, {}, {u'user': <NewUser: admin>}]"
+Exception while resolving variable 'online_member_count' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [online_member_count] in u"<WSGIRequest: GET '/users/1/'>"
+Exception while resolving variable 'current_visitor_ip' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [current_visitor_ip] in u"<WSGIRequest: GET '/users/1/'>"
+"GET /users/1/ HTTP/1.1" 200 8245
+"GET /static/plugin/highlight/tomorrow.css HTTP/1.1" 404 1704
+"GET /static/css/font-awesome.css HTTP/1.1" 404 1677
+"GET /static/js/jquery.cookie.js HTTP/1.1" 404 1674
+"GET /static/js/jquery-3.3.1.js HTTP/1.1" 404 1671
+"GET /static/plugin/highlight/highlight.pack.js HTTP/1.1" 404 1719
+"GET /static/js/jquery.cookie.js HTTP/1.1" 404 1674
+"GET /static/plugin/highlight/highlight.pack.js HTTP/1.1" 404 1719
+(0.000) SELECT @@SQL_AUTO_IS_NULL; args=None
+(0.000) SELECT VERSION(); args=None
+(0.050) SELECT (1) AS `a` FROM `users_newuser` WHERE `users_newuser`.`id` = 1 LIMIT 1; args=(1,)
+(0.000) SELECT `users_newuser`.`id`, `users_newuser`.`password`, `users_newuser`.`last_login`, `users_newuser`.`is_superuser`, `users_newuser`.`username`, `users_newuser`.`first_name`, `users_newuser`.`last_name`, `users_newuser`.`email`, `users_newuser`.`is_staff`, `users_newuser`.`is_active`, `users_newuser`.`date_joined`, `users_newuser`.`pwd`, `users_newuser`.`phone`, `users_newuser`.`session`, `users_newuser`.`level`, `users_newuser`.`is_pref`, `users_newuser`.`num_following`, `users_newuser`.`num_followed` FROM `users_newuser` WHERE `users_newuser`.`id` = 1 LIMIT 1; args=(1,)
+Exception while resolving variable 'user_info' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [user_info] in u'<django.contrib.sessions.backends.db.SessionStore object at 0x7f6bd8128bd0>'
+Exception while resolving variable 'is_login' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [is_login] in u"[{'False': False, 'None': None, 'True': True}, {u'csrf_token': <SimpleLazyObject: <function _get_val at 0x7f6bd8153c08>>, 'user': <SimpleLazyObject: <function <lambda> at 0x7f6bd8153de8>>, 'perms': <django.contrib.auth.context_processors.PermWrapper object at 0x7f6bd8127c90>, 'DEFAULT_MESSAGE_LEVELS': {'DEBUG': 10, 'INFO': 20, 'WARNING': 30, 'SUCCESS': 25, 'ERROR': 40}, 'messages': <django.contrib.messages.storage.fallback.FallbackStorage object at 0x7f6bd8128c90>, u'request': <WSGIRequest: GET '/users/1/'>}, {}, {u'user': <NewUser: admin>}]"
+Exception while resolving variable 'online_member_count' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [online_member_count] in u"<WSGIRequest: GET '/users/1/'>"
+Exception while resolving variable 'current_visitor_ip' in template 'users/user_detail.html'.
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/django/template/base.py", line 903, in _resolve_lookup
+    (bit, current))  # missing attribute
+VariableDoesNotExist: Failed lookup for key [current_visitor_ip] in u"<WSGIRequest: GET '/users/1/'>"
+"GET /users/1/ HTTP/1.1" 200 8245
+"GET /static/plugin/highlight/tomorrow.css HTTP/1.1" 404 1704
+"GET /static/css/font-awesome.css HTTP/1.1" 404 1677
+"GET /static/js/jquery-3.3.1.js HTTP/1.1" 404 1671
+"GET /static/js/jquery.cookie.js HTTP/1.1" 404 1674
+"GET /static/plugin/highlight/highlight.pack.js HTTP/1.1" 404 1719
+"GET /static/plugin/highlight/highlight.pack.js HTTP/1.1" 404 1719
