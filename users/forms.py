@@ -6,6 +6,8 @@ from django.core.exceptions import ValidationError
 from .models import UserInfo, NewUser
 from django.forms import widgets
 
+########### users forms ######################
+
 def mobile_validate(value):
     mobile_re = re.compile(r'^(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$')
     if not mobile_re.match(value):
@@ -79,10 +81,10 @@ class RegisterForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-	username = forms.CharField(label='username',  validators=[user_unique_validate, username_rule_validate, ], max_length=100,widget=forms.TextInput(attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符'}) )
+	username = forms.CharField(label='username',  validators=[ username_rule_validate, ], max_length=100,widget=forms.TextInput(attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符'}) )
 	#, error_messages = {'required': '用户名不能为空',  'min_length': '用户名最少为6个字符',  'max_length': '用户名最不超过为20个字符'}
 	 #, error_messages = {'required': '邮箱不能为空', 'invalid':'请输入正确的邮箱格式'} )
-	password1 = forms.CharField(widget=forms.PasswordInput,error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!',})
+	password1 = forms.CharField(widget=forms.PasswordInput, error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!',})
 
 
 class SetInfoForm(forms.Form):

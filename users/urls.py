@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
 
 	#ex: /users/<id> [?cate=<cate_id>&city=<city_name>&] 
-	url('^(?P<id>\d+)/', views.detail, name='detail'),
+    url('^(?P<id>\d+)/', views.detail, name='detail'),
 
 	#url(r'', views.index.as_view() ),
 

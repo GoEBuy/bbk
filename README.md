@@ -14,3 +14,7 @@ https://github.com/GoEBuy/bbk.git
 #python manage.py sqlmigrate
 #python manage.py showmigrations
 #python manage.py migrate
+
+
+
+#python manage.py diffsettings来查看当前settings文件和默认设置的不同之处

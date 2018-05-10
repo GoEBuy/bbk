@@ -9,7 +9,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
-from .models import * 
+from .models import *  #模型
 import markdown2, urlparse
 
 from django.db.models import Q
@@ -26,7 +26,11 @@ from django.shortcuts import render, HttpResponse, redirect
 from utils.check_code import create_validate_code
 from .forms import *
 
+from django.conf import settings #读取setting配置
+
 logger = logging.getLogger(__name__)
+
+DEBUG_PDB =settings.DEBUG_PDB
 
 
 def check_code(request):
@@ -43,6 +47,8 @@ def check_code(request):
 
 
 def login(request):
+        if DEBUG_PDB:
+            pdb.set_trace()
 
 	if request.method == 'GET':
 		form = LoginForm()
@@ -52,13 +58,15 @@ def login(request):
 		if form.is_valid():
 			username = form.cleaned_data['username'].encode('utf-8')
 			password = form.cleaned_data['password1'].encode('utf-8')
-			user = authenticate(username=username, password=password)
+			#user = authenticate(username=username, password=password)
+			user = NewUser.objects.getUser(username, password)
 			if user is not None and user.is_active:
-				#login(request, user)
-				#url = request.POST.get('source_url', '/focus')
-				#return redirect(url)
-				return redirect( reverse('users:index' ),{} )
+                                #保存session
+                                #request.session
+                                #转到主页
+				return redirect( reverse('users:index' ), locals() )
 			else:
+                                #重新登录
 				return render(request, 'users/login.html', {'form': form, 'error': "password or username is not ture!"})
 
 		else:
@@ -104,8 +112,11 @@ def register(request):
 def index(request):
 	""" 展现当前分类的所有内行人员"""
 	logger.debug('index')
+        if DEBUG_PDB:
+            pdb.set_trace()
 	context_object_name = 'user_list'
-	template_name ='users/user_list.html'	
+	template_name ='users/index.html'	
+	#template_name ='users/user_list.html'	
 	user_list = NewUser.objects.all()
 	cate_id = request.GET.get('cate', -1)
 	logger.debug("cate: %s" %(str(cate_id)) )
@@ -140,6 +151,7 @@ def index(request):
 	'star_totalDict':star_totalDict,
 	'num_following':num_following
 	}
+	logger.debug("render %s" %(template_name) )
 	return render(request, template_name, context)
 
 def detail(request, id=None):
@@ -211,6 +223,95 @@ def getUserPrefList(ListView):
 	#template_name ='users/user_detail.html'	
 
 
+
+class UserManager(models.Manager):
+
+	@classmethod
+	def star_service(cls, id, cate_id=None):
+		avg_service =0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id)
+		if qset.exists() :
+			avg_service = round( qset.values_list('star_service').aggregate(models.Avg('star_service')).values()[0], 1)
+
+		return avg_service
+
+	@classmethod
+	def star_personal(cls, id, cate_id=None):
+		avg_personal=0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id)
+		if qset.exists():
+			avg_personal = round( qset.values_list('star_personal').aggregate(models.Avg('star_personal')).values()[0], 1)
+		return avg_personal
+
+	@classmethod
+	def star_total(cls, id ,cate_id=None):
+		return round( (UserManager.star_personal(id, cate_id)+UserManager.star_service(id, cate_id) )/2 ,1)
+
+	@classmethod
+	def getCommentNum(cls, id, cate_id=None):
+		pass
+
+
+	@classmethod
+	def getFollowedNum(cls, id, cate_id=None):
+		"""关注此用户的人数"""
+		count =0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserFollowing.objects.filter(following_id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset = UserFollowing.objects.filter(following_id= id)
+		if qset.exists():
+			count = qset.count()
+		return count
+
+	@classmethod
+	def getFollowingNum(cls, id, cate_id=None):
+		count =0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserFollowing.objects.filter(user_id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset = UserFollowing.objects.filter(user_id= id)
+		if qset.exists():
+			count = qset.count()
+		return count
+
+	@classmethod
+	def getUser(cls, username, password):
+		try:
+			user = NewUser.objects.get(Q(username=username) & Q(password=password))
+		except Exception as e:
+			print "error:", e
+			return None
+		else:
+			return user
+
+
+
+	#def getPrefDesc(self, user_id):
+	#	try:
+	#		user = NewUser.objects.get(pk=user_id)
+	#		user.preflist.values()
+	#	excep as Exception e:
+	#		"not find"
+	#		return None
+		
+
+	pass
+	
 
 
 		

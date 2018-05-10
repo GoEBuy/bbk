@@ -1,0 +1,56 @@
+{% load static %}   <!--这个地方引入static这个文件 -->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!--自适应 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- block title -->
+<title> {% block title %} </title>
+<!-- block extrahead -->
+{% block extrahead %}{% endblock %}  
+<!-- <title>帮帮看</title> -->
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/font-awesome.css">
+<link rel="stylesheet" href="/static/plugin/highlight/tomorrow.css">
+
+<style>
+</style>
+<!-- css样式表 -->
+{% block CSS %} {% endblock %}
+</head>
+
+<body>
+
+<div class="container">
+<div class="row">
+<div class="col">
+1 of 2
+</div>
+<div class="col">
+2 of 2
+</div>
+</div>
+<div class="row">
+<div class="col-2">
+1 of 3
+</div>
+<div class="col-7">
+2 of 3
+</div>
+<div class="col-3">
+3 of 3
+</div>
+</div>
+</div>
+
+</body>
+
+{% block JS %}
+{% endblock %}
+
+</body>
+</html>

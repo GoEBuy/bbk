@@ -7,17 +7,27 @@
 
 <!--自适应 -->
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="汽车,汽车之家,汽车网,汽车报价,汽车图片,新闻,评测,社区,俱乐部" />
+<meta name="description" content="">
 
-<!-- block title -->
-<title> {% block title %} </title>
+<!-- block title标题 -->
+<!-- <title>帮帮看</title> -->
+<title> {% block title %}{% endblock %} </title>
+
 <!-- block extrahead -->
 {% block extrahead %}{% endblock %}  
-<!-- <title>帮帮看</title> -->
+
 <link rel="stylesheet" href="/static/css/bootstrap.css">
 <link rel="stylesheet" href="/static/css/font-awesome.css">
 <link rel="stylesheet" href="/static/plugin/highlight/tomorrow.css">
 
 <style>
+
+body {
+	    color: #3C3C3C;
+}
+
+
 #Top {
 	text-align: center;
 	background-color: #fff;
@@ -158,18 +168,42 @@ clear: both;
 src="/static/img/fake_logo@2x.png" border="0" align="default" alt="帮帮看"
 width="94" height="30"></a></td> -->
 <body>
-<div id="Top">
+<!--topbar -->
 <!-- top bar -->
+<div id="Top">
 <div class="content">
 <div  style="padding-top: 1px;">
-<table class="commonTopbar" cellpadding="0" cellspacing="0" border="0" width="100%">
+<!--
+	<div id="commonTopbar" class="commonTopbar" >
+		<div id="bar_left" style="float:left;word-spacing:1.2px;" >
+			<h2>北京 [切换城市 北京 廊坊 保定 天津]</h2>
+		</div>
+		<div id="bar_right" style="float:right; position:relative ">
+			<div style="float:left;"><a href="#" class="top">首页</a>&nbsp;&nbsp;&nbsp;</div>
+
+			<div><a href="#" class="top">登录</a>
+<span style="font-style: italic">| </span> 
+<a href="#" class="top">注册</a>&nbsp;&nbsp;&nbsp;</div>
+
+<div >	<a href="#" class="top">个人中心</a>
+	<span >></span>
+	<div class="hc" style="display:none;" id="commonTopbar_loginbox"><a id="commonTopbar_tomypost" href="#" target="_blank" >我的发布</a><a id="" href="#" target="_blank" >账户设置</a><a id="" href="#" target="_blank" >我的求职</a><a id="commonTopbar_tohelp" href="#" target="_blank" >客户服务</a></div>
+	&nbsp;&nbsp;&nbsp;
+		</div>
+	</div>
+</div>
+
+-->
+	<!--表格 -->
+
+	<table class="commonTopbar" cellpadding="0" cellspacing="0" border="0" width="100%">
 <tbody>
 <tr>
 <td width="310" align="left"><a href="#" name="top" title="way to explore">北京 [切换城市 北京 廊坊 保定 天津]
 </a></td>
 {% if request.session.user_info %}
 <td width="570" align="right" style="padding-top: 2px;">
-<a href="#" class="top">首页</a>
+	<a href="#" class="top">首页</a> 
 &nbsp;&nbsp;&nbsp;<a href="#" class="top">{{ request.session.user_info.username }}</a>
 &nbsp;&nbsp;&nbsp;<a href="/notes" class="top">记事本</a>
 &nbsp;&nbsp;&nbsp;<a href="/settings" class="top">设置</a>
@@ -177,22 +211,32 @@ width="94" height="30"></a></td> -->
 { location.href= '#'; }" class="top">登出</a></td>
 {% else %}
 <td width="570" align="right" style="padding-top: 2px;">
-<a href="#" class="top">首页</a>&nbsp;&nbsp;&nbsp;
+	<a href="#" class="top">首页</a>&nbsp;&nbsp;&nbsp;
 <a href="#" class="top">登录</a>
 <span style="font-style: italic">| </span> 
 <a href="#" class="top">注册</a>&nbsp;&nbsp;&nbsp;</td>
 {% endif %}
 <td width="85" align="right" style="padding-top: 2px;">
-<a href="#" class="top">个人中心</a>&nbsp;&nbsp;&nbsp;</td>
+	<a href="#" class="top">个人中心</a>
+	<span >></span>
+	<!-- <div class="hc" style="display:none;" id="commonTopbar_loginbox"><a id="commonTopbar_tomypost" href="#" target="_blank" >我的发布</a><a id="" href="#" target="_blank" >账户设置</a><a id="" href="#" target="_blank" >我的求职</a><a id="commonTopbar_tohelp" href="#" target="_blank" >客户服务</a></div> -->
+	&nbsp;&nbsp;&nbsp;
+
+
+
+</td>
 <td width="85" align="right" style="padding-top: 2px;">
 <a href="#" class="top">联系客服</a>&nbsp;&nbsp;&nbsp;</td>
 
 </tr>
 </tbody>
-</table>
+</table> <!-- table -->
+
+
+
 </div>
 </div>
-</div>
+</div> <!-- end of top bar -->
 
 
 <!--
@@ -215,17 +259,20 @@ width="94" height="30"></a></td> -->
 {% endif %}
 -->
 
+
+<!--中间部分 -->
 <div id="Main">
-<!-- <div class="sep10"></div>-->
 {% block main %}
 {% endblock %}
 </div>
 
-
+<!--
 <div>
 
 </div>
+-->
 
+<!-- footer底部 -->
 <div id="Bottom">
 <div class="content">
 <div class="inner">
@@ -247,14 +294,18 @@ World is powered by solitude
 </div>
 </div>
 </div>
+
 {% block footer %} {% endblock %}
 
 
 <div  class="copyright">
-<!-- copyright -->
+<!-- copyright 包含静态页面 -->
 {% include 'include/copyright.html' %}
 </div>
 
+
+
+<!-- 加载js -->
 <script src="/static/js/jquery-3.3.1.js"></script>
 <script src="/static/js/jquery.cookie.js"></script>
 <script src="/static/js/bootstrap.js"></script>
@@ -284,6 +335,7 @@ document.addEventListener("visibilitychange", function () {
 <script>hljs.initHighlightingOnLoad();</script>
 -->
 
+<!--加载其他Js -->
 {% block JS %}
 {% endblock %}
 

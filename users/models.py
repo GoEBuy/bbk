@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
-import UserManager
+#import UserManager
 
 
 #null: default False
@@ -20,6 +20,95 @@ import UserManager
 #Error message keys include null, blank, invalid, invalid_choice, unique, and unique_for_date
 
 # Create your models here.
+
+class UserManager(models.Manager):
+
+	@classmethod
+	def star_service(cls, id, cate_id=None):
+		avg_service =0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id)
+		if qset.exists() :
+			avg_service = round( qset.values_list('star_service').aggregate(models.Avg('star_service')).values()[0], 1)
+
+		return avg_service
+
+	@classmethod
+	def star_personal(cls, id, cate_id=None):
+		avg_personal=0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset =UserStar.objects.filter(user__id=id)
+		if qset.exists():
+			avg_personal = round( qset.values_list('star_personal').aggregate(models.Avg('star_personal')).values()[0], 1)
+		return avg_personal
+
+	@classmethod
+	def star_total(cls, id ,cate_id=None):
+		return round( (UserManager.star_personal(id, cate_id)+UserManager.star_service(id, cate_id) )/2 ,1)
+
+	@classmethod
+	def getCommentNum(cls, id, cate_id=None):
+		pass
+
+
+	@classmethod
+	def getFollowedNum(cls, id, cate_id=None):
+		"""关注此用户的人数"""
+		count =0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserFollowing.objects.filter(following_id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset = UserFollowing.objects.filter(following_id= id)
+		if qset.exists():
+			count = qset.count()
+		return count
+
+	@classmethod
+	def getFollowingNum(cls, id, cate_id=None):
+		count =0
+		if cate_id and cate_id>=0:
+			from .models import *
+			qset =UserFollowing.objects.filter(user_id=id, cate_id=cate_id)
+		else:
+			from .models import *
+			qset = UserFollowing.objects.filter(user_id= id)
+		if qset.exists():
+			count = qset.count()
+		return count
+
+	@classmethod
+	def getUser(cls, username, password):
+		try:
+			user = NewUser.objects.get(Q(username=username) & Q(password=password))
+		except Exception as e:
+			print "error:", e
+			return None
+		else:
+			return user
+
+
+
+	#def getPrefDesc(self, user_id):
+	#	try:
+	#		user = NewUser.objects.get(pk=user_id)
+	#		user.preflist.values()
+	#	excep as Exception e:
+	#		"not find"
+	#		return None
+		
+
+	pass
+	
 
 class Category(models.Model):
 	""" 行业分类 """
@@ -98,8 +187,8 @@ class NewUser(AbstractUser):
 		verbose_name_plural = verbose_name
 
 	#使用自定义的Manager
-	#objects = UserManager()
-	objects = UserManager.UserManager()
+	objects = UserManager()
+	#objects = UserManager.UserManager()
 
 
 
@@ -321,4 +410,10 @@ class UserFollowing(models.Model):
 		return UserFollowing.objects.filter(following='self', is_following=1).count()
 
 
+
+
+		
+
+class CateManager(models.Manager):
+	pass
 
