@@ -36,6 +36,12 @@ def email_unique_validate(email):
         raise ValidationError('Email已经存在，请换一个')
 
 
+class SettingsForm(forms.Form):
+    location = forms.CharField(required=False, max_length=50, error_messages={'max_length':'最多50位'} ) 
+
+    pass
+
+
 # class SignupForm(forms.Form):
 #     username = forms.CharField(
 #         validators=[user_unique_validate, username_rule_validate, ], required=True,

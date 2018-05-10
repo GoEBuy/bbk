@@ -63,6 +63,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+
+    #'middle.custom_middle.CountOnlineMiddlewareMixin', 
 )
 
 ROOT_URLCONF = 'bbk.urls'

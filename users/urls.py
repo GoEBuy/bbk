@@ -23,6 +23,9 @@ urlpatterns = [
 
     url(r'^logout/$', views.logout, name='logout'),
 
+    url(r'^settings/$', views.user_settings, name='settings'),
+
+
 	#url('user/add/', AuthorCreate.as_view(), name='author-add'),
 	#url('user/<int:pk>/delete/', AuthorDelete.as_view(), name='author-delete'),
 

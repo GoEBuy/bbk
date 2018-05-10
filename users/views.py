@@ -61,7 +61,12 @@ def login(request):
 			#user = authenticate(username=username, password=password)
 			user = NewUser.objects.getUser(username, password)
 			if user is not None and user.is_active:
-                                #保存session
+                                #保存user_info session
+                                user_info={
+                                    'username': username,
+                                    
+                                        }
+                                request.session['user_info'] = user_info
                                 #request.session
                                 #转到主页
 				return redirect( reverse('users:index' ), locals() )
@@ -82,7 +87,8 @@ def logout(request):
 
 
 def register(request):
-	#pdb.set_trace()
+        if DEBUG_PDB:
+	    pdb.set_trace()
 	error1 = "this name is already exist"
 	valid = "this name is valid"
 
@@ -169,10 +175,41 @@ def detail(request, id=None):
 
 
 @require_http_methods(["GET", "POST"])
+def user_settings(request):
+    if DEBUG_PDB:
+        pdb.set_trace()
+
+    if request.method == 'GET':
+            form = SettingsForm()
+            return render(request, 'users/settings.html', {'form': form})
+    if request.method == 'POST':
+            form = SettingsForm(request.POST)
+            if form.is_valid():
+                    username = form.cleaned_data['username'].encode('utf-8')
+    
+    pass
+
+@require_http_methods(["GET", "POST"])
 def getUserPrefList(ListView):
 	model = UserStar
 	context_object_name = 'userstar_list'
 
+
+@require_http_methods(["GET", "POST"])
+def user_settings_avatar(request):
+    if DEBUG_PDB:
+        pdb.set_trace()
+
+    if request.method == 'GET':
+        pass
+            #form = SettingsForm()
+            #return render(request, 'users/settings.html', {'form': form})
+    if request.method == 'POST':
+            form = SettingsForm(request.POST)
+            if form.is_valid():
+                    username = form.cleaned_data['username'].encode('utf-8')
+    
+    pass
 
 # class
 #class index(ListView):
@@ -222,7 +259,7 @@ def getUserPrefList(ListView):
 	##context_object_name = 'user'
 	#template_name ='users/user_detail.html'	
 
-
+######################  Manger #######################
 
 class UserManager(models.Manager):
 
