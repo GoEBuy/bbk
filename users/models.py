@@ -6,9 +6,9 @@ import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from django.contrib.auth.models import AbstractUser
 from django.db.models import Q
 #import UserManager
+from django.contrib.auth.models import  BaseUserManager, AbstractBaseUser, AbstractUser, UserManager
 
 
 #null: default False
@@ -21,7 +21,7 @@ from django.db.models import Q
 
 # Create your models here.
 
-class UserManager(models.Manager):
+class UserManager(UserManager):
 
 	@classmethod
 	def star_service(cls, id, cate_id=None):
@@ -125,6 +125,7 @@ class Category(models.Model):
 	pcate = models.ForeignKey('self', null=True )
 	cate_desc = models.CharField(max_length=50, null=True, verbose_name=u"备注" )
 	state = models.IntegerField(choices =choices_state,  default=1, verbose_name=u"类别状态")
+    
 	update_time =  models.DateTimeField(auto_now=True)
 
 	def __str__(self):
@@ -197,6 +198,7 @@ class NewUser(AbstractUser):
 
 
 class UserInfo(models.Model):
+        """用戶詳情表"""
 	VERIFY_STATUS = (
 		(0, u"未验证"),
 		(1, u"已验证")
@@ -211,8 +213,9 @@ class UserInfo(models.Model):
 
 	city = models.CharField(max_length=50, blank=True, verbose_name=u'所在地')
 	address = models.CharField(max_length=150, blank=True, verbose_name=u'地址')
-	img = models.ImageField(upload_to="imgs/img_user", blank=True, default="/static/img/default-avatar.png" , verbose_name=u"头像")
+	img = models.ImageField(upload_to="imgs/img_user", blank=True, default="default-avatar.png" , verbose_name=u"头像")
 	profile = models.CharField('profile', default='',max_length=256)
+        my_home = models.CharField(max_length=30, null=True, blank=True, default="", verbose_name="登录后首页跳转")
 	gender = models.CharField(
 		max_length=1,
 		choices=(
@@ -222,7 +225,9 @@ class UserInfo(models.Model):
 		),
 		default='M',
 	)
+        bio = models.CharField(max_length=300, null=True, blank=True, default="", verbose_name=u"个人简介")
 	register_ip=models.CharField(max_length=30, blank=True, default='', help_text=u'注册ip' )
+	add_time = models.DateTimeField(auto_now_add=True, help_text=u"添加时间")
 	update_time = models.DateTimeField(auto_now=True, help_text=u"更新时间")
 
 	def __str__(self):
@@ -238,6 +243,32 @@ class UserInfo(models.Model):
 
 
 
+class SignedInfo(models.Model):
+    """
+    用户签到
+    """
+    CHOICES_TYPE = (
+        (False, "未签到"),
+        (True, "已经签到")
+    )
+    user = models.OneToOneField(NewUser)
+    status = models.BooleanField(choices=CHOICES_TYPE, verbose_name="是否签到")
+    #datefields yyyy-mm-dd
+    date = models.DateField(auto_now=True, verbose_name="签到日期") 
+    signed_day = models.IntegerField(default=0, verbose_name="连续签到天数")
+    add_time = models.DateTimeField(auto_now=True, verbose_name="时间")
+
+    class Meta:
+        verbose_name = "用户签到"
+        verbose_name_plural = verbose_name
+        unique_together = ('user', 'signed_day')
+
+    def __str__(self):
+        return self.user.username
+
+    def printObj(self, sep='\t'):
+            """自定义打印对象所有属性 """
+            return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
 
 
 class OpenUser(models.Model):
@@ -296,7 +327,7 @@ class UserValidateInfo(models.Model):
 
 	submit_time = models.DateTimeField(auto_now=True, verbose_name=u"申请验证时间")
 	audit_time = models.DateTimeField(auto_now=True, verbose_name=u"审核时间")
-	create_time = models.DateTimeField(auto_now=True, verbose_name=u"创建时间")
+	create_time = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
 	
 	def __str__(self):
 		return "UserValidateInfo user:%s" %(self.id, self.user)

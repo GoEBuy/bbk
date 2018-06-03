@@ -2,10 +2,8 @@
 
 from django.test import TestCase
 
-# Create your tests here.
-
 from bbk.users.models import NewUser as User
-from models import *
+from .models import *
 
 import pdb, traceback
 import django.utils.timezone as timezone
@@ -25,7 +23,6 @@ class SimpleTest(TestCase):
     #     count = User.objects.all().count()
     #     print User.objects.all()
     #     print "count:%d" % (count)
-    #     # User.model()
     #     User.objects.create(username="yyy", phone="15011033945", city="beijing", email="8678@qq.com")
     #     User.objects.create(username="yyf", phone="13323323796", city="shanxi", email="867628@qq.com")
     #     User.objects.create(username="apple", phone="15011033945", city="shanghai", email="867628@qq.com")

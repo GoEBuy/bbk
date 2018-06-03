@@ -1,0 +1,63 @@
+<!-- 导航-->
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="home"><span class="glyphicon glyphicon-globe"></span> Logo</a>
+            </div>
+
+
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="navbar">
+                {% url 'home' as home %}
+                {% url 'transport:index' as transport %}
+                {% url 'housedesign:index' as housedesign %}
+                {% url 'business:index' as business %}
+                {% url 'guide:index' as guide %}
+                <ul class="nav navbar-nav">
+                    <li  {% if request.path == home %} class="active" {% endif %}>
+                        <a href="home">首页</a>
+                    </li>
+                    <li  {% if request.path == transport %} class="active" {% endif %}>
+                        <a href="#">交通工具</a>
+                    </li>
+                    <li  {% if request.path == housedesign %} class="active" {% endif %}>
+                        <a href="#">家装设计</a>
+                    </li>
+                    <li  {% if request.path == guide %} class="active" {% endif %}>
+                        <a href="#">当地向导</a>
+                    </li>
+                    <li  {% if request.path == business %} class="active" {% endif %}>
+                        <a href="#">商务服务</a>
+                    </li>
+					<!--<li class="dropdown">-->
+						<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Others <span class="caret"></span></a>-->
+						<!--<ul class="dropdown-menu" aria-labelledby="about-us">-->
+							<!--<li><a href="#">Programming World</a></li>-->
+							<!--<li><a href="#">Poetry and the Distance</a></li>-->
+							<!--<li><a href="#">The Pots and Pans</a></li>-->
+						<!--</ul>-->
+					<!--</li>    -->
+                </ul>
+
+				<!-- Search -->
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control">
+					</div>
+					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
+				</form>
+
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+

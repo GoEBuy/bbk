@@ -1,0 +1,553 @@
+   <!--这个地方引入static这个文件 -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!--自适应 -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="keywords" content="汽车,汽车之家,汽车网,汽车报价,汽车图片,新闻,评测,社区,俱乐部" />
+<meta name="description" content="">
+
+<!-- block title标题 -->
+<!-- <title>帮帮看</title> -->
+<title>  </title>
+
+<!-- block extrahead -->
+  
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/font-awesome.css">
+<link rel="stylesheet" href="/static/plugin/highlight/tomorrow.css">
+
+<link rel="stylesheet" href="/static/css/bootstrap.css">
+<link rel="stylesheet" href="/static/css/font-awesome.css" >
+<link rel="stylesheet" href="/static/plugin/highlight/tomorrow.css" >
+
+<style>
+
+body {
+	    color: #3C3C3C;
+}
+
+
+#Top {
+	text-align: center;
+	background-color: #fff;
+height: 32px;
+font: 13px/1.2 Hiragino Sans GB,Microsoft YaHei,\\5FAE软雅黑,arial,Tahoma,SimSun,"sans-serif";
+	  font-size: 13px;
+	  text-rendering: geometricPrecision;
+	  font-weight: 500;
+	  line-height: 35px;
+	  z-index: 999;
+width: 100%;
+	   background-size: 44px 44px;;
+background: #fff;
+color: #555;
+	   border-bottom: 1px solid #e2e2e2;
+}
+
+<!--上层topbar-->
+.commonTopbar {
+font: 11px/1.2 Hiragino Sans GB,Microsoft YaHei,\\5FAE软雅黑,arial,Tahoma,SimSun,"sans-serif";
+	  line-height: 1.2;
+	  text-rendering: geometricPrecision;
+	  -webkit-font-smoothing: antialiased;
+position: relative;
+		  z-index: 999;
+width: 100%;
+	   line-height: 35px;
+height: 35px;
+background: #fff;
+color: #555;
+	   border-bottom: 1px solid #ddd;
+}
+
+a {
+color: #778087;
+}
+a.top:hover {
+color: #99a;
+	   text-decoration: none;
+}
+a:hover {
+color: #778399;
+  }
+.no_hove_line a:hover {
+	text-decoration: none;
+color: #343a40;
+}
+#Bottom {
+	border-top: 1px solid rgba(0, 0, 0, 0.22);
+	background-color: #fff;
+	text-align: center;
+color: #999;
+padding: 0px 10px 0px 10px;
+}
+
+#q {
+border: none;
+width: 222px;
+height: 26px;
+margin: 0px 0px 2px 30px;
+		background-color: transparent;
+		font-size: 14px;
+		line-height: 16px;
+outline: none;
+}
+.header {
+padding: 10px;
+		 font-size: 15px;
+		 line-height: 120%;
+		 text-align: left;
+		 border-bottom: 1px solid #e2e2e2;
+overflow: auto;
+}
+.f12 {
+	font-size: 12px;
+}
+.fr {
+float: right;
+	   text-align: right;
+}
+.hide {
+display: none;
+}
+.page_input {
+padding: 4px 4px 4px 4px;
+		 font-size: 14px;
+		 line-height: 14px;
+border: 1px solid #e2e2e2;
+		border-radius: 3px;
+width: 40px;
+	   background-color: #fff;
+	   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1) inset;
+color: #ccc;
+	   margin-left: 20px;
+	   margin-right: 20px;
+}
+.page-link {
+color: #778087;
+}
+.page-link:hover {
+color: #778087;
+}
+.page-item.active .page-link {
+	background-color: #aab0c6;
+	border-color: #aab0c6;
+}
+.topic-info a,strong{
+	margin-right: 3px;
+	margin-left: 3px;
+}
+.topic-title {
+	margin-bottom: 10px;
+}
+
+.topic {
+margin: 0 auto;
+padding: 0;
+}
+.avatar {
+width: 73px;
+height: 73px;
+}
+.copyright{
+	background-color: #343a40;
+color: #6c7980;
+	   font-size: 14px;
+	   line-height: 20px;
+	   text-align: center;
+clear: both;
+	   font-family: initial;
+}
+</style>
+
+<!-- css样式表 -->
+ 
+
+
+
+</head>
+<!-- <td width="110" align="left"><a href="#" name="top" title="way to explore"><img
+src="/static/img/fake_logo@2x.png" border="0" align="default" alt="帮帮看"
+width="94" height="30"></a></td> -->
+<body>
+<!--topbar -->
+<!-- top bar -->
+<div id="Top">
+<div class="content">
+<div  style="padding-top: 1px;">
+<!--
+	<div id="commonTopbar" class="commonTopbar" >
+		<div id="bar_left" style="float:left;word-spacing:1.2px;" >
+			<h2>北京 [切换城市 北京 廊坊 保定 天津]</h2>
+		</div>
+		<div id="bar_right" style="float:right; position:relative ">
+			<div style="float:left;"><a href="#" class="top">首页</a>&nbsp;&nbsp;&nbsp;</div>
+
+			<div><a href="#" class="top">登录</a>
+<span style="font-style: italic">| </span> 
+<a href="#" class="top">注册</a>&nbsp;&nbsp;&nbsp;</div>
+
+<div >	<a href="#" class="top">个人中心</a>
+	<span >></span>
+	<div class="hc" style="display:none;" id="commonTopbar_loginbox"><a id="commonTopbar_tomypost" href="#" target="_blank" >我的发布</a><a id="" href="#" target="_blank" >账户设置</a><a id="" href="#" target="_blank" >我的求职</a><a id="commonTopbar_tohelp" href="#" target="_blank" >客户服务</a></div>
+	&nbsp;&nbsp;&nbsp;
+		</div>
+	</div>
+</div>
+
+-->
+	<!--表格 -->
+
+	<table class="commonTopbar" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tbody>
+<tr>
+<td width="310" align="left"><a href="#" name="top" title="way to explore">北京 [切换城市 北京 廊坊 保定 天津]
+</a></td>
+
+<td width="570" align="right" style="padding-top: 2px;">
+	<a href="#" class="top">首页</a>&nbsp;&nbsp;&nbsp;
+<a href="#" class="top">登录</a>
+<span style="font-style: italic">| </span> 
+<a href="#" class="top">注册</a>&nbsp;&nbsp;&nbsp;</td>
+
+<td width="85" align="right" style="padding-top: 2px;">
+	<a href="#" class="top">个人中心</a>
+	<span >></span>
+	<!-- <div class="hc" style="display:none;" id="commonTopbar_loginbox"><a id="commonTopbar_tomypost" href="#" target="_blank" >我的发布</a><a id="" href="#" target="_blank" >账户设置</a><a id="" href="#" target="_blank" >我的求职</a><a id="commonTopbar_tohelp" href="#" target="_blank" >客户服务</a></div> -->
+	&nbsp;&nbsp;&nbsp;
+
+</td>
+<td width="85" align="right" style="padding-top: 2px;">
+<a href="#" class="top">联系客服</a>&nbsp;&nbsp;&nbsp;</td>
+
+</tr>
+</tbody>
+</table> <!-- table -->
+
+
+
+</div>
+</div>
+</div> <!-- end of top bar -->
+
+
+<!--
+<div id="Wrapper">
+<div class="content">
+<div id="Leftbar">
+<div class="sep20"></div>
+ 
+</div>
+
+<div id="Rightbar">
+<div class="sep20"></div>
+ 
+</div>
+<div class="sep20"></div>
+</div>
+<div class="c"></div>
+
+-->
+
+
+<!--中间部分 -->
+<div id="Main">
+
+
+	<div class="row">
+		<!-- Left Column -->
+		<div class="col-sm-3">
+
+			<!-- List-Group Panel -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title"><span class="glyphicon glyphicon-fire"></span> The Principles of Programmer </h1>
+				</div>
+				<div class="list-group">
+					<a href="#" class="list-group-item">Embrace Change </a>
+					<a href="#" class="list-group-item">KISS: Keep it simple, stupid!</a>
+					<a href="#" class="list-group-item">Hide Implementation Details</a>
+					<a href="#" class="list-group-item">LoD: Law of Demeter</a>
+					<a href="#" class="list-group-item">DRY: Don't Repeat Youself</a>
+				</div>
+			</div>
+
+			<!-- Text Panel -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h1 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> Don’t repeat yourself</h1>
+				</div>
+
+				<div class="panel-body">
+					<p>DRY is probably the single most fundamental tenet in programming is to avoid repetition. Many programming constructs exist solely for that purpose (e.g. loops, functions, classes, and more). As soon as you start repeating yourself (e.g. a long expression, a series of statements, same concept) create a new abstraction.</p>
+					<p><button class="btn btn-default">Engage</button></p>
+				</div>
+			</div>
+
+			<!-- Text Panel -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-bullhorn"></span>
+						Active Predomination
+					</h3>
+				</div>
+				<div class="panel-body">
+					<p>Proactively envisioned multimedia based expertise and cross-media growth strategies.</p>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default">Resource</button>
+						<button type="button" class="btn btn-default">Envision</button>
+						<button type="button" class="btn btn-default">Niche</button>
+					</div>
+				</div>
+			</div>
+
+		</div><!--/Left Column-->
+
+	
+	
+	
+		<!-- Center Column -->
+		<div class="col-sm-6">
+
+			<!--内行人列表  -->
+			
+
+			<div class="row">
+				<article class="col-xs-12">
+					<h2>Premier Niche Markets</h2>
+					<p>Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric "outside the box" thinking. Completely pursue scalable customer service through sustainable potentialities.</p>
+					<p><button class="btn btn-default">Read More</button></p>
+					<p class="pull-right"><span class="label label-default">keyword</span> <span class="label label-default">tag</span> <span class="label label-default">post</span></p>
+					<ul class="list-inline">
+						<li><a href="#">Today</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> 2 Comments</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span> 8 favorites</a></li>
+					</ul>
+				</article>
+			</div>
+		</div>
+
+
+
+	  <!-- Right Column -->
+	  <div class="col-sm-3">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-log-in"></span>
+						登录Log In
+					</h3>
+				</div>
+				<div class="panel-body">
+					<form action="/users/login/" method="post">
+						
+						
+						<div class="form-group">
+							
+							<input type="text" class="form-control" id="useranme" name="username" placeholder="Username"> 
+						</div>
+						<div class="form-group">
+							
+							<input type="password" class="form-control" id="password1" name="password1" placeholder="Password"> 
+						</div>
+						<button type="submit" class="btn btn-default">Log In</button>
+						<label style="float:right">	<a href='#' >沒有帳號， 前往注冊</a>
+
+						</label>
+					</form>
+				</div>
+			</div>
+ 			
+			<!-- Progress Bars -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="glyphicon glyphicon-tasks"></span>
+						Completeness
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div class="progress">
+						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+						aria-valuemin="0" aria-valuemax="100" style="width:100%">
+							100% Django
+						</div>
+					</div>
+					<div class="progress">
+						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80"
+						aria-valuemin="0" aria-valuemax="100" style="width:80%">
+							80% Tornado
+						</div>
+					</div>
+					<div class="progress">
+						<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45"
+						aria-valuemin="0" aria-valuemax="100" style="width:45%">
+							45% Crawler
+						</div>
+					</div>
+					<div class="progress">
+						<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="35"
+						aria-valuemin="0" aria-valuemax="100" style="width:35%">
+							35% Basics
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- advertisements -->
+ 			<h3><span class="glyphicon glyphicon-link"></span> Advertisements</h3>
+			<div id="side-carousel" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#side-carousel" data-slide-to="0" class="active"></li>
+					<li data-target="#side-carousel" data-slide-to="1"></li>
+					<li data-target="#side-carousel" data-slide-to="2"></li>
+				</ol>
+				<div class="carousel-inner" role="listbox">
+					<div class="item active">
+						<a href="#">
+							<img class="img-responsive" src="holder.js/400x300?bg=FF8C00&text=Image%201" alt="">
+						</a>
+						<div class="carousel-caption">
+							<h3>I am a genius</h3>
+							<p>Objectively innovate empowered manufactured products whereas parallel platforms.</p>
+						</div>
+					</div>
+					<div class="item">
+						<a href="#">
+							<img class="img-responsive" src="holder.js/400x300?bg=FF8C00&text=Image%202" alt="">
+						</a>
+						<div class="carousel-caption">
+							<h3>You are an idiot</h3>
+							<p>Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
+						</div>
+					</div>
+					<div class="item">
+						<a href="#">
+							<img class="img-responsive" src="holder.js/400x300?bg=FF8C00&text=Image%203" alt="">
+						</a>
+						<div class="carousel-caption">
+							<h3>Enough! </h3>
+							<p>Everyone shut up and listen to me.</p>
+						</div>
+					</div>
+				</div>
+				<a class="left carousel-control" href="#side-carousel" role="button" data-slide="prev">
+				  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				  <span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control" href="#side-carousel" role="button" data-slide="next">
+				  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				  <span class="sr-only">Next</span>
+				</a>
+			  </div>
+
+	  </div><!--/Right Column -->
+
+	</div> <!--row -->
+
+
+
+
+</div>
+
+<!--
+<div>
+
+</div>
+-->
+
+<!-- footer底部 -->
+<div id="Bottom">
+<div class="content">
+<div class="inner">
+<div class="sep10"></div>
+<strong><a href="/about" class="dark" target="_self">关于</a> &nbsp; <span class="snow">·</span> &nbsp; 
+<a href="/faq" class="dark" target="_self">FAQ</a> &nbsp; <span class="snow">·</span> &nbsp;
+<a href="/p/7v9TEc53" class="dark" target="_self">API</a> &nbsp; <span class="snow">·</span> &nbsp; <a
+href="/mission" class="dark" target="_self">我们的愿景</a> &nbsp; <span class="snow">·</span> &nbsp; <a
+href="/advertise" class="dark" target="_self">广告投放</a> &nbsp; <span class="snow">·</span> &nbsp; <a
+href="/advertise/2016.html" class="dark" target="_self">鸣谢</a> &nbsp; <span class="snow">·</span>
+&nbsp;  人在线</strong>&nbsp;<span
+class="snow">·</span> &nbsp; <span>您的IP是: </span></a>
+<div class="sep20"></div>
+创意工作者们的社区
+<div class="sep5"></div>
+World is powered by solitude
+<div class="sep20"></div>
+<div class="sep10"></div>
+</div>
+</div>
+</div>
+
+ 
+
+
+<div  class="copyright">
+<!-- copyright 包含静态页面 -->
+<!-- 公共模板 -->
+<div id="copyright">
+        <p>
+            ©<span>2018</span>
+            <a href="http://meituan.com/">帮帮看</a>
+            bbk.com
+            <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP证070791号</a>
+            京公网安备11010502025545号<a href="http://meituan.com/about/rules" target="_blank"> 电子公告服务规则</a>
+        </p>
+    <div>
+
+</div>
+
+</div>
+
+
+
+<!-- 加载js -->
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/plugin/highlight/highlight.pack.js"></script>
+
+<script src="/static/js/jquery-3.3.1.js"></script>
+<script src="/static/js/jquery.cookie.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/plugin/highlight/highlight.pack.js"></script>
+<!--
+<script>
+/* Ajax 初始化请求操作*/
+$(function () {
+		$.ajaxSetup({
+beforeSend: function (xhr, settings) {
+xhr.setRequestHeader('X-CSRFtoken', $.cookie('csrftoken'));
+}
+});
+		});
+/* title 变化 */
+document.addEventListener("visibilitychange", function () {
+		if (document.hidden) {
+		$('title').text('V2EX');
+		} else {
+		$('title').text('欢迎回来ヽ(✿ﾟ▽ﾟ)ノ');
+		setTimeout("$('title').text('V2EX');", 3000);
+		}
+		}, false);
+
+</script>
+<script>hljs.initHighlightingOnLoad();</script>
+-->
+
+<!--加载其他Js -->
+
+
+
+
+</body>
+</html>
+

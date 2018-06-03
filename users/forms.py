@@ -77,12 +77,21 @@ class SettingsForm(forms.Form):
  # ,  # 用于对密码的正则验证
 
 class RegisterForm(forms.Form):
-	username = forms.CharField(label='username',  validators=[user_unique_validate, username_rule_validate, ], max_length=100,widget=forms.TextInput(attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符'}) )
-	#, error_messages = {'required': '用户名不能为空',  'min_length': '用户名最少为6个字符',  'max_length': '用户名最不超过为20个字符'}
-	email = forms.EmailField( required=True, widget = forms.TextInput(attrs={'class': "form-control", 'placeholder': '请输入邮箱'}) ) 
-	 #, error_messages = {'required': '邮箱不能为空', 'invalid':'请输入正确的邮箱格式'} )
-	password1 = forms.CharField(widget=forms.PasswordInput,error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!',})
-	password2 = forms.CharField(widget=forms.PasswordInput)
+	username = forms.CharField(
+                label='username',  
+                validators=[user_unique_validate, username_rule_validate, ],
+                max_length=100,
+                widget=forms.TextInput(
+                    attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符'} ),
+            error_messages = {'required': '用户名不能为空',  'min_length': '用户名最少为6个字符',  'max_length': '用户名最不超过为20个字符'}
+            )
+	email = forms.EmailField( required=True, widget = forms.TextInput(attrs={'class': "form-control", 'placeholder': '请输入邮箱'} ), 
+            error_messages = {'required': '邮箱不能为空', 'invalid':'请输入正确的邮箱格式'} )
+	password1 = forms.CharField( 
+                required=True, 
+                widget=forms.PasswordInput,
+                error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!',})
+	password2 = forms.CharField( required=True, widget=forms.PasswordInput)
 
 
 
@@ -111,6 +120,37 @@ def clean_username(self):
 	  raise ValidationError('用户已经存在！')
 	return username
 
+
+class AvatarSettingsForm(forms.Form):
+    avatar = forms.ImageField(error_messages={'requried':'文件不能爲空', 'invalid':'無效的頭文件'} )
+
+
+class PhoneSettingsForm(forms.Form):
+    new_phone_number = forms.CharField(validators=[mobile_validate, ], required=True,
+                                       error_messages={'required': '手机号不能为空'})
+    password = forms.CharField(required=True, error_messages={'required': '密码不能为空'})
+
+
+class EmailSettingsForm(forms.Form):
+    new_email = forms.EmailField(validators=[email_unique_validate, ], required=True,
+                                 error_messages={'required': '邮箱不能为空',
+                                                 'invalid': '无效的邮箱地址'})
+    password = forms.CharField(required=True, error_messages={'required': '密码不能为空'})
+
+
+class PasswordSettingsForm(forms.Form):
+    password_new = forms.CharField(min_length=6, max_length=50, required=True,
+                                   error_messages={'required': '新密码不能为空',
+                                                   'invalid': '新密码格式错误',
+                                                   'min_length': '新密码不能少于6位'})
+    password_again = forms.CharField(min_length=6, max_length=50, required=True,
+                                     error_messages={'required': '第二次密码不能为空',
+                                                     'invalid': '第二次密码格式错误',
+                                                     'min_length': '第二次密码不能少于6位'})
+    password_current = forms.CharField(min_length=6, max_length=50, required=True,
+                                       error_messages={'required': '当前密码不能为空',
+                                                       'invalid': '当前密码格式错误',
+                                                       'min_length': '当前密码不能少于6位'})
 
 
 # def clean_email(self):

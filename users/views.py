@@ -3,10 +3,9 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth import authenticate, login, logout
+import django.contrib.auth #import authenticate, login, logout
 from django.http import JsonResponse
 from django.views.decorators.cache import cache_page
 from .models import *  #模型
@@ -46,46 +45,6 @@ def check_code(request):
 	return HttpResponse(stream.getvalue())
 
 
-def login(request):
-        if DEBUG_PDB:
-            pdb.set_trace()
-
-	if request.method == 'GET':
-		form = LoginForm()
-		return render(request, 'users/login.html', {'form': form})
-	if request.method == 'POST':
-		form = LoginForm(request.POST)
-		if form.is_valid():
-			username = form.cleaned_data['username'].encode('utf-8')
-			password = form.cleaned_data['password1'].encode('utf-8')
-			#user = authenticate(username=username, password=password)
-			user = NewUser.objects.getUser(username, password)
-			if user is not None and user.is_active:
-                                #保存user_info session
-                                user_info={
-                                    'username': username,
-                                    
-                                        }
-                                request.session['user_info'] = user_info
-                                #request.session
-                                #转到主页
-				return redirect( reverse('users:index' ), locals() )
-			else:
-                                #重新登录
-				return render(request, 'users/login.html', {'form': form, 'error': "password or username is not ture!"})
-
-		else:
-			return render(request, 'users/login.html', {'form': form})
-
-
-@login_required
-def logout(request):
-	pass
-	#url = request.POST.get('source_url', '/focus/')
-	#logout(request)
-	#return redirect(url)
-
-
 def register(request):
         if DEBUG_PDB:
 	    pdb.set_trace()
@@ -93,25 +52,170 @@ def register(request):
 	valid = "this name is valid"
 
 	if request.method == 'GET':
-		#if a GET (or any other method) we'll create a blank form
-		form = RegisterForm()
-		return render(request, 'users/register.html', context = {'form': form})
+            #plat= request.GET.get('plat', '0')
+            #if plat=='2':
+            #    resp = {'errorcode':200, 'msg':'ok', 'result':100 }
+            ##返回json对象
+            #response  = JsonResponse(resp)
+            #return response
+            form = RegisterForm()
+            return render(request, 'users/register.html', context = {'form': form})
 	if request.method == 'POST':
 		# create a form instance and populate it with data from the request:
 		form = RegisterForm(request.POST)
 		if form.is_valid():
+                        plat  = form.cleaned_data['plat']
 			username = form.cleaned_data['username']
 			email = form.cleaned_data['email']
 			password1 = form.cleaned_data['password1']
 			password2 = form.cleaned_data['password2']
 			if password1 != password2:
-				return render(request, 'register.html', {'form': form, 'msg': "two password is not equal"})
+
+                            if plat=="2":
+                                resp = {'errorcode':500, 'msg':'invalid password', 'result':None }
+                                ##返回json对象
+                                response  = JsonResponse(resp)
+                                return response
+			    return render(request, 'register.html', {'form': form, 'msg': "two password is not equal"})
 			else:
-				user = NewUser.objects.create(username= username, email= email, password = password1, pwd=password1 )
+                                #注冊成功
+				user = NewUser.objects.create_user(username= username, email= email, password = password1, pwd=password1 )
 				user.save()
+                                userinfo=None
+                                try:
+                                    userinfo = user.userinfo
+                                except:
+                                    # 注册成功，创建用户details 表
+                                    userinfo = UserInfo.objects.create(user_id=user.id)
+                                if plat=="2":
+                                    result = json.dumps({"username":username})
+                                    resp = {'errorcode':200, 'msg':'register succ', 'result':result }
+                                    ##返回json对象
+                                    response  = JsonResponse(resp)
+                                    return response
+                                #跳轉至登錄頁面
 				return redirect( reverse('users:login'), {'success': "you have successfully registered!", "username":username})
 		else:
 			return render(request, 'users/register.html', {'form': form})
+
+def login(request):
+        if DEBUG_PDB:
+            pdb.set_trace()
+
+        #resp = {'errorcode':200, 'msg':'ok', 'result':100 }
+        #返回json对象
+        #respnse  = JsonResponse(resp)
+        #return HttpResponse(json.dumps(resp), content_type="application/json")
+
+	if request.method == 'GET':
+                #request get请求参数 返回QueryDict
+                plat = request.GET.get('plat','0')
+                if plat=='2':
+                    resp = {'errorcode':200, 'msg':'ok', 'result':None}
+                    #返回json对象
+                    response  = JsonResponse(resp)
+                    return response
+		form = LoginForm()
+		return render(request, 'users/login.html', {'form': form})
+	if request.method == 'POST':
+		form = LoginForm(request.POST)
+		if form.is_valid():
+                        plat = '0'
+                        if 'plat' in form.cleaned_data:
+			    plat = form.cleaned_data['plat'].encode('utf-8')
+			username = form.cleaned_data['username'].encode('utf-8')
+			password = form.cleaned_data['password1'].encode('utf-8')
+			#user = NewUser.objects.getUser(username, password)
+                        user = django.contrib.auth.authenticate(username=username, password=password)
+			if user is not None and user.is_active:
+                            userinfo=None
+                            try:
+                                userinfo = user.userinfo
+                            except:
+                                pass
+                            # 账号密码正确，登录成功 修改最后登录时间
+                            django.contrib.auth.login(request, user)
+                            #user.last_login = datetime.datetime.now()
+                            # 获取用户本次session_key 记录到数据库中，以便在其他地方修改此用户的session 信息
+                            user.session = request.session.session_key
+                            #保存user_info session
+                            user.save()
+
+                            #獲取用戶詳細信息， 注冊時已經創建， 這裏是防止admin等用戶未創建產生的BUG
+                            if UserInfo.objects.filter(user_id=user.id).exists():
+                                userinfo = UserInfo.objects.get(user_id = user.id )
+                            else:
+                                userinfo = UserInfo.objects.create(user_id=user.id)
+
+                            signed_status = False
+                            if SignedInfo.objects.filter(user_id=user.id, date=datetime.datetime.now().strftime('%Y-%m-%d'), status=True ).exists():
+                                signed_info = SignedInfo.objects.get(user_id=user.id, date= datetime.datetime.now().strftime('%Y%m%d'), status=True )
+
+                                if signed_info:
+                                    signed_status=True
+
+
+                            # 获取用户基础信息，存放到session中，方便频繁调用
+                            user.password=None
+                            user.pwd=None
+                            import sys
+                            #查看內存大小
+                            print sys.getsizeof(user)
+                            user_info={
+                                'id':user.id,
+                                'username': username,
+                                'user':user,
+                                'userinfo':userinfo,
+                                'daily_mission':signed_status,
+                                    }
+                            #保存至session
+                            request.session['user_info'] = user_info
+
+                            #登錄後頁面跳轉， 默認转到主页
+                            if request.POST.get('next', None ):
+                                next_url = request.POST.get('next')
+                            else:
+                                next_url = reverse( 'users:index')
+
+                            #如果用戶定義了登錄後跳轉，則跳轉到用戶制定的頁面
+                            
+                            if userinfo.my_home:
+                                next_url = userinfo.my_home
+                            return redirect( next_url, locals() )
+                            if plat=='2':
+                                    result={'user_info':user_info}
+                                    resp = {'errorcode':200, 'msg':'ok', 'result': result, 'next':None}
+                                    #返回json对象
+                                    response  = JsonResponse(resp)
+                                    return response
+                        else:
+                            #登錄失敗
+                            if plat=='2':
+                                    resp = {'errorcode':500, 'msg':'login error', 'result': None}
+                                    #返回json对象
+                                    response  = JsonResponse(resp)
+                                    return response
+                                #重新登录
+                            return render(request, 'users/login.html', {'form': form, 'error': "password or username is not ture!"})
+
+		else:
+                    #表單錯誤
+			return render(request, 'users/login.html', {'form': form})
+
+
+@login_required
+def logout(request):
+    # 如果用户登录了
+    django.contrib.auth.logout(request)
+    if request.session.get('user_info', None):
+        # 删除登录用户统计信息
+        online_key = 'count_online_id_{_id}_session_{_session}'.format(
+            _id=request.session.get('user_info')['id'], _session=request.session.session_key)
+        cache.delete(online_key)
+        # 清除 session 信息
+        request.session.flush()
+    return render(request, 'users/logout.html')
+
 
 
 @require_http_methods(["GET", "POST"])
@@ -120,6 +224,13 @@ def index(request):
 	logger.debug('index')
         if DEBUG_PDB:
             pdb.set_trace()
+
+
+        if request.user.is_authenticated:
+            #for loggined users
+            pass
+        else:
+            pass
 	context_object_name = 'user_list'
 	template_name ='users/index.html'	
 	#template_name ='users/user_list.html'	
@@ -181,12 +292,21 @@ def user_settings(request):
 
     if request.method == 'GET':
             form = SettingsForm()
-            return render(request, 'users/settings.html', {'form': form})
+            user_detail_obj = request.session.get('user_info')['user']
+            if not user_detail_obj:
+                user_detail_obj = NewUser.objects.get(user_id=request.session.get('user_info' )['id'] )
+            user_info_obj = request.session.get('user_info')['userinfo']
+            if not user_info_obj:
+                user_info_obj = UserInfo.objects.get(user_id=request.session.get('userinfo')['id'])
+            return render(request, 'users/settings.html', locals() )
     if request.method == 'POST':
             form = SettingsForm(request.POST)
             if form.is_valid():
+                    #userid = request.POST.get('user_id')
                     username = form.cleaned_data['username'].encode('utf-8')
+                    #NewUser.objects.
     
+            return render(request, 'users/settings.html', locals() )
     pass
 
 @require_http_methods(["GET", "POST"])
@@ -199,16 +319,81 @@ def getUserPrefList(ListView):
 def user_settings_avatar(request):
     if DEBUG_PDB:
         pdb.set_trace()
+    
 
     if request.method == 'GET':
+        user_obj = NewUser.objects.get(id=request.session.get('user_info')['id'] ) 
+        user_obj.password=None
+        try:
+            userinfo = user_obj.userinfo
+            return render(request, 'users/setting_avatar.html', {'user':user_obj,'userinfo':userinfo } )
+        except:
+            return render(request, 'users/setting_avatar.html', {'user':user_obj,'userinfo':None} )
+            pass
         pass
-            #form = SettingsForm()
-            #return render(request, 'users/settings.html', {'form': form})
     if request.method == 'POST':
-            form = SettingsForm(request.POST)
-            if form.is_valid():
-                    username = form.cleaned_data['username'].encode('utf-8')
+        has_error=True
+        user_obj = NewUser.objects.get(id=request.session.get('user_info')['id'] ) 
+        obj = AvatarSettingsForm(request.POST, request.FILES)
+        if obj.is_valid():
+            avatar= request.FILES['avatar']
+            if avatar.size<2*1024*1024:
+                from utils.tool import save_avatar_file
+                avatar_path = save_avatar_file(avatar)
+                logger.debug('save avatar file:'+avatar_path )
+                user_obj.save()
+                #request.session['user_info']['userinfo']['img'] = user_obj.img
+                has_error=False
+            else:
+                avatar_size_error='頭像文件大小不能超過2M'
+
+        return render(request, 'users/setting_avatar.html', locals() )
+
+
+
+
+@login_required
+def user_settings_password(request):
+    if DEBUG_PDB:
+        pdb.set_trace()
     
+    if request.method == 'GET':
+        return redirect( reverse( 'users:settings' ))
+    elif request.method =='POST':
+        form = PasswordSettingsForm(request.POST)
+        has_err= False
+        if form.is_valid():
+            password_cur=form.cleaned_data['password_current']
+            password_new = form.cleaned_data['password_new']
+            password_again = form.cleaned_data['password_again']
+            #判斷密碼是否正確
+            username = request.settings.get('user_info')['username'] 
+            user_obj = django.contrib.auth.authenticate(username=username, password=password_cur)
+
+            if user_obj is not None:
+                if password_new == password_again:
+                    #修改密碼
+                    user_obj.set_password(password_new)
+                    user_obj.save()
+                    has_password_error = False
+                else:
+                    has_err=True
+                    password_error="您兩次輸入的密碼不一樣"
+            else:
+                has_err = True
+                password_error="您輸入的用戶密碼不正確"
+            password_cur=None
+            password_new = None
+            return render( request, 'users/setting_password.html', locals()  )
+        else:
+            password_cur=None
+            password_new = None
+            return render( request, 'users/setting_password.html', locals()  )
+
+def user_settings_email(request):
+    pass
+
+def user_settings_phone(request):
     pass
 
 # class

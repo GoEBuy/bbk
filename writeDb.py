@@ -2,6 +2,8 @@
 
 import os
 import django
+import sys
+import datetime
 
 #在导入任何模块之前 设置变量
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bbk.settings")
@@ -12,14 +14,15 @@ django.setup()
 from django.db.models import Avg, Sum, Max, Min
 
 
-import pdb,traceback
 
 from order.models import *
 from users.models import *
 from users import UserManager
 
+
 from django.db.models import Manager
 import django.utils.timezone as timezone
+import pdb,traceback
 
 
 FLAG_DEBUG=True
@@ -30,14 +33,24 @@ def getEntityCount(entity):
 	print entity.all()
 	#print "count:%d" % (count)
 	return count
-	
+
+def getUserInfo():
+    print "getUserInfo"
+    qset = UserInfo.objects.filter(user_id=1)
+    pdb.set_trace()
+    if qset.exists():
+        
+        print qset.first().printObj()
+    pass
+
 def testFindUser():
 	print "testFindUser"
 	manager = NewUser.objects
+        
 	#print manager.values('id','username', 'password').filter(username='yyy', password='yyy').exists()
 	#wrong print manager.exists(username='yyy', password='yyy')
 	#print manager.filter(pk=2).exists()
-	print user.printObj()
+	#print user.printObj()
 	
 def getUserListByCate():
 	cate_id=1
@@ -64,9 +77,8 @@ def getUserById():
 		print "not exist"
 	
 def addUserInfo():
-	user = NewUser.objects.get(pk=2)
-	#NewUser.objects.get(id__
-	userinfo = UserInfo.objects.get(user_id=2)
+	user = NewUser.objects.get(pk=1)
+	#userinfo = UserInfo.objects.get(user_id=2)
 	user.userinfo = UserInfo.objects.create(user_id=1, truename='root true name')
 	user.save()
 	user.userinfo.truename='root true name update'
@@ -351,37 +363,47 @@ def addOrder():
 
 	print "count", getEntityCount(manager)
 
-
+def addContact():
+    from contact.models import ContactInfo
+    manager= ContactInfo.objects
+    print "count", getEntityCount(manager)
+    c1=manager.create(name='yyy', email='yyyang@tju.edu.cn', message='contact msg' )
+    #根據列名也可以創建
+    c2=manager.create(user_id='1', name='yyf', email='yyyang@tju.edu.cn', message='contact msg' )
+    print "count", getEntityCount(manager)
 
 def main():
+
+    #addContact()
 	
-	#addOrder()
-	#testFindUser()
-	#addUserInfo()
+    #addOrder()
+    #testFindUser()
+    #addUserInfo()
+    getUserInfo()
 
-	#getUserListByCate()
-	#getUserById()
-	#addUsers()
-	#getUsersByIdList()
+    #getUserListByCate()
+    #getUserById()
+    #addUsers()
+    #getUsersByIdList()
 
-	#addCate()
-	#updateCate(1,"transport", "交通运输")
-	#updateCate(2,"house", "房产销售")
-	#updateCate(3,"bussiness", "电脑办公")
-	#updateCate(4,"guide", "当地向导")
-	#getSubCates()
-	#getPCates()
+    #addCate()
+    #updateCate(1,"transport", "交通运输")
+    #updateCate(2,"house", "房产销售")
+    #updateCate(3,"bussiness", "电脑办公")
+    #updateCate(4,"guide", "当地向导")
+    #getSubCates()
+    #getPCates()
 
-	getStarService(1, -1)
-	#getUserPrefList()
-	#addUserPref()
-	#updateUserPref()
+    #getStarService(1, -1)
+    #getUserPrefList()
+    #addUserPref()
+    #updateUserPref()
 
-	#getCatePrefsForUser()
-	#addUserFollowing()
-	#updateUserFollowing()
-	#findUserFollowing()
-	#deleteUserFollowing()
+    #getCatePrefsForUser()
+    #addUserFollowing()
+    #updateUserFollowing()
+    #findUserFollowing()
+    #deleteUserFollowing()
 
 #TODO: test
 if __name__ == "__main__":

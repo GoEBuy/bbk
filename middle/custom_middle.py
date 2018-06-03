@@ -1,7 +1,8 @@
 from django.utils.deprecation import MiddlewareMixin
 from django.core.cache import cache
-from v2ex.settings import SESSION_COOKIE_AGE
 from django.db import connection
+from bbk.settings import SESSION_COOKIE_AGE
+
 
 
 class CountOnlineMiddlewareMixin(MiddlewareMixin):
@@ -22,7 +23,7 @@ class CountOnlineMiddlewareMixin(MiddlewareMixin):
             # request.session.set_expiry(SESSION_COOKIE_AGE)
             # 统计在线用户，先生成唯一key
             online_key = 'count_online_id_{_id}_session_{_session}'.format(
-                _id=request.session.get('user_info')['uid'], _session=session_key)
+                _id=request.session.get('user_info')['id'], _session=session_key)
             # 设置过期时间，或者重新设置过期时间
             cache.set(online_key, 'online', timeout=SESSION_COOKIE_AGE)
 

@@ -1,70 +1,11 @@
-{% extends 'layout.html' %}
+{% extends '../layout.html' %}
 
 
 {% block main %}
 
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-        <div class="container">
-            <!-- Logo and responsive toggle -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-globe"></span> Logo</a>
-            </div>
-            <!-- Navbar links -->
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#">首页</a>
-                    </li>
-                    <li>
-                        <a href="#">交通工具</a>
-                    </li>
-                    <li>
-                        <a href="#">家装设计</a>
-                    </li>
-                    <li>
-                        <a href="#">当地向导</a>
-                    </li>
-					<!--
-                    <li>
-						<a href="/focus/register">注册</a>
-                        <a href="<% url 'register' %>">注册</a>
-                    </li>
-					 <li>
-                        <a href="/focus/login">登录</a>
-                    </li>
-					-->
-					<!--<li class="dropdown">-->
-						<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Others <span class="caret"></span></a>-->
-						<!--<ul class="dropdown-menu" aria-labelledby="about-us">-->
-							<!--<li><a href="#">Programming World</a></li>-->
-							<!--<li><a href="#">Poetry and the Distance</a></li>-->
-							<!--<li><a href="#">The Pots and Pans</a></li>-->
-						<!--</ul>-->
-					<!--</li>    -->
-                </ul>
+	{% include '../navbar.html.del' %}	
 
-				<!-- Search -->
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control">
-					</div>
-					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
-				</form>
-
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-	<div class="container-fluid">
-
+	<div class="row">
 		<!-- Left Column -->
 		<div class="col-sm-3">
 
@@ -114,26 +55,39 @@
 
 		</div><!--/Left Column-->
 
-
+	{# 模板 单行注释  #}
+	{% comment %} 多行注释 {% endcomment %}
+	{% comment %} 
+ {% endcomment %}
 		<!-- Center Column -->
 		<div class="col-sm-6">
-			<!-- Articles -->
-			{% for article in latest_article_list %}
+
+			<!--内行人列表  -->
+			{% for u in user_list %}
 			<div class="row">
 				<article class="col-xs-12">
-					<h2><a id="article_title", href="/focus/{{ article.id }}">{{ article.title }}</a></h2>
-					<p>{{ article.content|truncatechars_html:80 | safe }}</p>
+					<h2><a id="user_id", href="{% url 'users:detail' u.id %}">{{ u.id}}</a>
+			: <strong> {{ u.username}}</strong> : {{ u.date_joined}} 
+					</h2>
+					<!-- 简介 -->
+			<p>	内行行业:	<%  %> </p>
+					<!-- <p>{{ article.content|truncatechars_html:80 | safe }}</p> -->
 				<!-- 	<p><button class="btn btn-default">Read More</button></p>  -->
-					<p class="pull-right"><span class="label label-default">{{ article.column }}</span> <span class="label label-default">tag</span> <span class="label label-default">{{ article.author }}</span></p>
+
+					<!-- 用户标签 -->
+					<p class="pull-right"><span class="label label-default">{{ cate.cate_name }}</span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
 					<ul class="list-inline">
-						<li><a href="#">{{ article.pub_date | date:"j M" }}</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> {{ article.comment_num }} Comments</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>{{ article.keep_num }} Favorites</a></li>
+						<!-- <li><a href="#">{{ article.pub_date | date:"j M" }}</a></li> -->
+						 <li><a href="#">2018-05-10</a></li> 
+						<!-- 评论数量 -->
+						<li><a href="#"><span class="glyphicon glyphicon-comment"></span>100comments </a></li>
+						<!-- 关注人数 -->
+						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>10 Favorites</a></li>
 					</ul>
 				</article>
 			</div>
-			<hr>
 			{% endfor %}
+
 			<div class="row">
 				<article class="col-xs-12">
 					<h2>Premier Niche Markets</h2>
@@ -147,23 +101,24 @@
 					</ul>
 				</article>
 			</div>
-			<hr>
-		</div><!--/Center Column-->
+		</div>
+
 
 
 	  <!-- Right Column -->
 	  <div class="col-sm-3">
-			{% if request.user.is_authenticated %}
+			{% if request.session.user_info.username %}
 			<!-- Form -->
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<span class="glyphicon glyphicon-user"></span>
-						Logged In
+						您好， {{request.session.user_info.username }} 歡迎回來！
+						<a href="{% url 'users:logout' %}">退出	</a>
 					</h3>
 				</div>
 				<div class="panel-body">
-					<div class="form-group">hi:{{ user }} <a href="/focus/logout/"><input class="btn btn-default" type="submit" value="Logout" /></a></div>
+					<div class="form-group">hi:{{ request.session.user_info.username }} <a href="{% url 'users:logout' %}"><input class="btn btn-default" type="submit" value="Logout" /></a></div>
 				</div>
 			</div>
 			{% else %}
@@ -171,22 +126,25 @@
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<span class="glyphicon glyphicon-log-in"></span>
-						Log In
+						登录Log In
 					</h3>
 				</div>
 				<div class="panel-body">
-					<form action="/focus/login/" method="post">
+					<form action="{% url 'users:login' %}" method="post">
 						{% csrf_token %}
 						{{ loginform.non_field_errors }}
 						<div class="form-group">
 							{{ loginform.uid }}
-						<!--	<input type="text" class="form-control" id="uid" name="uid" placeholder="Username">  -->
+							<input type="text" class="form-control" id="useranme" name="username" placeholder="Username"> 
 						</div>
 						<div class="form-group">
 							{{ loginform.pwd }}
-						<!--	<input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password">  -->
+							<input type="password" class="form-control" id="password1" name="password1" placeholder="Password"> 
 						</div>
 						<button type="submit" class="btn btn-default">Log In</button>
+						<label style="float:right">	<a href='#' >沒有帳號， 前往注冊</a>
+
+						</label>
 					</form>
 				</div>
 			</div>
@@ -276,7 +234,10 @@
 
 	  </div><!--/Right Column -->
 
-	</div><!--/container-fluid-->
+	</div> <!--row -->
 
 
-{% endblock %}
+
+{% endblock %} <!-- block main -->
+
+

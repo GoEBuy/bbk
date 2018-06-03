@@ -1,64 +1,9 @@
-{% extends 'layout.html' %}
+{% extends '../layout.html' %}
+{% load staticfiles %}
+{% load static %}
 
 
 {% block main %}
-
-<!-- 导航-->
-    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-        <div class="container">
-            <!-- Logo and responsive toggle -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><span class="glyphicon glyphicon-globe"></span> Logo</a>
-            </div>
-            <!-- Navbar links -->
-            <div class="collapse navbar-collapse" id="navbar">
-                <ul class="nav navbar-nav">
-                    <li class="active">
-                        <a href="#">首页</a>
-                    </li>
-                    <li>
-                        <a href="#">交通工具</a>
-                    </li>
-                    <li>
-                        <a href="#">家装设计</a>
-                    </li>
-                    <li>
-                        <a href="#">当地向导</a>
-                    </li>
-                    <li>
-                        <a href="#">商务服务</a>
-                    </li>
-					<!--<li class="dropdown">-->
-						<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Others <span class="caret"></span></a>-->
-						<!--<ul class="dropdown-menu" aria-labelledby="about-us">-->
-							<!--<li><a href="#">Programming World</a></li>-->
-							<!--<li><a href="#">Poetry and the Distance</a></li>-->
-							<!--<li><a href="#">The Pots and Pans</a></li>-->
-						<!--</ul>-->
-					<!--</li>    -->
-                </ul>
-
-				<!-- Search -->
-				<form class="navbar-form navbar-right" role="search">
-					<div class="form-group">
-						<input type="text" class="form-control">
-					</div>
-					<button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Search</button>
-				</form>
-
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-	<!--	<div class="container-fluid"> -->
 
 	<div class="row">
 		<!-- Left Column -->
@@ -117,18 +62,87 @@
 		<!-- Center Column -->
 		<div class="col-sm-6">
 
+    <!-- Main Jumbtron 超大屏幕 -->
+    <div class="jumbotron ">
+    <h3>Django Framework</h3>
+	<p><h5>This is a simple Ecormmerce website created using Django Web Framework</h5></p>
+    </div>
+    <!-- End Jumbtron -->
+
+	<!--
+	<div>
+		<a href="#" >
+			<img class="img-responsive" src="holder.js/500*300?bg=FF8C00&text=imgtext">
+		</a>
+	</div>
+-->
 			<!--内行人列表  -->
 			{% for u in user_list %}
-			<div class="row">
-				<article class="col-xs-12">
-					<h2><a id="user_id", href="{% url 'users:detail' u.id %}">{{ u.id}}</a>
-			: <strong> {{ u.username}}</strong> : {{ u.date_joined}} 
-					</h2>
+
+
+			<div class="media">
+				
+				  <div class="media-left ">
+					      <a href="{% url 'users:detail' u.id %}">
+							        <img class="media-object" src=" {%static 'img/default-avatar.png' %} " alt="...">
+									    </a>
+										  </div>
+
+										    <div class="media-body row">
+<h3 class="media-heading "><a href="{% url 'users:detail' u.id %}"><strong>{{u.username}}</strong> </a>
+</h3> <span>實名認證</span>
+<span><a href='#'>100條評論</a> </span>
+	
+								<p>
+								<span>
+									    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+									</span>		</p>
+									<p>
+									<span class="font-weight-bold">自我簡介:</span>
+									<span>
+										{% if u.userinfo and u.userinfo.bio %}
+										{{u.userinfo.bio |truncatechars_html:50 | safe }} 
+										{% else %}
+										no user desc
+										{% endif %}
+									</span>
+									<span><a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">更多介紹</a></span>
+									</p>
+								
 					<!-- 简介 -->
-			<p>	内行行业:	<%  %> </p>
+					<p>	
+					<span>内行行业:</span>
+					
+					</p>
+<div class="col-9" style="position:relative; ">
+	<span style="left: 10px; margin-left:15px"> 總體評價:  </span>
+<span style="right:5px; margin-right:20px">關注</span>
+</div>
+</div>
+
+			<span style="display:none" >
+				id: {{u.id}}
+			</span>
 					<!-- <p>{{ article.content|truncatechars_html:80 | safe }}</p> -->
 				<!-- 	<p><button class="btn btn-default">Read More</button></p>  -->
 
+					<!-- 用户标签 -->
+					<p class="pull-right"><span class="label label-default">{{ cate.cate_name }}</span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
+					<ul class="list-inline">
+						<!-- <li><a href="#">{{ article.pub_date | date:"j M" }}</a></li> -->
+						<li><a href="#">{{u.date_joined }}</a></li> 
+						<!-- 评论数量 -->
+						<li><a href="#"><span class="glyphicon glyphicon-comment"></span>100comments </a></li>
+						<!-- 关注人数 -->
+						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>10 Favorites</a></li>
+					</ul>
+										  </div>
+
+									  {% comment %}
+			<div class="row">
+				<article class="col-xs-12">
+					<h2><a id="user_id", href="">{{ u.id}}</a>
+			:{{ u.username}}</strong> : {{ u.date_joined}} 
 					<!-- 用户标签 -->
 					<p class="pull-right"><span class="label label-default">{{ cate.cate_name }}</span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
 					<ul class="list-inline">
@@ -141,7 +155,35 @@
 					</ul>
 				</article>
 			</div>
+		{% endcomment %}
+
+		<hr>	
 			{% endfor %}
+<!--分頁 -->
+<div id="page-nav"  class="row">
+	<div class="col-4" ></div>
+<nav aria-label="Page navigation">
+	<ul class="pagination col-4 col-offset-4">
+		<li>
+		<a href="#" aria-label="Previous">
+			<span aria-hidden="true">&laquo;</span>
+		</a>
+		</li>
+		<li><a href="#">1</a></li>
+		<li><a href="#">2</a></li>
+		<li><a href="#">3</a></li>
+		<li><a href="#">4</a></li>
+		<li><a href="#">5</a></li>
+		<li>
+		<a href="#" aria-label="Next">
+			<span aria-hidden="true">&raquo;</span>
+		</a>
+		</li>
+	</ul>
+</nav>
+	<div class="col-4" ></div>
+</div>
+
 
 			<div class="row">
 				<article class="col-xs-12">

@@ -1,11 +1,16 @@
+{% extends '../layout.html' %} <!-- 模板繼承  -->
 {% load static %}   <!-- 这个地方引入static这个文件 -->
+{% load staticfiles%}
+    
+{% comment %}
+{% endcomment %}
 
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>欢迎登陆--帮帮看</title>
-<style type="text/css">  
+{% block title %}
+欢迎登陆--帮帮看
+{% endblock %}
+
+{% comment %}
+{% block stylecss%}
 body{background: url( {% static 'img/bg.jpg' %}) no-repeat;background-size:cover;font-size: 16px;}
 .form{background: rgba(255,255,255,0.2);width:400px;margin:100px auto;}  
 #login_form{display: block;}  
@@ -13,11 +18,10 @@ register_form{display: block;}
 .fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}  
 input[type="text"],input[type="password"]{padding-left:26px;}  
 .checkbox{padding-left:21px;}  
-</style>  
+{% endblock %}
+{% endcomment %}
 
 
-</head>
-<body>
 <!--网格系统:通过行和列布局
 行必须放在container内
 手机用col-xs-*
@@ -26,25 +30,33 @@ input[type="text"],input[type="password"]{padding-left:26px;}
 大型设备台式电脑用col-lg-*
 为了兼容多个设备，可以用多个col-*-*来控制；
 -->
-<div class="container">
+
+{% block main %}
+<div class="row">
+<!-- div居中 , 子元素居中顯示 -->
+ <div class="col-md-4 col-md-offset-4 text-center"> 
      <div style="font-size: 25px; font-weight: bold;text-align: center;">
-         用户登陆
+		 <h3 class="form-title"> 用户登陆</h3>
      </div>
 <div class="login" id="login_form">
-     <form role="form" action="{% url 'users:index' %}" method="POST">
+     <form role="form" action="{% url 'users:login' %}" method="POST">
 	 {% csrf_token %}
-         <div class="form-group">
-             <label for="username">用户名</label>
+         <div class="form-group row">
+             <label for="username"  class="col-sm-3 col-form-label" autofocus="autofocus" placeholder="請輸入用戶名">用户名:</label>
+			 <div class="col-sm-9">
              {{ form.username }}  <span style="color: red">{{ form.username.errors }}</span>
+		 </div>
          </div>
 
         <!-- <div class="form-group">
              <label for="email">邮箱</label>
              {{ form.email }}<span style="color: red">{{ form.email.errors }}</span>
          </div> -->
-         <div class="form-group">
-             <label for="password">密码</label>
+         <div class="form-group row">
+             <label for="password"  class="col-sm-3 col-form-label">密码:</label>
+			 <div class="col-sm-9">
              {{ form.password1 }}<span style="color: red">{{ form.password1.errors }}</span>
+		 </div>
          </div>
 		 <!--
 		 <div class="checkbox">
@@ -54,32 +66,50 @@ input[type="text"],input[type="password"]{padding-left:26px;}
 		 </div>
 		 -->
 
-		 <div class="checkbox">
-		 <label>
-		 <input type="checkbox">是否记住
-		 </label>
-		 </div>
+<div class="form-group row">
+<div class="col-sm-3"></div>
 
-
-		 <div class="form-group">
-         <input type="submit" class="btn btn-default" value="登陆"/>
-         <input type="submit" class="btn btn-default" value="重置"/>
-		 </div>
-     <span>没有账号？<a href="{% url 'users:register' %}">去注册</a></span>
-     <span><a href="#">返回首页</a></span>
-     </form>
- </div>
+<div class="col-sm-9">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" id="gridCheck">
+<label class="form-check-label" for="gridCheck">是否记住我</label>
+</div>
+</div>
 </div>
 
-	  <!--  <div class="login-footer">
-	        <span id="footerTip" href="javascript:;">© 58.com</span><span>|</span><a href="http://ai.58.com/pc/#/entry/scene_id=2&joinfrom=regist" target="_blank" onclick="clickLog('from=pc_register_ai_click')">联系客服</a><span>|</span><a href="//about.58.com/customerservice.html" target="_blank">帮助</a>
-	    </div>-->
 
-    <!--<script>
-    window.onload = function(){
-        $(".regLable").html("");
+		 <div class="form-group row">
+<div class="col-sm-3"></div>
+<div class="col-sm-9">
+			 <p>
+			<a class="btn btn-link button secondaryAction" href="{% url 'users:settings_password' %}">忘記密碼?</a>
+			</p>
+		</div>
+	</div>
 
-    }
-    </script>-->
-	</body>
-</html>
+<div class="form-group row">
+<div class="col-sm-3"></div>
+<div class="col-sm-9">
+         <input type="submit" class="btn btn-success pull-left" style="margin-left:25px" value="登陆"/>
+         <input type="submit" class="btn btn-info pull-right" style="margin-right:25px" value="重置"/>
+		 </div>
+	 </div>
+
+
+<div class="form-group row">
+<div class="col-sm-3"></div>
+<div class="col-sm-9">
+     <span>没有账号？<a class="btn btn-link button secondaryAction" href="{% url 'users:register' %}">去注册</a></span>
+     <span><a class="btn btn-link button secondaryAction" href="#">返回首页</a></span>
+ </div>
+ </div>
+
+
+     </form>
+	  </div> 
+  </div>
+</div>
+
+{% endblock %} <!-- block main -->
+
+

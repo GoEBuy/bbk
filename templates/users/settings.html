@@ -1,4 +1,6 @@
 {% extends '../layout.html' %}
+{% load static %}
+
 {% block CSS %}
     <style>
         a:active {
@@ -47,22 +49,21 @@
 {% endblock %}
 
 {% block main %}
+
     <div class="box">
         <div class="header"><a href="{% url 'users:index' %}">V2EX</a> <span class="chevron">&nbsp;›&nbsp;</span> 设置</div>
 
         <div class="inner">
-            <form method="post" action="{% url 'users:settings' %}">
+			<form method="post" action="{% url 'users:settings'%}">
                 <table cellpadding="5" cellspacing="0" border="0" width="100%">
                     <tbody>
                     <tr>
-                        <td width="120" align="right"><img
-                                src="{{ user_detail_obj.user.avatar }}" class="avatar"
-                                border="0" align="default" style="max-width: 24px; max-height: 24px;"></td>
+                        <td width="120" align="right"><img src="{{ user_detail_obj.img}}" class="avatar" border="0" align="default" style="max-width: 24px; max-height: 24px;" alt="userimg"></td>
                         <td width="auto" align="left">V2EX 第  号会员</td>
                     </tr>
                     <tr>
                         <td width="120" align="right">用户名</td>
-                        <td width="auto" align="left">username</td>
+						<td width="auto" align="left">{{user_detail_obj.username}}</td>
                     </tr>
 
                     <tr>
@@ -70,7 +71,7 @@
                         {% if True %}
                             <td width="auto" align="left"><span class="negative">尚未验证手机号</span></td>
                         {% else %}
-                            <td width="auto" align="left"><span>{{ user_detail_obj.user.mobile }}</span></td>
+                            <td width="auto" align="left"><span></span></td>
                         {% endif %}
                     </tr>
 
@@ -84,7 +85,7 @@
                     </tr>
                     <tr>
                         <td width="120" align="right"></td>
-                        <td width="auto" align="left"><a href="#">更改注册邮箱</a></td>
+						<td width="auto" align="left"><a href="{% url 'users:settings_email'%}">更改注册邮箱</a></td>
                     </tr>
 
                     <tr>
@@ -100,7 +101,7 @@
                             <td width="120" align="right"></td>
                             <td width="auto" align="left">
                                 <button class="btn btn-sm"
-                                        onclick="if (confirm('你确认要向 {{ user_detail_obj.user.email }} 重新发送验证邮件？')) { resendVerificationEmail('{{ user_detail_obj.user.email }}'); }"
+                                        onclick="if (confirm('你确认要向 重新发送验证邮件？')) { resendVerificationEmail(''); }"
                                         id="ButtonResendVerification" type="button">
                                     <li class="fa fa-refresh"></li>
                                     重发验证码
@@ -110,29 +111,29 @@
                     <tr>
                         <td width="120" align="right">个人网站</td>
                         <td width="auto" align="left">
-                            <input type="text" class="sl" name="website" value="{{ user_detail_obj.website }}">
+                            <input type="text" class="sl" name="website" value="">
                         </td>
                     </tr>
                     <tr>
                         <td width="120" align="right">所在公司</td>
                         <td width="auto" align="left">
-                            <input type="text" class="sl" name="company" value="{{ user_detail_obj.company }}"
+                            <input type="text" class="sl" name="company" value=""
                                                              maxlength="50"></td>
                     </tr>
                     <tr>
                         <td width="120" align="right">工作职位</td>
                         <td width="auto" align="left">
-                            <input type="text" class="sl" name="company_title" value="{{ user_detail_obj.company_title }}"
+                            <input type="text" class="sl" name="company_title" value=""
                                                              maxlength="50"></td>
                     </tr>
                     <tr>
                         <td width="120" align="right">所在地</td>
                         <td width="auto" align="left">
-                            <input type="text" class="sl" name="location" value="{{ user_detail_obj.user.location }}"></td>
+                            <input type="text" class="sl" name="location" value=""></td>
                     </tr>
                     <tr>
                         <td width="120" align="right">个人简介</td>
-                        <td width="auto" align="left"><textarea class="ml" name="bio">{{ user_detail_obj.bio }}</textarea></td>
+                        <td width="auto" align="left"><textarea class="ml" name="bio"></textarea></td>
                     </tr>
                     <tr>
                         <td width="120" align="right">社区财富排行榜</td>
@@ -191,14 +192,15 @@
                 <tbody>
                 <tr>
                     <td width="120" align="right">当前头像</td>
-                    <td width="auto" align="left"><img src="{{ user_detail_obj.user.avatar }}" class="avatar" border="0"
-                                                       align="default"></td>
-                </tr>
+					{% comment %}
+					{% endcomment %}
+					<td width="auto" align="left"><img src="{% static "img/default-avatar.png" %}" class="avatar" border="0"  align="default" alt="default-avatar" /></td>
+				</tr>
                 <tr>
                     <td width="120" align="right"></td>
                     <td width="auto" align="left">
-						<input type="button" onclick="location.href ='{% url 'settings_avatar' %}';"
-                               class="btn btn-sm" value="上传新头像">
+						<input type="button" onclick="location.href ='{% url 'users:settings_avatar' %}'
+ class="btn btn-sm" value="上传新头像" />
                     </td>
                 </tr>
                 </tbody>
@@ -251,7 +253,7 @@
             </form>
         </div>
     </div>
-{% endblock %}
+	{% endblock %} <!-- block main -->
 
 {% block JS %}
     {% if True %}
@@ -280,4 +282,4 @@
             }
         </script>
     {% endif %}
-{% endblock %}
+	{% endblock %} <!-- block js -->

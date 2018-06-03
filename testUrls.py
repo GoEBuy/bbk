@@ -34,7 +34,7 @@ def printTemplateRender(template, context=None, saveFmt=False, **kawgs):
 		if kawgs:
 			context = Context(kawgs)
 		else:
-			context = Context({})
+			context = {}
 
 	html = get_template(template).render(context).encode('utf-8')
 	print ("html for template:", template)
@@ -50,16 +50,17 @@ def testUsers():
 	pdb.set_trace()
 	#print reverse ('users:register')
 	#print reverse ('users:login')
-	printReverseUrl('users:register')
-	printReverseUrl('users:login')
+	#printReverseUrl('users:register')
+	#printReverseUrl('users:login')
 
 	#print get_template('users/login.html')
-	#print get_template('users/index.html')
+	print get_template('users/index.html')
+        printTemplateRender('users/index.html', saveFmt=True )
 	#printTemplateRender('users/login.html')
-	from users.models import NewUser 
-	user = NewUser.objects.get(pk=1)
-	printTemplateRender('users/user_detail.html', context={'user':user}, saveFmt=True )
-	pass
+	#from users.models import NewUser 
+	#user = NewUser.objects.get(pk=1)
+	#printTemplateRender('users/user_detail.html', context={'user':user}, saveFmt=True )
+	#pass
 
 def main():
 	testUsers()

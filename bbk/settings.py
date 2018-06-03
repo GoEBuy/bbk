@@ -15,7 +15,8 @@ import os
 #from bbk.focus.models import *
 #from bbk.users.models import *
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#bbk root dir /bbk
+BASE_DIR = os.path.dirname(  os.path.dirname(os.path.abspath(__file__) ) )
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,7 +26,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'narpk+=p5=zgyy43n+9r#2zig7fq^ez0_!8zz0j0k45=jt_ehe'
 
 DEBUG = True
-DEBUG_PDB=True
+DEBUG_PDB=False
+#DEBUG_PDB=True
 
 ALLOWED_HOSTS = ['*']
 
@@ -33,8 +35,7 @@ ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = "users.NewUser"  
 
 #登录地址
-LOGIN_URL = "/focus/"
-#LOGIN_URL = "/users/login/"
+LOGIN_URL = "/users/login/"
 #?next='article_id'"
 
 # Application definition
@@ -48,9 +49,18 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+##自定義APP模塊
     'focus',
-	'users',
-	'order',
+    'users',
+    'order',
+#    'settings',
+    'category',
+    'contact', #聯系我們
+
+    #'allauth',
+    #'allauth.account',
+    #'allauth.socialaccount',
+    #'stripe'
 
 )
 
@@ -91,6 +101,9 @@ TEMPLATES = [
 	#		'DIRS': [	'/home/html/jinja2', ],
 	#},
 ]
+
+
+
 
 WSGI_APPLICATION = 'bbk.wsgi.application'
 
@@ -186,42 +199,75 @@ USE_I18N = True
 
 USE_L10N = True
 
-# 头像存放目录（当然也可以使用OSS等云存储，这里存储到本地）
-#AVATAR_FILE_PATH = os.path.join(BASE_DIR, 'static', 'img')
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+STATIC_ROOT = os.path.join( os.path.dirname(BASE_DIR), 'static').replace('\\','/')
+
+STATICFILES_DIRS = [
+    
+    '/var/www/static/',
+    os.path.join( BASE_DIR, 'static')
+]
+
+#static用来放网站自己的图片、js、css等
+#media用来放用户上传的图片、文件等
+MEDIA_URL = '/media/'  
+MEDIA_ROOT = os.path.join( os.path.dirname(BASE_DIR), 'media').replace('\\', '/')  
+
+# 头像存放目录（当然也可以使用OSS等云存储，这里存储到本地）
+#/static/img
+AVATAR_FILE_PATH = os.path.join(BASE_DIR, 'static', 'img')
 
 
 # 缓存相关
-#CACHES = {
-## 默认配置，cache 单独使用
-#	"default": {
-#		"BACKEND": "django_redis.cache.RedisCache",
-#		"LOCATION": "redis://127.0.0.1:6379/1",
-#		"OPTIONS": {
-#			"CLIENT_CLASS": "django_redis.client.DefaultClient",
-#		}
-#	},
-## 新增配置让session 使用，
-#	"session": {
-#		"BACKEND": "django_redis.cache.RedisCache",
-#		"LOCATION": "redis://127.0.0.1:6379/0",
-#		"OPTIONS": {
-#			"CLIENT_CLASS": "django_redis.client.DefaultClient",
-#		}
-#	}
-#}
+CACHES = {
+# 默认配置，cache 单独使用
+    "default": {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    },
+
+    "file": {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+    },
+
+
+	#"default": {
+	#	"BACKEND": "django_redis.cache.RedisCache",
+	#	"LOCATION": "redis://127.0.0.1:6379/1",
+	#	"OPTIONS": {
+	#		"CLIENT_CLASS": "django_redis.client.DefaultClient",
+	#	}
+	#},
+# 新增配置让session 使用，
+	#"session": {
+        #      'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        #              'LOCATION': 'unix:/tmp/memcached.sock',
+	#},
+    "session": {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+    },
+
+	#"session1": {
+	#	"BACKEND": "django_redis.cache.RedisCache",
+	#	"LOCATION": "redis://127.0.0.1:6379/0",
+	#	"OPTIONS": {
+	#		"CLIENT_CLASS": "django_redis.client.DefaultClient",
+	#	}
+	#}
+}
 # session 相关配置
-#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-#SESSION_CACHE_ALIAS = "session"
-#SESSION_COOKIE_NAME = "sessionid"
-#SESSION_COOKIE_PATH = "/"
-#SESSION_COOKIE_AGE = 60 * 20
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "session"
+SESSION_COOKIE_NAME = "sessionid"
+SESSION_COOKIE_PATH = "/"
+SESSION_COOKIE_AGE = 60 * 200 
 ## 用户刷新页面，重新设置缓存时间
 #SESSION_SAVE_EVERY_REQUEST = True
 
@@ -231,17 +277,17 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 #PAGER_NUMS = 7
 
 # 邮件配置
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 ## SMTP服务器
-#EMAIL_HOST = 'smtp.sina.com'
-#EMAIL_PORT = 25
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
 # TODO
 # 发送邮件的邮箱
-#EMAIL_HOST_USER = 'luremind@sina.com'
+EMAIL_HOST_USER = '857659628@qq.com'
 ## 在邮箱中设置的客户端授权密码
-#EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_PASSWORD = 'younger646689'
 ## 收件人看到的发件人
-#EMAIL_FROM = '假的V2EX<luremind@sina.com>'
+EMAIL_FROM = 'bbk<857659628@sina.com>'
 
 
 #CELERY_BEAT_SCHEDULE = {
