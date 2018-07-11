@@ -32,7 +32,7 @@ DEBUG_PDB=False
 ALLOWED_HOSTS = ['*']
 
 #替换默认User
-AUTH_USER_MODEL = "users.NewUser"  
+AUTH_USER_MODEL = "users.NewUser"
 
 #登录地址
 LOGIN_URL = "/users/login/"
@@ -74,7 +74,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    #'middle.custom_middle.CountOnlineMiddlewareMixin', 
+    'middle.custom_middle.CountOnlineMiddlewareMixin',
+     'django.contrib.sites.middleware.CurrentSiteMiddleware',
 )
 
 ROOT_URLCONF = 'bbk.urls'
@@ -111,7 +112,7 @@ WSGI_APPLICATION = 'bbk.wsgi.application'
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
 DATABASES = {
-	'default': {  
+	'default': {
 		'ENGINE': 'django.db.backends.mysql',
 		'NAME': 'bbk', #你的数据库名称 数据库需要自己提前建好
 		'USER': 'root', #你的数据库用户名
@@ -123,7 +124,7 @@ DATABASES = {
     #    'ENGINE': 'django.db.backends.sqlite3',
     #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     #},
-	'mysql': {  
+	'mysql': {
 		'ENGINE': 'django.db.backends.mysql',
 		'NAME': 'bbk', #你的数据库名称 数据库需要自己提前建好
 		'USER': 'root', #你的数据库用户名
@@ -140,10 +141,11 @@ LOGGING = {
 	'disable_existing_loggers': False,
 	'formatters': {
 		'verbose': {
-			'format': '%(levelname)s %(asctime)s [%(filename)s:%(lineno)d] [%(module)s] %(process)d %(thread)d %(message)s'
+			'format': '[%(levelname)s] [%(asctime)s] [%(filename)s:%(lineno)d] [%(module)s] %(process)d %(thread)d %(message)s'
 		},
 		'simple': {
-			'format': '%(levelname)s %(message)s'
+			#'format': '%(levelname)s %(message)s'
+			'format': '[%(levelname)s] [%(asctime)s] [%(filename)s:%(lineno)d] %(message)s'
 		},
 	},
 	'handlers': {
@@ -192,8 +194,10 @@ LOGGING = {
 #LANGUAGE_CODE = 'en-us'
 
 #TIME_ZONE = 'UTC'
-TIME_ZONE = 'Asia/Shanghai'
-USE_TZ = True 
+TIME_ZONE = 'Asia/Shanghai' #UTC+8
+
+#是否使用UTC時間
+#USE_TZ = True
 
 USE_I18N = True
 
@@ -208,15 +212,15 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join( os.path.dirname(BASE_DIR), 'static').replace('\\','/')
 
 STATICFILES_DIRS = [
-    
+
     '/var/www/static/',
     os.path.join( BASE_DIR, 'static')
 ]
 
 #static用来放网站自己的图片、js、css等
 #media用来放用户上传的图片、文件等
-MEDIA_URL = '/media/'  
-MEDIA_ROOT = os.path.join( os.path.dirname(BASE_DIR), 'media').replace('\\', '/')  
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join( os.path.dirname(BASE_DIR), 'media').replace('\\', '/')
 
 # 头像存放目录（当然也可以使用OSS等云存储，这里存储到本地）
 #/static/img
@@ -229,22 +233,25 @@ CACHES = {
     "default": {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'my_cache_table',
+        'TIMEOUT': 6000,
     },
 
+    #注意是绝对位置（从根目录开始），必须保证服务器对你列出的路径具有读写权限
     "file": {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': '/var/tmp/django_cache',
     },
 
 
-	#"default": {
-	#	"BACKEND": "django_redis.cache.RedisCache",
-	#	"LOCATION": "redis://127.0.0.1:6379/1",
-	#	"OPTIONS": {
-	#		"CLIENT_CLASS": "django_redis.client.DefaultClient",
-	#	}
-	#},
+    "redis": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379/1",
+            "OPTIONS": {
+                    "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            }
+    },
 # 新增配置让session 使用，
+#pip安装memcached的插件Python-mencached和pylibmc，可以同时支持多个服务器上面的memcached
 	#"session": {
         #      'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         #              'LOCATION': 'unix:/tmp/memcached.sock',
@@ -252,6 +259,7 @@ CACHES = {
     "session": {
         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
         'LOCATION': 'my_cache_table',
+        'TIMEOUT': 6000,
     },
 
 	#"session1": {
@@ -261,13 +269,19 @@ CACHES = {
 	#		"CLIENT_CLASS": "django_redis.client.DefaultClient",
 	#	}
 	#}
+
+#本地内存缓存，这个缓存是多进程和线程安全的
+    'localmem': {
+                 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+                 'LOCATION': ''
+             }
 }
 # session 相关配置
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "session"
 SESSION_COOKIE_NAME = "sessionid"
 SESSION_COOKIE_PATH = "/"
-SESSION_COOKIE_AGE = 60 * 200 
+SESSION_COOKIE_AGE = 60 * 200
 ## 用户刷新页面，重新设置缓存时间
 #SESSION_SAVE_EVERY_REQUEST = True
 
@@ -278,16 +292,25 @@ SESSION_COOKIE_AGE = 60 * 200
 
 # 邮件配置
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+#MAIL_USE_SSL 和 EMAIL_USE_TLS 是互斥的，即只能有一个为 True
+#EMAIL_USE_TLS=False
+#EMAIL_USE_SSL=True
 ## SMTP服务器
+#EMAIL_HOST = 'smtp.tju.edu.cn'
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
 # TODO
 # 发送邮件的邮箱
+#EMAIL_HOST_USER = 'yyyang@tju.edu.cn'
 EMAIL_HOST_USER = '857659628@qq.com'
 ## 在邮箱中设置的客户端授权密码
-EMAIL_HOST_PASSWORD = 'younger646689'
+#EMAIL_HOST_PASSWORD = 'C0mputer'
+#EMAIL_HOST_PASSWORD = 'younger646689'
 ## 收件人看到的发件人
-EMAIL_FROM = 'bbk<857659628@sina.com>'
+EMAIL_FROM = 'bbk<857659628@qq.com>'
+#EMAIL_FROM = 'bbk<857659628@tju.edu.cn>'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 #CELERY_BEAT_SCHEDULE = {

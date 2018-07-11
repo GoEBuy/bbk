@@ -17,10 +17,11 @@ def mobile_validate(value):
 def user_unique_validate(username):
     user_obj = NewUser.objects.filter(username=username).first()
     if user_obj:
-        raise ValidationError('此用户名已经存在，请换一个')
+        raise ValidationError('用户名已经存在')
 
 
 def username_rule_validate(value):
+    """ 自定义表单格式验证 """
     # 先设定一个正则，非 [a-z][0-9]
     username_re = re.compile(r'\W|[A-Z]')
     # 判断如果查找所有的数据后有正则中的指定的字符串
@@ -37,20 +38,12 @@ def email_unique_validate(email):
 
 
 class SettingsForm(forms.Form):
-    location = forms.CharField(required=False, max_length=50, error_messages={'max_length':'最多50位'} ) 
+    location = forms.CharField(required=False, max_length=50, error_messages={'max_length':'最多50位'} )
 
     pass
 
-
-# class SignupForm(forms.Form):
-#     username = forms.CharField(
-#         validators=[user_unique_validate, username_rule_validate, ], required=True,
-#                                max_length=30, min_length=5,
-#                                error_messages={'required': '用户名不能为空', 'max_length': '用户名至少5位',
-#                                                'min_length': '用户名最多30位'})
 #     password = forms.CharField(min_length=6, max_length=50, required=True,
 #                                error_messages={'required': '密码不能为空',
-#                                                'invalid': '密码格式错误',
 #                                                'min_length': '密码不能少于6位',
 #                                                'max_length': '密码最多50位'})
 #     email = forms.EmailField(validators=[email_unique_validate, ], required=True,
@@ -77,29 +70,75 @@ class SettingsForm(forms.Form):
  # ,  # 用于对密码的正则验证
 
 class RegisterForm(forms.Form):
-	username = forms.CharField(
-                label='username',  
+    username = forms.CharField(
+                label='username',
                 validators=[user_unique_validate, username_rule_validate, ],
                 max_length=100,
                 widget=forms.TextInput(
-                    attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符'} ),
-            error_messages = {'required': '用户名不能为空',  'min_length': '用户名最少为6个字符',  'max_length': '用户名最不超过为20个字符'}
+                    attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符','class':"form-control"} ),
+            error_messages = {
+                'required': '用户名不能为空',  'min_length': '用户名最少为6个字符',  'max_length': '用户名最多不超过为20个字符',
+                }
             )
-	email = forms.EmailField( required=True, widget = forms.TextInput(attrs={'class': "form-control", 'placeholder': '请输入邮箱'} ), 
+    email = forms.EmailField( required=True, widget = forms.TextInput(attrs={'class': "form-control", 'placeholder': '请输入邮箱'} ),
             error_messages = {'required': '邮箱不能为空', 'invalid':'请输入正确的邮箱格式'} )
-	password1 = forms.CharField( 
-                required=True, 
-                widget=forms.PasswordInput,
-                error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!',})
-	password2 = forms.CharField( required=True, widget=forms.PasswordInput)
+    password1 = forms.CharField(
+                required=True,
+                widget=forms.PasswordInput(attrs={'class':"form-control"}),
+                error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!', 'invalid': '密码格式错误' } )
+    password2 = forms.CharField( required=True, widget=forms.PasswordInput(attrs={'class':"form-control"} ),
+            error_messages={'required':'请确认密码', }
+
+            )
+
+    def clean(self):
+        """自定义form验证 """
+        try:
+            import pdb
+            pdb.set_trace()
+            password1= self.cleaned_data['password1']
+            password2= self.cleaned_data['password2']
+            if password1<> password2:
+                raise forms.ValidationError("输入密码不一致")
+            return self.cleaned_data
+            pass
+        except Exception as e:
+            print "except:"+ str(e)
+            raise forms.ValidationError("form validate error:" +str(e) )
+        return self.cleaned_data
+# 获取表单提示信息
+    def getFormTips(form):
+        errors = form._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())
+        err = errors.pop()
+        if err:
+            print type(err)
+            if isinstance(err, str):
+                print 'str'
+            else:
+                err = err.message
+        print err
+        return err
+        # 设置表单提示信息
+    def setFormTips(form, content):
+        if content and len(content)>0:
+            errors = form._errors.setdefault(forms.forms.NON_FIELD_ERRORS, forms.utils.ErrorList())
+            errors.append(content)
+
 
 
 
 class LoginForm(forms.Form):
-	username = forms.CharField(label='username',  validators=[ username_rule_validate, ], max_length=100,widget=forms.TextInput(attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符'}) )
-	#, error_messages = {'required': '用户名不能为空',  'min_length': '用户名最少为6个字符',  'max_length': '用户名最不超过为20个字符'}
+	username = forms.CharField(label='username',
+            validators=[ username_rule_validate, ],
+            max_length=100,
+            widget=forms.TextInput(attrs={'id':'username', 'onblur': 'authentication()','placeholder': '用户名为8-12个字符', 'class':'form-control' }) ,
+            error_messages = {'required': '用户名不能为空',  'min_length': '用户名最少为6个字符',  'max_length': '用户名最不超过为20个字符'}
+            )
 	 #, error_messages = {'required': '邮箱不能为空', 'invalid':'请输入正确的邮箱格式'} )
-	password1 = forms.CharField(widget=forms.PasswordInput, error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!',})
+	password1 = forms.CharField(
+            widget=forms.PasswordInput(attrs={'class':'form-control'}),
+            error_messages = {'required': '密码不能为空!', 'min_length': '密码最少为6个字符','max_length': '密码最多不超过为12个字符!',}
+            )
 
 
 class SetInfoForm(forms.Form):

@@ -28,7 +28,7 @@ urlpatterns = [
 	#ex: /users/
 	url(r'^users/', include(users_urls)),
 
-	url(r'^cates/', include(cates_urls)),
+	url(r'^cate/', include(cates_urls)),
 
 	url(r'^contact/', include(contact_urls )),
 

@@ -2,329 +2,432 @@
 {% load staticfiles %}
 {% load static %}
 
+{% block title %}
+首頁--幫幫看
+{% endblock %}
 
 {% block main %}
 
-	<div class="row">
-		<!-- Left Column -->
-		<div class="col-sm-3">
+<div class="row">
+	<!-- Left Column -->
+	<div class="col-sm-3">
 
-			<!-- List-Group Panel -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h1 class="panel-title"><span class="glyphicon glyphicon-fire"></span> The Principles of Programmer </h1>
-				</div>
-				<div class="list-group">
-					<a href="#" class="list-group-item">Embrace Change </a>
-					<a href="#" class="list-group-item">KISS: Keep it simple, stupid!</a>
-					<a href="#" class="list-group-item">Hide Implementation Details</a>
-					<a href="#" class="list-group-item">LoD: Law of Demeter</a>
-					<a href="#" class="list-group-item">DRY: Don't Repeat Youself</a>
-				</div>
+		<!-- List-Group Panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title"><span class="glyphicon glyphicon-fire"></span> The Principles of Programmer </h1>
+			</div>
+			<div class="list-group">
+				<a href="#" class="list-group-item">Embrace Change </a>
+				<a href="#" class="list-group-item">KISS: Keep it simple, stupid!</a>
+				<a href="#" class="list-group-item">Hide Implementation Details</a>
+				<a href="#" class="list-group-item">LoD: Law of Demeter</a>
+				<a href="#" class="list-group-item">DRY: Don't Repeat Youself</a>
+			</div>
+		</div>
+
+		<!-- Text Panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h1 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> Don’t repeat yourself</h1>
 			</div>
 
-			<!-- Text Panel -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h1 class="panel-title"><span class="glyphicon glyphicon-pencil"></span> Don’t repeat yourself</h1>
-				</div>
+			<div class="panel-body">
+				<p>DRY is probably the single most fundamental tenet in programming is to avoid repetition. Many programming constructs exist solely for that purpose (e.g. loops, functions, classes, and more). As soon as you start repeating yourself (e.g. a long expression, a series of statements, same concept) create a new abstraction.</p>
+				<p><button class="btn btn-default">Engage</button></p>
+			</div>
+		</div>
 
-				<div class="panel-body">
-					<p>DRY is probably the single most fundamental tenet in programming is to avoid repetition. Many programming constructs exist solely for that purpose (e.g. loops, functions, classes, and more). As soon as you start repeating yourself (e.g. a long expression, a series of statements, same concept) create a new abstraction.</p>
-					<p><button class="btn btn-default">Engage</button></p>
+		<!-- Text Panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<span class="glyphicon glyphicon-bullhorn"></span>
+					Active Predomination
+				</h3>
+			</div>
+			<div class="panel-body">
+				<p>Proactively envisioned multimedia based expertise and cross-media growth strategies.</p>
+				<div class="btn-group" role="group">
+					<button type="button" class="btn btn-default">Resource</button>
+					<button type="button" class="btn btn-default">Envision</button>
+					<button type="button" class="btn btn-default">Niche</button>
 				</div>
 			</div>
+		</div>
 
-			<!-- Text Panel -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-bullhorn"></span>
-						Active Predomination
-					</h3>
-				</div>
-				<div class="panel-body">
-					<p>Proactively envisioned multimedia based expertise and cross-media growth strategies.</p>
-					<div class="btn-group" role="group">
-						<button type="button" class="btn btn-default">Resource</button>
-						<button type="button" class="btn btn-default">Envision</button>
-						<button type="button" class="btn btn-default">Niche</button>
-					</div>
-				</div>
-			</div>
-
-		</div><!--/Left Column-->
+	</div><!--/Left Column-->
 
 	{# 模板 单行注释  #}
 	{% comment %} 多行注释 {% endcomment %}
 	{% comment %} 
- {% endcomment %}
-		<!-- Center Column -->
-		<div class="col-sm-6">
+	{% endcomment %}
+	<!-- Center Column -->
+	<div id="content" class="col-sm-6">
 
-    <!-- Main Jumbtron 超大屏幕 -->
-    <div class="jumbotron ">
-    <h3>Django Framework</h3>
-	<p><h5>This is a simple Ecormmerce website created using Django Web Framework</h5></p>
+        <div class="row">
+
+       {% comment %}
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner" role="listbox">
+    <div class="item active">
+      <img src="https://adm3.autoimg.cn/admdfs/g2/M0A/B6/3A/ChcCRFsQ4X-ASZnLAABafJLN3rE645.jpg" alt="...">
+      <div class="carousel-caption">
+        ...
+      </div>
     </div>
-    <!-- End Jumbtron -->
+    <div class="item">
+      <img src="https://adm3.autoimg.cn/admdfs/g24/M05/7A/35/ChcCL1r1LgqAcV0EAAIioaL9qDQ871.png" alt="...">
+      <div class="carousel-caption">
+        ...
+      </div>
+    </div>
+    ...
+  </div>
 
-	<!--
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+{% endcomment %}
+
+		<!-- Main Jumbtron 超大屏幕 -->
+		<div class="jumbotron ">
+			<h3>Django Framework</h3>
+			<p><h5>This is a simple Ecormmerce website created using Django Web Framework</h5></p>
+            <span style="display:block;position:absolute;right:5px;bottom:2px;width:32px;height:18px;background:url(https://x.autoimg.cn/engine/img/pc-fggxl-icon.png) 0 -24px"></span></a>
+    </div>
+
+		{% comment %}
+		<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+				<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+			</ol>
+
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner" role="listbox">
+				<div class="item active">
+					<img style="width:100%;" src="holder.js/300x200?theme=random&auto=yes&text=img1" alt="...">
+					<div class="carousel-caption">
+						Image 1	
+					</div>
+				</div>
+				<div class="item" >
+					<img style="width:100%;" src="holder.js/300x200?theme=random&auto=yes&text=img2" alt="...">
+					<div class="carousel-caption">
+						Image 2	
+					</div>
+				</div>
+				<div class="item" >
+					<img style="width:100%;" src="holder.js/300x200?theme=random&auto=yes&text=img3" alt="...">
+					<div class="carousel-caption">
+						Image 3	
+					</div>
+				</div>
+			</div>
+
+			<!-- Controls -->
+			<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+
+		{% endcomment %}
+
+        <div>
+		<div style="position:relative;">
+			<!--圖片自動大小佔位，且設置最大高度 -->
+			<img style="width:100%; max-height:200px;" data-src="holder.js/300x200?theme=social&auto=yes&text=image text">
+            <span style="position:absolute;right:5px;bottom:2px;width:32px;height:18px;background:red;background:url({% static "adv.png" %}) 0 -24px;z-index:100000;"></span>
+		</div>
+    </div>
+		<!-- <div class="caption">
+							 Themed placeholder
+								</div>
+							</div>
+							-->
+		<!-- End Jumbtron -->
+
+		<!--
 	<div>
 		<a href="#" >
 			<img class="img-responsive" src="holder.js/500*300?bg=FF8C00&text=imgtext">
 		</a>
 	</div>
 -->
-			<!--内行人列表  -->
-			{% for u in user_list %}
+		<!--内行人列表  -->
+		{% for u in user_list %}
 
+		<div class="media">
 
-			<div class="media">
-				
-				  <div class="media-left ">
-					      <a href="{% url 'users:detail' u.id %}">
-							        <img class="media-object" src=" {%static 'img/default-avatar.png' %} " alt="...">
-									    </a>
-										  </div>
-
-										    <div class="media-body row">
-<h3 class="media-heading "><a href="{% url 'users:detail' u.id %}"><strong>{{u.username}}</strong> </a>
-</h3> <span>實名認證</span>
-<span><a href='#'>100條評論</a> </span>
-	
-								<p>
-								<span>
-									    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-									</span>		</p>
-									<p>
-									<span class="font-weight-bold">自我簡介:</span>
-									<span>
-										{% if u.userinfo and u.userinfo.bio %}
-										{{u.userinfo.bio |truncatechars_html:50 | safe }} 
-										{% else %}
-										no user desc
-										{% endif %}
-									</span>
-									<span><a tabindex="0" class="btn" role="button" data-toggle="popover" data-trigger="focus" title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">更多介紹</a></span>
-									</p>
-								
-					<!-- 简介 -->
-					<p>	
-					<span>内行行业:</span>
-					
-					</p>
-<div class="col-9" style="position:relative; ">
-	<span style="left: 10px; margin-left:15px"> 總體評價:  </span>
-<span style="right:5px; margin-right:20px">關注</span>
-</div>
-</div>
-
-			<span style="display:none" >
-				id: {{u.id}}
-			</span>
-					<!-- <p>{{ article.content|truncatechars_html:80 | safe }}</p> -->
-				<!-- 	<p><button class="btn btn-default">Read More</button></p>  -->
-
-					<!-- 用户标签 -->
-					<p class="pull-right"><span class="label label-default">{{ cate.cate_name }}</span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
-					<ul class="list-inline">
-						<!-- <li><a href="#">{{ article.pub_date | date:"j M" }}</a></li> -->
-						<li><a href="#">{{u.date_joined }}</a></li> 
-						<!-- 评论数量 -->
-						<li><a href="#"><span class="glyphicon glyphicon-comment"></span>100comments </a></li>
-						<!-- 关注人数 -->
-						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>10 Favorites</a></li>
-					</ul>
-										  </div>
-
-									  {% comment %}
-			<div class="row">
-				<article class="col-xs-12">
-					<h2><a id="user_id", href="">{{ u.id}}</a>
-			:{{ u.username}}</strong> : {{ u.date_joined}} 
-					<!-- 用户标签 -->
-					<p class="pull-right"><span class="label label-default">{{ cate.cate_name }}</span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
-					<ul class="list-inline">
-						<!-- <li><a href="#">{{ article.pub_date | date:"j M" }}</a></li> -->
-						 <li><a href="#">2018-05-10</a></li> 
-						<!-- 评论数量 -->
-						<li><a href="#"><span class="glyphicon glyphicon-comment"></span>100comments </a></li>
-						<!-- 关注人数 -->
-						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>10 Favorites</a></li>
-					</ul>
-				</article>
+			<div class="media-left ">
+				<a href="{% url 'users:detail' u.id %}">
+					<img class="media-object" src=" {%static 'img/default-avatar.png' %} " alt="...">
+				</a>
 			</div>
-		{% endcomment %}
 
-		<hr>	
-			{% endfor %}
+			<div class="media-body row">
+				<div id="namehead" style="justify-content:space-between; inline-flex;" >				
+					<h3 class="media-heading" style="display:inline"><a href="{% url 'users:detail' u.id %}"><strong>{{u.username}}  </a>
+						</h3>
+					</strong> {% if u and u.is_validate  %} <span>實名認證</span>
+					{% else %}
+					<span class="sr-only" >未認證</span>
+					{% endif %}
+                    <!--向右浮動 -->
+					<div style="display:inline-block;float:right;background-color:##79cae2;">
+						{% if True %}
+						<span style="" class="glyphicon glyphicon-plus"></span> <a href="#" style="margin-right:25px;">加關注</a></span>
+					{% else %}
+					<span style="" class="glyphicon glyphicon-plus"></span> <a href="#" style="margin-right:25px;">已關注</a></span>
+				{% endif %}
+			</div>
+		</div> <!-- -->
+		<!--
+<div>
+		<a href="#" style="float:left">超链接1</a>
+			<a href="#" style="float:right">超链接2</a>
+		</div>
+	-->							<p>
+		<span><a href='#'>100條評論</a> </span>
+		</p>
+		<span>
+			Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+		</span>		</p>
+		<p>
+		<span class="font-weight-bold">自我簡介:</span>
+		<span>
+			{% if u.userinfo and u.userinfo.bio %}
+			{{u.userinfo.bio |truncatechars_html:50 | safe }} 
+			{% else %}
+			no user desc
+			{% endif %}
+		</span>
+		<span><a  tabindex="0" class="btn" role="button" data-toggle="popover"  title="Dismissible popover" data-content="And here's some amazing content. It's very engaging. Right?">更多介紹</a></span>
+		</p>
+
+		<!-- 简介 -->
+		<p>	
+		<span>内行行业:</span>
+
+		</p>
+		<div class="col-9" style="position:relative; ">
+			<span style="left: 10px; margin-left:15px"> 總體評價:  </span>
+			<span style="right:5px; margin-right:20px">關注</span>
+		</div>
+	</div>
+
+	<span style="display:none" >
+		id: {{u.id}}
+	</span>
+	<!-- <p>|truncatechars_html:80 | safe </p> -->
+
+	<!-- 用户标签 -->
+	<p class="pull-right"><span class="label label-default">cate.catename </span> <span class="label label-default">tag</span> <span class="label label-default">"author"</span></p>
+	<ul class="list-inline">
+        <!-- 格式化 日期 -->
+		<li><a href="#">{{u.date_joined | date:"Y-m-d H:i:s" }}</a></li> 
+		<!-- 评论数量 -->
+		<li><a href="#"><span class="glyphicon glyphicon-comment"></span>100comments </a></li>
+		<!-- 关注人数 -->
+		<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span>10 Favorites</a></li>
+	</ul>
+</div>
+
+{% comment %}
+{% endcomment %}
+
+<hr style="height:1px;border:none;border-top:1px solid #e1e1e1;"/>	
+{% endfor %}
 <!--分頁 -->
 <div id="page-nav"  class="row">
 	<div class="col-4" ></div>
-<nav aria-label="Page navigation">
-	<ul class="pagination col-4 col-offset-4">
-		<li>
-		<a href="#" aria-label="Previous">
-			<span aria-hidden="true">&laquo;</span>
-		</a>
-		</li>
-		<li><a href="#">1</a></li>
-		<li><a href="#">2</a></li>
-		<li><a href="#">3</a></li>
-		<li><a href="#">4</a></li>
-		<li><a href="#">5</a></li>
-		<li>
-		<a href="#" aria-label="Next">
-			<span aria-hidden="true">&raquo;</span>
-		</a>
-		</li>
-	</ul>
-</nav>
+	<nav aria-label="Page navigation">
+		<ul class="pagination col-4 col-offset-4">
+			<li>
+			<a href="#" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+			</li>
+			<li><a class="active" href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">5</a></li>
+			<li>
+			<a href="#" aria-label="Next">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+			</li>
+		</ul>
+	</nav>
 	<div class="col-4" ></div>
 </div>
 
 
-			<div class="row">
-				<article class="col-xs-12">
-					<h2>Premier Niche Markets</h2>
-					<p>Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric "outside the box" thinking. Completely pursue scalable customer service through sustainable potentialities.</p>
-					<p><button class="btn btn-default">Read More</button></p>
-					<p class="pull-right"><span class="label label-default">keyword</span> <span class="label label-default">tag</span> <span class="label label-default">post</span></p>
-					<ul class="list-inline">
-						<li><a href="#">Today</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-comment"></span> 2 Comments</a></li>
-						<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span> 8 favorites</a></li>
-					</ul>
-				</article>
-			</div>
-		</div>
-
+<div class="row">
+	<article class="col-xs-12">
+		<h2>Premier Niche Markets</h2>
+		<p>Phosfluorescently engage worldwide methodologies with web-enabled technology. Interactively coordinate proactive e-commerce via process-centric "outside the box" thinking. Completely pursue scalable customer service through sustainable potentialities.</p>
+		<p><button class="btn btn-default">Read More</button></p>
+		<p class="pull-right"><span class="label label-default">keyword</span> <span class="label label-default">tag</span> <span class="label label-default">post</span></p>
+		<ul class="list-inline">
+			<li><a href="#">Today</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-comment"></span> 2 Comments</a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-star-empty"></span> 8 favorites</a></li>
+		</ul>
+	</article>
+</div>
+</div>
+</div>
 
 
 	  <!-- Right Column -->
 	  <div class="col-sm-3">
-			{% if request.user.is_authenticated %}
-			<!-- Form -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-user"></span>
-					退出	
-					</h3>
-				</div>
-				<div class="panel-body">
-					<div class="form-group">hi:{{ user }} <a href="{% url 'users:logout' %}"><input class="btn btn-default" type="submit" value="Logout" /></a></div>
-				</div>
+{% if request.user.is_authenticated %}
+<!-- Form -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-user"></span>
+			退出	
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="form-group">hi:{{ user }} <a href="{% url 'users:logout' %}"><input class="btn btn-default" type="submit" value="Logout" /></a></div>
+	</div>
+</div>
+{% else %}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-log-in"></span>
+			登录Log In
+		</h3>
+	</div>
+	<div class="panel-body">
+		<form action="{% url 'users:login' %}" method="post">
+			{% csrf_token %}
+			{% comment %}
+			{{ loginform.non_field_errors }}
+			{% endcomment %}
+			<div class="form-group">
+				<input type="text" class="form-control" id="useranme" name="username" placeholder="Username"> 
 			</div>
-			{% else %}
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-log-in"></span>
-						登录Log In
-					</h3>
-				</div>
-				<div class="panel-body">
-					<form action="{% url 'users:login' %}" method="post">
-						{% csrf_token %}
-						{{ loginform.non_field_errors }}
-						<div class="form-group">
-							{{ loginform.uid }}
-							<input type="text" class="form-control" id="useranme" name="username" placeholder="Username"> 
-						</div>
-						<div class="form-group">
-							{{ loginform.pwd }}
-							<input type="password" class="form-control" id="password1" name="password1" placeholder="Password"> 
-						</div>
-						<button type="submit" class="btn btn-default">Log In</button>
-					</form>
-				</div>
+			<div class="form-group">
+				<input type="password" class="form-control" id="password1" name="password1" placeholder="Password"> 
 			</div>
- 			{% endif %}
-			<!-- Progress Bars -->
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">
-						<span class="glyphicon glyphicon-tasks"></span>
-						Completeness
-					</h3>
-				</div>
-				<div class="panel-body">
-					<div class="progress">
-						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
-						aria-valuemin="0" aria-valuemax="100" style="width:100%">
-							100% Django
-						</div>
-					</div>
-					<div class="progress">
-						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80"
-						aria-valuemin="0" aria-valuemax="100" style="width:80%">
-							80% Tornado
-						</div>
-					</div>
-					<div class="progress">
-						<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45"
-						aria-valuemin="0" aria-valuemax="100" style="width:45%">
-							45% Crawler
-						</div>
-					</div>
-					<div class="progress">
-						<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="35"
-						aria-valuemin="0" aria-valuemax="100" style="width:35%">
-							35% Basics
-						</div>
-					</div>
-				</div>
+			<button type="submit" class="btn btn-default">Log In</button>
+		</form>
+	</div>
+</div>
+{% endif %}
+<!-- Progress Bars -->
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title">
+			<span class="glyphicon glyphicon-tasks"></span>
+			Completeness
+		</h3>
+	</div>
+	<div class="panel-body">
+		<div class="progress">
+			<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100"
+				aria-valuemin="0" aria-valuemax="100" style="width:100%">
+				100% Django
 			</div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="80"
+				aria-valuemin="0" aria-valuemax="100" style="width:80%">
+				80% Tornado
+			</div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="45"
+				aria-valuemin="0" aria-valuemax="100" style="width:45%">
+				45% Crawler
+			</div>
+		</div>
+		<div class="progress">
+			<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="35"
+				aria-valuemin="0" aria-valuemax="100" style="width:35%">
+				35% Basics
+			</div>
+		</div>
+	</div>
+</div>
 
-			<!-- advertisements -->
- 			<h3><span class="glyphicon glyphicon-link"></span> Advertisements</h3>
-			<div id="side-carousel" class="carousel slide" data-ride="carousel">
-				<ol class="carousel-indicators">
-					<li data-target="#side-carousel" data-slide-to="0" class="active"></li>
-					<li data-target="#side-carousel" data-slide-to="1"></li>
-					<li data-target="#side-carousel" data-slide-to="2"></li>
-				</ol>
-				<div class="carousel-inner" role="listbox">
-					<div class="item active">
-						<a href="#">
-							<img class="img-responsive" src="holder.js/400x300?bg=FF8C00&text=Image%201" alt="">
-						</a>
-						<div class="carousel-caption">
-							<h3>I am a genius</h3>
-							<p>Objectively innovate empowered manufactured products whereas parallel platforms.</p>
-						</div>
-					</div>
-					<div class="item">
-						<a href="#">
-							<img class="img-responsive" src="holder.js/400x300?bg=FF8C00&text=Image%202" alt="">
-						</a>
-						<div class="carousel-caption">
-							<h3>You are an idiot</h3>
-							<p>Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
-						</div>
-					</div>
-					<div class="item">
-						<a href="#">
-							<img class="img-responsive" src="holder.js/400x300?bg=FF8C00&text=Image%203" alt="">
-						</a>
-						<div class="carousel-caption">
-							<h3>Enough! </h3>
-							<p>Everyone shut up and listen to me.</p>
-						</div>
-					</div>
-				</div>
-				<a class="left carousel-control" href="#side-carousel" role="button" data-slide="prev">
-				  <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				  <span class="sr-only">Previous</span>
-				</a>
-				<a class="right carousel-control" href="#side-carousel" role="button" data-slide="next">
-				  <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				  <span class="sr-only">Next</span>
-				</a>
-			  </div>
+<!-- advertisements -->
+<h3><span class="glyphicon glyphicon-link"></span> Advertisements</h3>
+<div id="side-carousel" class="carousel slide" data-ride="carousel">
+	<ol class="carousel-indicators">
+		<li data-target="#side-carousel" data-slide-to="0" class="active"></li>
+		<li data-target="#side-carousel" data-slide-to="1"></li>
+		<li data-target="#side-carousel" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+		<div class="item active">
+			<a href="#">
+				<img class="img-responsive" data-src="holder.js/400x300?bg=FF8C00&text=Image" alt="">
+			</a>
+			<div class="carousel-caption">
+				<h3>I am a genius</h3>
+				<p>Objectively innovate empowered manufactured products whereas parallel platforms.</p>
+			</div>
+		</div>
+		<div class="item">
+			<a href="#">
+				<img class="img-responsive" data-src="holder.js/400x300?bg=FF8C00&text=Image" alt="">
+			</a>
+			<div class="carousel-caption">
+				<h3>You are an idiot</h3>
+				<p>Dramatically maintain clicks-and-mortar solutions without functional solutions.</p>
+			</div>
+		</div>
+		<div class="item">
+			<a href="#">
+				<img class="img-responsive" data-src="holder.js/400x300?bg=FF8C00&text=Image" alt="">
+			</a>
+			<div class="carousel-caption">
+				<h3>Enough! </h3>
+				<p>Everyone shut up and listen to me.</p>
+			</div>
+		</div>
+	</div>
+	<a class="left carousel-control" href="#side-carousel" role="button" data-slide="prev">
+		<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+		<span class="sr-only">Previous</span>
+	</a>
+	<a class="right carousel-control" href="#side-carousel" role="button" data-slide="next">
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+		<span class="sr-only">Next</span>
+	</a>
+</div>
 
+</div>
 	  </div><!--/Right Column -->
 
 	</div> <!--row -->
@@ -333,7 +436,13 @@
 
 {% endblock %}
 
-
+{% block JS %}
+<script>
+$(".carousel").carousel({  
+interval:2000 //每隔两秒自动轮播  
+})  
+</script>
+{% endblock %}
 
 <% comment %>		
 {%block left %}

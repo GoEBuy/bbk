@@ -1,7 +1,14 @@
-[tutorials](https://github.com/tuner24/django-cms/tree/master/doc)
 
 
 https://github.com/GoEBuy/bbk.git
+
+pip install pipreqs
+
+#生成项目requirements.txt
+pipregs . 
+
+#根据requirements.txt安装python 包
+pip install -r requirements.txt
 
 =======
 # bbk
@@ -31,6 +38,7 @@ https://github.com/GoEBuy/bbk.git
 
 
 #參考：
+
 https://github.com/henrymbuguak/E-commerce-Site-Created-Using-Django-1.11.1
 
 https://github.com/lgphone/FakeV2EX.git

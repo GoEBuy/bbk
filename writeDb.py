@@ -12,6 +12,7 @@ django.setup()
 
 
 from django.db.models import Avg, Sum, Max, Min
+from django.conf import settings #读取setting配置
 
 
 
@@ -25,6 +26,7 @@ import django.utils.timezone as timezone
 import pdb,traceback
 
 
+FLAG_DEBUG=settings.DEBUG_PDB
 FLAG_DEBUG=True
 
 
@@ -39,19 +41,19 @@ def getUserInfo():
     qset = UserInfo.objects.filter(user_id=1)
     pdb.set_trace()
     if qset.exists():
-        
+
         print qset.first().printObj()
     pass
 
 def testFindUser():
 	print "testFindUser"
 	manager = NewUser.objects
-        
+
 	#print manager.values('id','username', 'password').filter(username='yyy', password='yyy').exists()
 	#wrong print manager.exists(username='yyy', password='yyy')
 	#print manager.filter(pk=2).exists()
 	#print user.printObj()
-	
+
 def getUserListByCate():
 	cate_id=1
 	qset= UserStar.objects.filter(cate_id=str(cate_id))
@@ -64,18 +66,18 @@ def getUserListByCate():
 def getUsersByIdList():
 	manager=NewUser.objects
 	idlist=[1,2,3]
-	#select in 
+	#select in
 	dict_users= manager.in_bulk(idlist)
 	for k, v in dict_users.iteritems():
 		print k, v
-	
+
 def getUserById():
 	manager=NewUser.objects
 	if manager.filter(username="admin",password="admin").exists():
 		print "exists"
 	else:
 		print "not exist"
-	
+
 def addUserInfo():
 	user = NewUser.objects.get(pk=1)
 	#userinfo = UserInfo.objects.get(user_id=2)
@@ -85,8 +87,22 @@ def addUserInfo():
 	user.save()
 
 
+def updateUsers():
 
-	
+    if FLAG_DEBUG:
+        import pdb
+        pdb.set_trace()
+
+    count = getEntityCount(NewUser.objects)
+    print "count:%d" % (count)
+    for u in NewUser.objects.all():
+        u.set_password(u.username)
+        u.pwd=u.username
+        u.save()
+
+
+
+
 
 def addUsers():
 	#count = NewUser.objects.all().count()
@@ -97,12 +113,13 @@ def addUsers():
 	insertUsers = [("admin","admin"), ("root","root"), ("yyy", "yyy"), ("yyf", "yyf"), ("yangyuanyang","yangyuanyang"), ("a","a")]
 	for i in xrange(len(insertUsers) ):
 		name, pwd = insertUsers[i]
-		#NewUser.objects.get_or_create(username=name, pwd=pwd) #返回的是tuple,：(对象, 是否是创建的) 
+		#NewUser.objects.get_or_create(username=name, pwd=pwd) #返回的是tuple,：(对象, 是否是创建的)
 		#NewUser.objects.getorcreate()
 		#NewUser.objects.bulk_create([]) #数据批量导入bulk_create()
-		
-		if not NewUser.getUser(name, pwd):
-			NewUser.objects.create(username=name, password=pwd, pwd=pwd,  phone="15011033945" ) #, city="beijing", email="8678@qq.com" )
+
+                if not NewUser.objects.filter(username=name, password=pwd).exists():
+                        NewUser.objects.create_user(username=name, password=pwd, pwd=pwd, phone='15011033945')
+			#, city="beijing", email="8678@qq.com" )
 		else:
 			print "username:%s exists" %(name)
 
@@ -127,7 +144,7 @@ def addCate():
 	print "count:%d" % (count)
 
 	#root_cate=Category.objects.get(pk=-1)
-	#Category.objects.create( pcate= root_cate, cate_name="buz", state=1, cate_desc="商务办公", update_time=timezone.now ) 
+	#Category.objects.create( pcate= root_cate, cate_name="buz", state=1, cate_desc="商务办公", update_time=timezone.now )
 	Category.objects.get_or_create(cate_id=-1, cate_name="root cate" , cate_desc="root cate" )
 
 	root_cate=Category.objects.get(pk=-1)
@@ -141,7 +158,7 @@ def addCate():
 			Category.objects.get_or_create(pk=cate_id)
 			print "category:%s exists" %(cate_id)
 		except Category.DoesNotExist:
-			Category.objects.create(cate_id=cate_id, pcate=pcate, cate_name=cate_name, state=1, cate_desc=cate_desc, update_time=timezone.now ) 
+			Category.objects.create(cate_id=cate_id, pcate=pcate, cate_name=cate_name, state=1, cate_desc=cate_desc, update_time=timezone.now )
 		#else:
 
 	count = getEntityCount(Category.objects)
@@ -157,7 +174,7 @@ def addCate():
 			Category.objects.get(pk=cate_id)
 			print "category:%s exists" %(cate_id)
 		except Category.DoesNotExist:
-			Category.objects.create(cate_id=cate_id, pcate=cate1, cate_name=cate_name, state=1, cate_desc=cate_desc, update_time=timezone.now ) 
+			Category.objects.create(cate_id=cate_id, pcate=cate1, cate_name=cate_name, state=1, cate_desc=cate_desc, update_time=timezone.now )
 		#else:
 
 	count = getEntityCount(Category.objects)
@@ -293,7 +310,7 @@ def addUserFollowing():
 	pass
 
 def updateUserFollowing():
-	
+
 	manager = UserFollowing.objects
 	print "update before", manager.get(pk=1).update_time
 	manager.filter(pk=1).update(update_time=timezone.now() )
@@ -320,7 +337,7 @@ def findUserFollowing():
 
 	for f in manager.filter(user = user1).values():
 		print f
-	
+
 
 def deleteUserFollowing():
 	user_id =1
@@ -372,15 +389,23 @@ def addContact():
     c2=manager.create(user_id='1', name='yyf', email='yyyang@tju.edu.cn', message='contact msg' )
     print "count", getEntityCount(manager)
 
+
+def testSendEmail():
+    from django.core.mail import send_mail
+    send_mail('Subject here', 'Here is the message.', settings.DEFAULT_FROM_EMAIL, ['857659628@qq.com'], fail_silently=False)
+
 def main():
 
+#   testSendEmail()
+
     #addContact()
-	
+
     #addOrder()
     #testFindUser()
     #addUserInfo()
-    getUserInfo()
+    #getUserInfo()
 
+    updateUsers()
     #getUserListByCate()
     #getUserById()
     #addUsers()
@@ -407,9 +432,10 @@ def main():
 
 #TODO: test
 if __name__ == "__main__":
-	
-	main()
-	print('Done!')
+    #print timezone.now()
+
+    main()
+    print('Done!')
 
 
 

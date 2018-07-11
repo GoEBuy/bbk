@@ -17,10 +17,15 @@
 
 <!-- block extrahead -->
 {% block extrahead %}{% endblock %}  
+<!-- <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css' class="holderjs">
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>-->
 
-<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" >
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+<link rel="stylesheet" href="{% static 'css/font-awesome.css' %}" > <!-- 字体图标css -->
+<link rel="stylesheet" href="{% static 'css/Pygments.css' %}" >
 <link rel="stylesheet" href="{% static 'plugin/highlight/tomorrow.css' %}" >
+<link rel="stylesheet" href="{% static 'css/cikonss.css' %}"> <!-- css实现的响应式Icon -->
 
 <style type="text/css">
 
@@ -31,26 +36,7 @@ body {
 		background:#f5f5f5;
 		opacity:0.8;
 }
-
-
-#Top {
-	text-align: center;
-	background-color: #fff;
-height: 32px;
-font: 13px/1.2 Hiragino Sans GB,Microsoft YaHei,\\5FAE软雅黑,arial,Tahoma,SimSun,"sans-serif";
-	  font-size: 13px;
-	  text-rendering: geometricPrecision;
-	  font-weight: 500;
-	  line-height: 35px;
-	  z-index: 999;
-width: 100%;
-	   background-size: 44px 44px;;
-background: #fff;
-color: #555;
-	   border-bottom: 1px solid #e2e2e2;
-}
-
-<!--上层topbar-->
+/*
 .commonTopbar {
 font: 11px/1.2 Hiragino Sans GB,Microsoft YaHei,\\5FAE软雅黑,arial,Tahoma,SimSun,"sans-serif";
 	  line-height: 1.2;
@@ -65,21 +51,27 @@ background: #fff;
 color: #555;
 	   border-bottom: 1px solid #ddd;
 }
+*/
 
 a {
 color: #778087;
 }
 a.top:hover {
-color: #99a;
+color: red;
+//color: #99a;
 	   text-decoration: none;
-}
+   }
 a:hover {
+//color: red;
 color: #778399;
   }
+
+  /*
 .no_hove_line a:hover {
 	text-decoration: none;
 color: #343a40;
 }
+*/
 #Bottom {
 	border-top: 1px solid rgba(0, 0, 0, 0.22);
 	background-color: #fff;
@@ -87,74 +79,11 @@ color: #343a40;
 color: #999;
 padding: 0px 10px 0px 10px;
 }
-
-#q {
-border: none;
-width: 222px;
-height: 26px;
-margin: 0px 0px 2px 30px;
-		background-color: transparent;
-		font-size: 14px;
-		line-height: 16px;
-outline: none;
-}
-.header {
-padding: 10px;
-		 font-size: 15px;
-		 line-height: 120%;
-		 text-align: left;
-		 border-bottom: 1px solid #e2e2e2;
-overflow: auto;
-}
-.f12 {
-	font-size: 12px;
-}
-.fr {
-float: right;
-	   text-align: right;
-}
-.hide {
-display: none;
-}
-.page_input {
-padding: 4px 4px 4px 4px;
-		 font-size: 14px;
-		 line-height: 14px;
-border: 1px solid #e2e2e2;
-		border-radius: 3px;
-width: 40px;
-	   background-color: #fff;
-	   box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1) inset;
-color: #ccc;
-	   margin-left: 20px;
-	   margin-right: 20px;
-}
-.page-link {
-color: #778087;
-}
-.page-link:hover {
-color: #778087;
-}
-.page-item.active .page-link {
-	background-color: #aab0c6;
-	border-color: #aab0c6;
-}
-.topic-info a,strong{
-	margin-right: 3px;
-	margin-left: 3px;
-}
-.topic-title {
-	margin-bottom: 10px;
-}
-
-.topic {
-margin: 0 auto;
-padding: 0;
-}
 .avatar {
 width: 73px;
 height: 73px;
 }
+*/
 .copyright{
 	background-color: #343a40;
 color: #6c7980;
@@ -164,6 +93,8 @@ color: #6c7980;
 clear: both;
 	   font-family: initial;
 }
+
+
 </style>
 
 <!-- css样式表 -->
@@ -175,60 +106,68 @@ clear: both;
 
 <body>
 <!-- top bar -->
-<div id="Top">
-<div class="content" style="padding-top: 1px;">
-	<!--表格布局commontopbar -->
-	<table class="commonTopbar" cellpadding="0" cellspacing="0" border="0" width="100%">
-<tbody>
-<tr>
-<td width="" align="left">
-	<!-- 單元格左對齊 -->
-	<a href="#" name="top" title="way to explore">北京 [切换城市 北京 廊坊 保定 天津]</a>
-</td>
-{% if request.session.user_info %}
-<td width="210" align="right" style="">
-	<!-- 單元格右對齊 -->
-	<a href="#" class="top">首页</a> 
-&nbsp;&nbsp;&nbsp;<a href="#" class="top">{{ request.session.user_info.username }}</a>
-&nbsp;&nbsp;&nbsp;<a href="/settings" class="top">设置</a>
-&nbsp;&nbsp;&nbsp;<a href="#;" onclick="if (confirm('确定要登出？'))
-{ location.href= '#'; }" class="top">登出</a></td>
-{% else %}
-<td width="" align="right" style="">
-	<a href="#" class="top">首页</a>&nbsp;&nbsp;&nbsp;
-<a href="#" class="top">登录</a>
-<span style="font-style: italic">| </span> 
-<a href="#" class="top">注册</a>&nbsp;&nbsp;&nbsp;</td>
-{% endif %}
-<td width="85" align="right" style="">
-	<!-- 單元格右對齊 -->
-	<a href="#" class="top">个人中心</a>
-	<span >></span>
-	<!-- <div class="hc" style="display:none;" id="commonTopbar_loginbox"><a id="commonTopbar_tomypost" href="#" target="_blank" >我的发布</a><a id="" href="#" target="_blank" >账户设置</a><a id="" href="#" target="_blank" >我的求职</a><a id="commonTopbar_tohelp" href="#" target="_blank" >客户服务</a></div> -->
-	&nbsp;&nbsp;&nbsp;
+<!--通過設置height 和line-height讓文字垂直居中-->
+<div id="Top"  class="" style="width=100%; background: #ffff; color: #555; padding-top: 1px;">
+    <!-- line-height 與height一樣高，文本垂直居中 -->
+    	<div style="height:35px;line-height:35px;" class="clearfix"><!-- 此div包含浮動 -->
+        <div style="height: 35px;margin-left:15px;"  class="pull-left">
+            <ul  class="list-inline list-unstyled">
+                <li><span style="" ><a href="#" style="" name="top" title="way to explore">北京</a></span>
 
-</td>
+                <span><a href="#">切换城市</a><span> <span><a href="#">[北京 廊坊 保定 天津]</a></span>
+                        </li>
+                    </ul>
+                </div>
+                <div style="height: 35px;margin-right:15px;" class="pull-right">
 
-<!--元素右對齊-->
-<td width="75" align="right" style="padding-top: 2px;">
-<a href="#" class="top">手機App</a>&nbsp;&nbsp;&nbsp;
-</td>
+                    <ul  class="list-inline list-unstyled">
+                        {% if request.session.user_info %}
+                        <li>
+                        <span class="glyphicon glyphicon-home" >	<a href="{% url 'home' %}" class="top">首页</a> </span></li>
+                        <li><span><a href="{% url 'users:settings' %}" class="top">{{ request.session.user_info.username }}</a><span><li>
+                                <li><span><a href="{% url 'users:settings' %}" class="top">设置</a></span></li>
+                                <li><span><a href="{% url 'users:logout' %};" onclick="if (confirm('确定要登出？'))
+                                        { location.href= '{% url 'users:logout'  %}'; }" class="top">登出</a></span></li>
+                                {% else %}
+                                <li>
+                                <span class="glyphicon glyphicon-home" ><a href="{% url 'home' %}" style="margin-left:3px;" class="top">首页</a>
+                                </span>
+                                </li>
+                                <li><span>	<a href="{% url 'users:login' %}" class="top">登录</a></span>
+                                <span style="font-style: italic">| </span> 
+                                <a href="{% url 'users:register' %}" class="top">注册</a></li>
+                                {% endif %}
+								<!-- class="dropdown" id="dropdownlist" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" -->
+								<!-- position:relative;-->
+                                <li style="position:relative;" >	
+								<a href="{% url 'users:settings' %}" style="margin-left:3px;" class="top haschild"><span class="glyphicon glyphicon-user"></span>个人中心 <span class="caret"></span> </a>
+								<!-- z-index:999;-->
+                                <ul class="list-unstyled popmenu" style="text-align:center;float: left;min-width: 80px;padding:0 5px 0 5px;width:86px;position:absolute; display:none;background-color: #fff;border: 1px solid #ccc; border-radius: 4px;box-shadow: 0 6px 12px rgba(0,0,0,.175); z-index:99999;" aria-labelledby="dropdownlist">  
+                                    <li style=""><a class="" href="#">10</a></li>  
+                                    <li style=""><a class="" href="#">20</a></li>  
+                                    <li style=""><a class="" href="#">30</a></li>  
+                                    <li style=""><a class="" href="#">100</a></li>  
+                                </ul>  
 
-<td width="75" align="right" style="padding-top: 2px;">
-	<a href="{% url 'contact:contact' %}" class="top">联系我們</a>&nbsp;&nbsp;&nbsp;</td>
+                                </li>
+                                <li> <span> <a href="#" class="top">手機App</a></span> </li>
+                                <li>
+                                <span><a href="{% url 'contact:contact' %}" class="top">联系我們</a></span>
+                                </li>	</ul>
+                            </div> <!--right -->
+                            <!--
+                           <div class="clearfix"</div>
+                            <div style="clear:both;"></div>
+                            清除浮動 -->
+                        </div> 
 
-</tr>
-</tbody>
-</table> <!-- table -->
 
-
-
-</div>
 </div> <!-- end of top bar -->
 
 
+<div style="width=100%;">
 {% include 'navbar.html' %}
-
+</div>
 
 {% comment %}
 
@@ -275,15 +214,16 @@ clear: both;
 <div class="inner">
 <div class="sep10"></div>
 <strong>
-	<a href="/about" class="dark" target="_self">关于</a> &nbsp; 
+	<a href="#" class="dark" target="_self">关于</a> &nbsp; 
 	<span class="snow">·</span> &nbsp; 
-<a href="/faq" class="dark" target="_self">FAQ</a> &nbsp; 
+<a href="#" class="dark" target="_self">FAQ</a> &nbsp; 
 <span class="snow">·</span> &nbsp;
-<a href="/p/7v9TEc53" class="dark" target="_self">API</a> &nbsp; 
+<a href="#" class="dark" target="_self">API</a> &nbsp; 
 <span class="snow">·</span> &nbsp; <a
-href="/mission" class="dark" target="_self">我们的愿景</a> &nbsp;
+href="#" class="dark" target="_self">我们的愿景</a> &nbsp;
 <span class="snow">·</span> &nbsp; 
-<a href="/advertise" class="dark" target="_self">广告投放</a> &nbsp; <span class="snow">·</span> &nbsp; <a href="/advertise/2016.html" class="dark" target="_self">鸣谢</a> &nbsp; <span class="snow">·</span>
+<a href="#" class="dark" target="_self">广告投放</a> &nbsp; <span class="snow">·</span> &nbsp; 
+<a href="#" class="dark" target="_self">鸣谢</a> &nbsp; <span class="snow">·</span>
 &nbsp; {{ request.online_member_count }} 人在线</strong>&nbsp;
 <span class="snow">·</span> &nbsp; <span>您的IP是: {{ request.current_visitor_ip }}</span>
 <div class="sep20"></div>
@@ -302,21 +242,94 @@ World is powered by solitude
 
 
 
-
+{% comment %}
 <!-- 加载js -->
 <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
-<script src="{% static 'js/jquery.cookie.js' %}"></script>
-<script src="{% static 'js/bootstrap.js' %}"></script>
-<script src="{% static 'plugin/highlight/highlight.pack.js' %}"></script>
 
 <!-- IE10 viewport bug workaround -->
 <script src="{% static "js/ie10-viewport-bug-workaround.js" %}"></script>
-
+{% endcomment %}
 <!-- Placeholder Images -->
-<script src="{% static "js/holder.min.js" %}"></script>
+<script src="{% static 'plugin/highlight/highlight.pack.js' %}"></script>
+<script src="{% static 'js/affix.js' %}"></script>
+<script src="{% static 'js/alert.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.cookie.js' %}"></script>
+<script src="{% static 'js/holder.min.js' %}"></script>
+<script src="{% static 'js/carousel-min.js' %}"></script>
+<script src="{% static 'js/carousel.js' %}"></script>
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/jquery.slim.js' %}"></script>
+<script src="{% static 'js/button.js' %}"></script>
+<script src="{% static 'js/collapse.js' %}"></script>
+<script src="{% static 'js/dropdown.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/popover.js' %}"></script>
+<script src="{% static 'js/scrollspy.js' %}"></script>
+<script src="{% static 'js/tab.js' %}"></script>
+<script src="{% static 'js/tooltip.js' %}"></script>
+<script src="{% static 'js/transition.js' %}"></script>
+<script src="{% static 'js/Gruntfile.js' %}"></script>
 
+<script>
 
-<!--
+	function showpopmenu(){
+		//	$(".popmenu").toggle();
+		$(".popmenu").style.display=block;
+	
+	}
+
+			$(document).ready(
+			function () {
+				$(".haschild").mouseenter(function () {
+				console.log("haschild mouseenter")
+				   var flag = $(".popmenu").is(":hidden");  
+					if(flag){  
+						$(".popmenu").show();  
+						}else{  
+						//$(".popmenu").hide(5000);  
+					}  
+				} )
+				$(".haschild").mouseout(
+				function(){
+				console.log("haschid mouseout")
+				   var flag = $(".popmenu").is(":hidden");  
+					if(flag){  
+						$(".popmenu").show();  
+						}else{  
+						//$(".popmenu").hide(5000);  
+					}
+					}
+					)
+
+				$(".popmenu").mouseenter(function () {
+					console.log("popmenu mouseenter")
+					$(".popmenu").show();  
+
+				})
+
+				$(".popmenu").mouseover(function () {
+					$(".popmenu").show();  
+				console.log("popmenu mouseover")
+					//$(".popmenu").style.display=block;
+					//$(".popmenu").toggle();
+				} )
+
+				$(".popmenu").mouseout(function () {
+				console.log("popmenu mouseout")
+					//$(".popmenu").children("li").toggle();
+					//$(".popmenu").style.display=block;
+				   var flag = $(".popmenu").is(":hidden");  
+					if(!flag){  
+						$(".popmenu").hide(2000);
+					}
+				} )
+
+			}
+			)
+		</script>
+
+		{% comment %}
 <script>
 /* Ajax 初始化请求操作*/
 $(function () {
@@ -338,7 +351,8 @@ document.addEventListener("visibilitychange", function () {
 
 </script>
 <script>hljs.initHighlightingOnLoad();</script>
--->
+<script>
+		{% endcomment %}
 
 <!--加载其他Js -->
 {% block JS %}

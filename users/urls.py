@@ -34,6 +34,7 @@ urlpatterns = [
 
     url(r'^settings_avatar/$', views.user_settings_avatar, name='settings_avatar' ) , 
     url(r'^settings_password/$', views.user_settings_password, name='settings_password' ), 
+    url(r'^resetting_password/$', views.user_settings_password, name='resetting_password' ), 
     url(r'^settings_email/$', views.user_settings_email, name='settings_email' ),
     url(r'^settings_phone/$', views.user_settings_email, name='settings_phone' ),
 

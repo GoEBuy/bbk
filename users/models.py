@@ -86,16 +86,6 @@ class UserManager(UserManager):
 			count = qset.count()
 		return count
 
-	@classmethod
-	def getUser(cls, username, password):
-		try:
-			user = NewUser.objects.get(Q(username=username) & Q(password=password))
-		except Exception as e:
-			print "error:", e
-			return None
-		else:
-			return user
-
 
 
 	#def getPrefDesc(self, user_id):
@@ -105,10 +95,10 @@ class UserManager(UserManager):
 	#	excep as Exception e:
 	#		"not find"
 	#		return None
-		
+
 
 	pass
-	
+
 
 class Category(models.Model):
 	""" 行业分类 """
@@ -125,7 +115,7 @@ class Category(models.Model):
 	pcate = models.ForeignKey('self', null=True )
 	cate_desc = models.CharField(max_length=50, null=True, verbose_name=u"备注" )
 	state = models.IntegerField(choices =choices_state,  default=1, verbose_name=u"类别状态")
-    
+
 	update_time =  models.DateTimeField(auto_now=True)
 
 	def __str__(self):
@@ -134,7 +124,7 @@ class Category(models.Model):
 
 	def printObj(self, sep='\t'):
 		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 
 	#def get_absolute_url(self):
 	#	return reverse('author-detail', kwargs={'pk': self.pk})
@@ -146,7 +136,7 @@ class Category(models.Model):
 
 		#添加索引
 		indexes=[
-		models.Index(fields=['pcate'], name='idx_pcate' ) , 
+		models.Index(fields=['pcate'], name='idx_pcate' ) ,
 		models.Index(fields=['cate_name'], name='idx_cate_name' ) ]
 
 
@@ -174,14 +164,13 @@ class NewUser(AbstractUser):
 	preflist= models.ManyToManyField( Category, through="UserStar", through_fields=('user', 'cate' ) )
 	num_following = models.IntegerField(default=0, verbose_name=u"关注人数" )
 	num_followed = models.IntegerField(default=0, verbose_name=u"被关注人数" )
-	#update_time = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 
 	def __str__(self):
 		return "id:%d name:%s" %(self.id, self.username)
 
 	def printObj(self, sep='\t'):
 		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 
 	class Meta:
 		verbose_name = u"用户"
@@ -198,48 +187,47 @@ class NewUser(AbstractUser):
 
 
 class UserInfo(models.Model):
-        """用戶詳情表"""
-	VERIFY_STATUS = (
-		(0, u"未验证"),
-		(1, u"已验证")
-	)
-	#id
-	user = models.OneToOneField(NewUser)
-	truename =  models.CharField(max_length=20,  blank=True, default="", help_text=u'真实姓名')
-	birthdate = models.DateField(null=True, blank=True, help_text=u'出生日期' )
-	is_validate = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u'姓名是否验证')
-	email_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u"Email是否已经验证")
-	mobile_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u"Mobile是否已经验证")
+    """用戶詳情表"""
+    VERIFY_STATUS = (
+        (0, u"未验证"),
+        (1, u"已验证")
+    )
+    user = models.OneToOneField(NewUser)
+    truename =  models.CharField(max_length=20,  blank=True, default="", help_text=u'真实姓名')
+    birthdate = models.DateField(null=True, blank=True, help_text=u'出生日期' )
+    is_validate = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u'姓名是否验证')
+    email_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u"Email是否已经验证")
+    mobile_verify = models.IntegerField(choices=VERIFY_STATUS, default=0, help_text=u"Mobile是否已经验证")
 
-	city = models.CharField(max_length=50, blank=True, verbose_name=u'所在地')
-	address = models.CharField(max_length=150, blank=True, verbose_name=u'地址')
-	img = models.ImageField(upload_to="imgs/img_user", blank=True, default="default-avatar.png" , verbose_name=u"头像")
-	profile = models.CharField('profile', default='',max_length=256)
-        my_home = models.CharField(max_length=30, null=True, blank=True, default="", verbose_name="登录后首页跳转")
-	gender = models.CharField(
-		max_length=1,
-		choices=(
-			('F', 'Female'),
-			('M', 'male'),
-			('U', 'Unknown'),
-		),
-		default='M',
-	)
-        bio = models.CharField(max_length=300, null=True, blank=True, default="", verbose_name=u"个人简介")
-	register_ip=models.CharField(max_length=30, blank=True, default='', help_text=u'注册ip' )
-	add_time = models.DateTimeField(auto_now_add=True, help_text=u"添加时间")
-	update_time = models.DateTimeField(auto_now=True, help_text=u"更新时间")
+    city = models.CharField(max_length=50, blank=True, help_text=u'所在地')
+    address = models.CharField(max_length=150, blank=True, verbose_name=u'地址')
+    img = models.ImageField(upload_to="imgs/img_user", blank=True, verbose_name=u"头像")
+    profile = models.CharField('profile', default='',max_length=256)
+    my_home = models.CharField(max_length=30, null=True, blank=True, default="", verbose_name="登录后首页跳转")
+    gender = models.CharField(
+        max_length=1,
+        choices=(
+            ('F', 'Female'),
+            ('M', 'male'),
+            ('U', 'Unknown'),
+        ),
+        default='M',
+    )
+    bio = models.CharField(max_length=300, null=True, blank=True, default="", verbose_name=u"个人简介")
+	#register_ip=models.CharField(max_length=30, blank=True, default='', help_text=u'注册ip' )
+    add_time = models.DateTimeField(auto_now_add=True, help_text=u"添加时间")
+    update_time = models.DateTimeField(auto_now=True, help_text=u"更新时间")
 
-	def __str__(self):
-		return "id:%d name:%s" %(self.id, self.user)
+    def __str__(self):
+        return "id:%d name:%s" %(self.id, self.user)
 
-	def printObj(self, sep='\t'):
-		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+    def printObj(self, sep='\t'):
+        """自定义打印对象所有属性 """
+        return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 
-	class Meta:
-		verbose_name = u"用户详细信息表"
-		verbose_name_plural = verbose_name
+    class Meta:
+        verbose_name = u"用户详细信息表"
+        verbose_name_plural = verbose_name
 
 
 
@@ -254,7 +242,7 @@ class SignedInfo(models.Model):
     user = models.OneToOneField(NewUser)
     status = models.BooleanField(choices=CHOICES_TYPE, verbose_name="是否签到")
     #datefields yyyy-mm-dd
-    date = models.DateField(auto_now=True, verbose_name="签到日期") 
+    date = models.DateField(auto_now=True, verbose_name="签到日期")
     signed_day = models.IntegerField(default=0, verbose_name="连续签到天数")
     add_time = models.DateTimeField(auto_now=True, verbose_name="时间")
 
@@ -268,7 +256,7 @@ class SignedInfo(models.Model):
 
     def printObj(self, sep='\t'):
             """自定义打印对象所有属性 """
-            return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+            return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 
 
 class OpenUser(models.Model):
@@ -289,7 +277,7 @@ class OpenUser(models.Model):
 		return "OpenUser user:%s" %(self.id, self.user)
 	def printObj(self, sep='\t'):
 		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 
 	class Meta:
 		verbose_name = u"用户开放登录帐号表"
@@ -328,17 +316,17 @@ class UserValidateInfo(models.Model):
 	submit_time = models.DateTimeField(auto_now=True, verbose_name=u"申请验证时间")
 	audit_time = models.DateTimeField(auto_now=True, verbose_name=u"审核时间")
 	create_time = models.DateTimeField(auto_now_add=True, verbose_name=u"创建时间")
-	
+
 	def __str__(self):
 		return "UserValidateInfo user:%s" %(self.id, self.user)
 
 	def printObj(self, sep='\t'):
 		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 	class Meta:
 		verbose_name = u"用户身份认证资料表"
 		verbose_name_plural = verbose_name
-	
+
 
 #class UserPoints(models.Model):
 #	#id
@@ -374,7 +362,7 @@ class UserStar(models.Model):
 	user = models.ForeignKey(NewUser)
 	#user = models.OneToOneField(NewUser)
 #user = models.ForeignKey(NewUser, to_field="id", unique=True )
-	cate = models.ForeignKey(Category, related_name="cate") 
+	cate = models.ForeignKey(Category, related_name="cate")
 	star_service = models.IntegerField(default=1,  verbose_name=u"服务态度")
 	star_personal = models.IntegerField(default=1, verbose_name=u"专业程度")
 	desc = models.CharField(max_length=300, default="",verbose_name=u"用户内行行业自我描述")
@@ -383,7 +371,7 @@ class UserStar(models.Model):
 		return ("UserStar:%s %s %s" %( self.user, self.cate, self.desc ) )
 	def printObj(self, sep='\t'):
 		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 
 	class Meta:
 		verbose_name = u"用户星级表"
@@ -417,7 +405,7 @@ class UserFollowing(models.Model):
 		return "%s %s" %(self.user.username, self.following.username)
 	def printObj(self, sep='\t'):
 		"""自定义打印对象所有属性 """
-		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )  
+		return sep.join(['%s:%s' %item for item in self.__dict__.items() ]  )
 
 	class Meta:
 		verbose_name = u"用户的Following 和 Block 关系表"
@@ -443,7 +431,7 @@ class UserFollowing(models.Model):
 
 
 
-		
+
 
 class CateManager(models.Manager):
 	pass
