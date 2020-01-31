@@ -1,5 +1,5 @@
 markdown2==2.3.5
-urllib3==1.22
+urllib3==1.24.2
 Django==1.11.12
 requests==2.18.4
 Pillow==5.2.0
