@@ -75,7 +75,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 
     'middle.custom_middle.CountOnlineMiddlewareMixin',
-     'django.contrib.sites.middleware.CurrentSiteMiddleware',
+    'django.contrib.sites.middleware.CurrentSiteMiddleware',
 )
 
 ROOT_URLCONF = 'bbk.urls'
@@ -120,10 +120,10 @@ DATABASES = {
 		'HOST': 'localhost', #你的数据库主机，留空默认为localhost
 		'PORT': '3306', #你的数据库端口
 	},
-    #'default': {
-    #    'ENGINE': 'django.db.backends.sqlite3',
-    #    'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    #},
+    'sqlite3': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
 	'mysql': {
 		'ENGINE': 'django.db.backends.mysql',
 		'NAME': 'bbk', #你的数据库名称 数据库需要自己提前建好
@@ -242,7 +242,6 @@ CACHES = {
         'LOCATION': '/var/tmp/django_cache',
     },
 
-
     "redis": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": "redis://127.0.0.1:6379/1",
@@ -305,8 +304,6 @@ EMAIL_PORT = 25
 #EMAIL_HOST_USER = 'yyyang@tju.edu.cn'
 EMAIL_HOST_USER = '857659628@qq.com'
 ## 在邮箱中设置的客户端授权密码
-#EMAIL_HOST_PASSWORD = 'C0mputer'
-#EMAIL_HOST_PASSWORD = 'younger646689'
 ## 收件人看到的发件人
 EMAIL_FROM = 'bbk<857659628@qq.com>'
 #EMAIL_FROM = 'bbk<857659628@tju.edu.cn>'
@@ -327,6 +324,5 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #        # 'args': ()
 #    }
 #}
-
 
 
